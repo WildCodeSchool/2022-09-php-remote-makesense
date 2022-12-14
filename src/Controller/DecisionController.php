@@ -69,7 +69,7 @@ class DecisionController extends AbstractController
     #[Route('/{id}', name: 'app_decision_delete', methods: ['POST'])]
     public function delete(Request $request, Decision $decision, DecisionRepository $decisionRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$decision->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $decision->getId(), $request->request->get('_token'))) {
             $decisionRepository->remove($decision, true);
         }
 
