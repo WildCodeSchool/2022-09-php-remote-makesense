@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Decision{% endblock %}
+
+{% block body %}
+    <h1>Decision</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ decision.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ decision.title }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ decision.content }}</td>
+            </tr>
+            <tr>
+                <th>Utility</th>
+                <td>{{ decision.utility }}</td>
+            </tr>
+            <tr>
+                <th>Context</th>
+                <td>{{ decision.context }}</td>
+            </tr>
+            <tr>
+                <th>Benefits</th>
+                <td>{{ decision.benefits }}</td>
+            </tr>
+            <tr>
+                <th>Inconvenients</th>
+                <td>{{ decision.inconvenients }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_decision_index') }}">back to list</a>
+
+    <a href="{{ path('app_decision_edit', {'id': decision.id}) }}">edit</a>
+
+    {{ include('decision/_delete_form.html.twig') }}
+{% endblock %}
