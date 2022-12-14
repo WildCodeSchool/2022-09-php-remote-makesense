@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EmployeeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EmployeeRepository::class)]
@@ -21,6 +23,15 @@ class Employee
 
     #[ORM\Column(length: 45)]
     private ?string $email = null;
+
+    #[ORM\OneToMany(mappedBy: 'employee', targetEntity: Contributor::class)]
+    private Collection $contributors;
+
+    public function __construct()
+    {
+        $this->contributors = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -59,6 +70,36 @@ class Employee
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Contributor>
+     */
+    public function getContributors(): Collection
+    {
+        return $this->contributors;
+    }
+
+    public function addContributor(Contributor $contributor): self
+    {
+        if (!$this->contributors->contains($contributor)) {
+            $this->contributors->add($contributor);
+            $contributor->setEmployee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContributor(Contributor $contributor): self
+    {
+        if ($this->contributors->removeElement($contributor)) {
+            // set the owning side to null (unless already changed)
+            if ($contributor->getEmployee() === $this) {
+                $contributor->setEmployee(null);
+            }
+        }
 
         return $this;
     }

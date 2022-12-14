@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DecisionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -31,6 +33,15 @@ class Decision
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $inconvenients = null;
+
+    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Contributor::class)]
+    private Collection $contributors;
+
+    public function __construct()
+    {
+        $this->contributors = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -105,6 +116,36 @@ class Decision
     public function setInconvenients(?string $inconvenients): self
     {
         $this->inconvenients = $inconvenients;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Contributor>
+     */
+    public function getContributors(): Collection
+    {
+        return $this->contributors;
+    }
+
+    public function addContributor(Contributor $contributor): self
+    {
+        if (!$this->contributors->contains($contributor)) {
+            $this->contributors->add($contributor);
+            $contributor->setDecision($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContributor(Contributor $contributor): self
+    {
+        if ($this->contributors->removeElement($contributor)) {
+            // set the owning side to null (unless already changed)
+            if ($contributor->getDecision() === $this) {
+                $contributor->setDecision(null);
+            }
+        }
 
         return $this;
     }
