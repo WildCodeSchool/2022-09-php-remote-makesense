@@ -32,7 +32,6 @@ class Employee
         $this->contributors = new ArrayCollection();
     }
 
-
     public function getId(): ?int
     {
         return $this->id;
