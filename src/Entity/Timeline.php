@@ -7,7 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TimelineRepository::class)]
-class Timeline
+class Timeline extends \App\Entity\Decision
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
