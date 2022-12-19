@@ -16,7 +16,7 @@ class DecisionFixtures extends Fixture
         for ($i = 0; $i < 10; $i++) {
             $decision = new Decision();
 
-            $decision->setTitle($faker->title());
+            $decision->setTitle($faker->words(3, true));
             $decision->setContent($faker->paragraphs(6, true));
             $decision->setUtility($faker->paragraphs(6, true));
             $decision->setContext($faker->paragraphs(6, true));
