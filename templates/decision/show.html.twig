@@ -63,6 +63,14 @@
             <h2 class="accordion-header" id="flush-headingSix">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
                     Avis
+                    {% set number = 0 %}
+                    {% for contribution in decision.contributions %}
+                        {% if  contribution.type == 'avis'  %}
+                        {% set number = number + 1 %}
+                        {% endif %}
+                    {% endfor %}
+                    ({{ number }})
+
                 </button>
             </h2>
             <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix" data-bs-parent="#accordionFlushExample">
@@ -74,6 +82,7 @@
                                 <li>
                                     <h4>{{ contribution.contributor.employee.firstName }}
                                         {{ contribution.contributor.employee.lastName }}
+                                          - le {{ contribution.date |date('d/m/Y') }}
                                     </h4>
                                     <p>{{ contribution.content }} </p>
 
