@@ -22,6 +22,9 @@ class DecisionFixtures extends Fixture
             $decision->setContext($faker->paragraphs(6, true));
             $decision->setBenefits($faker->paragraphs(6, true));
             $decision->setInconvenients($faker->paragraph(6));
+            $decision->setFirstDecision($faker->paragraph(6));
+            $decision->setDefinitiveDecision($faker->paragraph(6));
+
 
             $manager->persist($decision);
         }

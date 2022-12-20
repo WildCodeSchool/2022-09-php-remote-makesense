@@ -19,6 +19,9 @@ class DecisionType extends AbstractType
             ->add('context', CKEditorType::class)
             ->add('benefits', CKEditorType::class)
             ->add('inconvenients', CKEditorType::class)
+            ->add('firstDecision', CKEditorType::class)
+            ->add('definitiveDecision', CKEditorType::class)
+
         ;
     }
 

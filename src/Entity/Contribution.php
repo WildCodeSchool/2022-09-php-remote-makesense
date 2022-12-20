@@ -20,6 +20,15 @@ class Contribution
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
+    #[ORM\ManyToOne(inversedBy: 'contributions')]
+    private ?Decision $decision = null;
+
+    #[ORM\ManyToOne(inversedBy: 'contributions')]
+    private ?Contributor $contributor = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $content = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +54,42 @@ class Contribution
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getDecision(): ?Decision
+    {
+        return $this->decision;
+    }
+
+    public function setDecision(?Decision $decision): self
+    {
+        $this->decision = $decision;
+
+        return $this;
+    }
+
+    public function getContributor(): ?Contributor
+    {
+        return $this->contributor;
+    }
+
+    public function setContributor(?Contributor $contributor): self
+    {
+        $this->contributor = $contributor;
+
+        return $this;
+    }
+
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+
+    public function setContent(?string $content): self
+    {
+        $this->content = $content;
 
         return $this;
     }

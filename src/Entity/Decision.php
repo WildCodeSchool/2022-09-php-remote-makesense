@@ -43,9 +43,19 @@ class Decision
     #[ORM\ManyToOne(inversedBy: 'decision')]
     private ?User $user = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $firstDecision = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $definitiveDecision = null;
+
+    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Contribution::class)]
+    private Collection $contributions;
+
     public function __construct()
     {
         $this->contributors = new ArrayCollection();
+        $this->contributions = new ArrayCollection();
     }
 
 
@@ -164,6 +174,60 @@ class Decision
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getFirstDecision(): ?string
+    {
+        return $this->firstDecision;
+    }
+
+    public function setFirstDecision(?string $firstDecision): self
+    {
+        $this->firstDecision = $firstDecision;
+
+        return $this;
+    }
+
+    public function getDefinitiveDecision(): ?string
+    {
+        return $this->definitiveDecision;
+    }
+
+    public function setDefinitiveDecision(?string $definitiveDecision): self
+    {
+        $this->definitiveDecision = $definitiveDecision;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Contribution>
+     */
+    public function getContributions(): Collection
+    {
+        return $this->contributions;
+    }
+
+    public function addContribution(Contribution $contribution): self
+    {
+        if (!$this->contributions->contains($contribution)) {
+            $this->contributions->add($contribution);
+            $contribution->setDecision($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContribution(Contribution $contribution): self
+    {
+        if ($this->contributions->removeElement($contribution)) {
+            // set the owning side to null (unless already changed)
+            if ($contribution->getDecision() === $this) {
+                $contribution->setDecision(null);
+            }
+        }
 
         return $this;
     }
