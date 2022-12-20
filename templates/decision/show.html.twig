@@ -81,8 +81,9 @@
                             {% if  contribution.type == 'avis'  %}
                                 <li>
                                     <h4>{{ contribution.contributor.employee.firstName }}
-                                        {{ contribution.contributor.employee.lastName }}
-                                          - le {{ contribution.date |date('d/m/Y') }}
+                                        {{ contribution.contributor.employee.lastName }} -
+                                        avis donné le {{ contribution.date |date('d/m/Y') }}
+                                        en tant que personne {{ contribution.contributor.implication.name }}
                                     </h4>
                                     <p>{{ contribution.content }} </p>
 
@@ -125,8 +126,9 @@
                             {% if  contribution.type == 'conflit'  %}
                                 <li>
                                     <h4>{{ contribution.contributor.employee.firstName }}
-                                        {{ contribution.contributor.employee.lastName }}
-                                        - le {{ contribution.date |date('d/m/Y') }}
+                                        {{ contribution.contributor.employee.lastName }} -
+                                        conflit exprimé le {{ contribution.date |date('d/m/Y') }}
+                                        en tant que personne {{ contribution.contributor.implication.name }}
                                     </h4>
                                     <p>{{ contribution.content }} </p>
 
