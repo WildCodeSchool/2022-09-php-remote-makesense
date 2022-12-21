@@ -10,7 +10,6 @@ use App\Form\DecisionStep3Type;
 
 class CreateVehicleFlow extends FormFlow
 {
-
     protected function loadStepsConfig(): array
     {
             return [
@@ -22,7 +21,7 @@ class CreateVehicleFlow extends FormFlow
                             'label' => '',
                             'form_type' => DecisionStep2Type::class,
                             'skip' => function($estimatedCurrentStepNumber, FormFlowInterface $flow) {
-                                return $estimatedCurrentStepNumber > 1 && !$flow->getFormData()->canHaveEngine();
+                                 return $estimatedCurrentStepNumber > 1 && !$flow->getFormData()->canHaveEngine();
                             },
                     ],
                     [
@@ -30,5 +29,4 @@ class CreateVehicleFlow extends FormFlow
                     ],
             ];
     }
-
 }

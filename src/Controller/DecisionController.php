@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/decision',  name: 'app_decision_')]
+#[Route('/decision', name: 'app_decision_')]
 class DecisionController extends AbstractController
 {
     #[Route('/', name: 'index', methods: ['GET'])]
