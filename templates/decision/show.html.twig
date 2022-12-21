@@ -3,155 +3,238 @@
 {% block title %}Decision{% endblock %}
 
 {% block body %}
-    <h1 class="text-secondary">{{ decision.title }}</h1>
-    <p> par {{ decision.user.firstName }} {{ decision.user.lastName }}</p>
-
-    <div class="accordion" id="accordionFlushExample">
-
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                Les détails de la décision
-            </button>
-        </h2>
-        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-            <div class="accordion-body">
-                {{ decision.content }}
-            </div>
-        </div>
+    <div class="text-center">
+        <h1 class="text-secondary">{{ decision.title }}</h1>
+        <p> par {{ decision.user.firstName }} {{ decision.user.lastName }}</p>
     </div>
 
-<div class="accordion-item">
-        <h2 class="accordion-header" id="flush-headingTwo">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                Objectifs
-            </button>
-        </h2>
-        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body">{{ decision.utility }}</div>
-        </div>
-    </div>
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="flush-headingThree">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                Contexte actuel
-            </button>
-        </h2>
-        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body">{{ decision.context }}</div>
-        </div>
-    </div>
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="flush-headingFour">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-                Bénéfices
-            </button>
-        </h2>
-        <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body">{{ decision.benefits }}</div>
-        </div>
-    </div>
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="flush-headingFive">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
-                Risques potentiels
-            </button>
-        </h2>
-        <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body">{{ decision.inconvenients }}</div>
-        </div>
-    </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="flush-headingSix">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
-                    Avis
-                    {% set number = 0 %}
-                    {% for contribution in decision.contributions %}
-                        {% if  contribution.type == 'avis'  %}
-                        {% set number = number + 1 %}
-                        {% endif %}
-                    {% endfor %}
-                    ({{ number }})
 
-                </button>
-            </h2>
-            <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix" data-bs-parent="#accordionFlushExample">
-                <div class="accordion-body">
 
-                    <ul>
-                        {% for contribution in decision.contributions %}
-                            {% if  contribution.type == 'avis'  %}
-                                <li>
-                                    <h4>{{ contribution.contributor.employee.firstName }}
-                                        {{ contribution.contributor.employee.lastName }} -
-                                        avis donné le {{ contribution.date |date('d/m/Y') }}
-                                        en tant que personne {{ contribution.contributor.implication.name }}
-                                    </h4>
-                                    <p>{{ contribution.content }} </p>
+    <div class="container text-center">
+        <div class="row">
+            <div class="col">
+                <div class="accordion" id="accordionFlushExample">
 
-                                </li>
-                            {% endif %}
-                        {% endfor %}
-                    </ul>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                                Les détails de la décision
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                            <div class="accordion-body">
+                                {{ decision.content }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                Objectifs
+                            </button>
+                        </h2>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">{{ decision.utility }}</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                                Contexte actuel
+                            </button>
+                        </h2>
+                        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">{{ decision.context }}</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingFour">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                                Bénéfices
+                            </button>
+                        </h2>
+                        <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">{{ decision.benefits }}</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingFive">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                                Risques potentiels
+                            </button>
+                        </h2>
+                        <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">{{ decision.inconvenients }}</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingSix">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
+                                Avis
+                                {% set number = 0 %}
+                                {% for contribution in decision.contributions %}
+                                    {% if  contribution.type == 'avis'  %}
+                                        {% set number = number + 1 %}
+                                    {% endif %}
+                                {% endfor %}
+                                ({{ number }})
+
+                            </button>
+                        </h2>
+                        <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+
+                                <ul>
+                                    {% for contribution in decision.contributions %}
+                                        {% if  contribution.type == 'avis'  %}
+                                            <li>
+                                                <h4>{{ contribution.contributor.employee.firstName }}
+                                                    {{ contribution.contributor.employee.lastName }} -
+                                                    avis donné le {{ contribution.date |date('d/m/Y') }}
+                                                    en tant que personne {{ contribution.contributor.implication.name }}
+                                                </h4>
+                                                <p>{{ contribution.content }} </p>
+
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingSeven">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSeven">
+                                Première décision prise
+                            </button>
+                        </h2>
+                        <div id="flush-collapseSeven" class="accordion-collapse collapse" aria-labelledby="flush-headingSeven" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">{{ decision.firstDecision }}</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingEight">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEight" aria-expanded="false" aria-controls="flush-collapseEight">
+                                Conflits
+                                {% set number = 0 %}
+                                {% for contribution in decision.contributions %}
+                                    {% if  contribution.type == 'conflit'  %}
+                                        {% set number = number + 1 %}
+                                    {% endif %}
+                                {% endfor %}
+                                ({{ number }})
+
+                            </button>
+                        </h2>
+                        <div id="flush-collapseEight" class="accordion-collapse collapse" aria-labelledby="flush-headingEight" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+
+                                <ul>
+                                    {% for contribution in decision.contributions %}
+                                        {% if  contribution.type == 'conflit'  %}
+                                            <li>
+                                                <h4>{{ contribution.contributor.employee.firstName }}
+                                                    {{ contribution.contributor.employee.lastName }} -
+                                                    conflit exprimé le {{ contribution.date |date('d/m/Y') }}
+                                                    en tant que personne {{ contribution.contributor.implication.name }}
+                                                </h4>
+                                                <p>{{ contribution.content }} </p>
+
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingNine">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseNine" aria-expanded="false" aria-controls="flush-collapseNine">
+                                Décision définitive
+                            </button>
+                        </h2>
+                        <div id="flush-collapseNine" class="accordion-collapse collapse" aria-labelledby="flush-headingNine" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">{{ decision.definitiveDecision }}</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="flush-headingSeven">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSeven">
-                    Première décision prise
-                </button>
-            </h2>
-            <div id="flush-collapseSeven" class="accordion-collapse collapse" aria-labelledby="flush-headingSeven" data-bs-parent="#accordionFlushExample">
-                <div class="accordion-body">{{ decision.firstDecision }}</div>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="flush-headingEight">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEight" aria-expanded="false" aria-controls="flush-collapseEight">
-                    Conflits
-                    {% set number = 0 %}
-                    {% for contribution in decision.contributions %}
-                        {% if  contribution.type == 'conflit'  %}
-                            {% set number = number + 1 %}
-                        {% endif %}
-                    {% endfor %}
-                    ({{ number }})
+            <div class="col">
+                <div class="container">
+                    {#  <h4 class="text-center">Dates à retenir</h4>
+                    <div class="row">
+                        <div class="col">
+                            <div class="row text-right">
+                                test
+                            </div>
+                            <div class="row">
+                                test
+                            </div>
+                            <div class="row">
+                                test
+                            </div>
+                            <div class="row">
+                                test
+                            </div>
+                            <div class="row">
+                                test
+                            </div>
+                        </div>
 
-                </button>
-            </h2>
-            <div id="flush-collapseEight" class="accordion-collapse collapse" aria-labelledby="flush-headingEight" data-bs-parent="#accordionFlushExample">
-                <div class="accordion-body">
+                        <div class="col">
+                            <div class="row">
+                                test
+                            </div>
+                            <div class="row">
+                                test
+                            </div>
+                            <div class="row">
+                                    test
+                            </div>
+                            <div class="row">
+                                    test
+                            </div>
+                            <div class="row">
+                                    test
+                            </div>
 
-                    <ul>
-                        {% for contribution in decision.contributions %}
-                            {% if  contribution.type == 'conflit'  %}
-                                <li>
-                                    <h4>{{ contribution.contributor.employee.firstName }}
-                                        {{ contribution.contributor.employee.lastName }} -
-                                        conflit exprimé le {{ contribution.date |date('d/m/Y') }}
-                                        en tant que personne {{ contribution.contributor.implication.name }}
-                                    </h4>
-                                    <p>{{ contribution.content }} </p>
-
-                                </li>
-                            {% endif %}
-                        {% endfor %}
-                    </ul>
+                        </div>
+                    </div>#}
+                    <table>
+                        <tr>
+                            <td class="text-right">01/01/2023</td>
+                            <td class="text-left">Prise de décision commencée</td>
+                        </tr>
+                        <tr>
+                            <td>01/01/2024</td>
+                            <td class="text-left">Prise de décision commencée</td>
+                        </tr>
+                        <tr>
+                            <td>01/01/2025</td>
+                            <td class="text-left">Première décision prise</td>
+                        </tr>
+                        <tr>
+                            <td>01/01/2026</td>
+                            <td class="text-left">Deadline pour rentrer en conflit</td>
+                        </tr>
+                        <tr>
+                            <td>01/01/2028</td>
+                            <td class="text-left">Décision définitive</td>
+                        </tr>
+                    </table>
                 </div>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="flush-headingNine">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseNine" aria-expanded="false" aria-controls="flush-collapseNine">
-                    Décision définitive
-                </button>
-            </h2>
-            <div id="flush-collapseNine" class="accordion-collapse collapse" aria-labelledby="flush-headingNine" data-bs-parent="#accordionFlushExample">
-                <div class="accordion-body">{{ decision.definitiveDecision }}</div>
+
             </div>
         </div>
     </div>
+
+
+
+
+
+
+
 
 
     <a href="{{ path('app_decision_index') }}">back to list</a>
