@@ -52,10 +52,14 @@ class Decision
     #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Contribution::class)]
     private Collection $contributions;
 
+    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Timeline::class)]
+    private Collection $timelines;
+
     public function __construct()
     {
         $this->contributors = new ArrayCollection();
         $this->contributions = new ArrayCollection();
+        $this->timelines = new ArrayCollection();
     }
 
 
@@ -226,6 +230,36 @@ class Decision
             // set the owning side to null (unless already changed)
             if ($contribution->getDecision() === $this) {
                 $contribution->setDecision(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Timeline>
+     */
+    public function getTimelines(): Collection
+    {
+        return $this->timelines;
+    }
+
+    public function addTimeline(Timeline $timeline): self
+    {
+        if (!$this->timelines->contains($timeline)) {
+            $this->timelines->add($timeline);
+            $timeline->setDecision($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTimeline(Timeline $timeline): self
+    {
+        if ($this->timelines->removeElement($timeline)) {
+            // set the owning side to null (unless already changed)
+            if ($timeline->getDecision() === $this) {
+                $timeline->setDecision(null);
             }
         }
 

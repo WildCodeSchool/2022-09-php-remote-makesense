@@ -32,6 +32,20 @@ class UserFixtures extends Fixture
         $simpleUser->setPassword($hashedPassword);
         $manager->persist($simpleUser);
 
+        // Création d’un utilisateur de type user simple
+        $simpleUser = new User();
+        $simpleUser->setEmail('sibyl.grimes@weissnat.com');
+        $simpleUser->setRoles(['ROLE_SIMPLEUSER']);
+        $simpleUser->setFirstName('Boyd');
+        $simpleUser->setLastName('O\'Reilly');
+        $simpleUser->setLogin('Boyd');
+        $hashedPassword = $this->passwordHasher->hashPassword(
+            $simpleUser,
+            'simpleUserPassword'
+        );
+        $simpleUser->setPassword($hashedPassword);
+        $manager->persist($simpleUser);
+
         // Création d’un utilisateur de type administrateur
         $admin = new User();
         $admin->setEmail('jasmin77@hotmail.com');

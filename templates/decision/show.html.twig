@@ -167,100 +167,26 @@
                         <div class="row">
                             <div class="col-12">
                                 <!-- Timeline Area-->
+                                {% for timeline in decision.timelines %}
                                 <div class="apland-timeline-area">
                                     <!-- Single Timeline Content-->
                                     <div class="single-timeline-area">
                                         <div class="timeline-date">
-                                            <p>16 oct 2022</p>
+                                            <p>{{ timeline.endedAt |date('d/m/Y') }}</p>
                                         </div>
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="single-timeline-content d-flex ">
 
                                                     <div class="timeline-text">
-                                                        <h6>Prise de Décision Commencée</h6>
+                                                        <h6>{{timeline.name}}</h6>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Timeline Area-->
-                                <div class="apland-timeline-area">
-                                    <!-- Single Timeline Content-->
-                                    <div class="single-timeline-area">
-                                        <div class="timeline-date">
-                                            <p>20 oct 2022</p>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-12 ">
-                                                <div class="single-timeline-content d-flex ">
-
-                                                    <div class="timeline-text">
-                                                        <h6>Deadline pour donner son avis</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Timeline Area-->
-                                <div class="apland-timeline-area">
-                                    <!-- Single Timeline Content-->
-                                    <div class="single-timeline-area">
-                                        <div class="timeline-date">
-                                            <p>25 oct 2022</p>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-12 ">
-                                                <div class="single-timeline-content d-flex ">
-
-                                                    <div class="timeline-text">
-                                                        <h6>Première décision prise</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Timeline Area-->
-                                <div class="apland-timeline-area">
-                                    <!-- Single Timeline Content-->
-                                    <div class="single-timeline-area">
-                                        <div class="timeline-date">
-                                            <p>30 oct 2022</p>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-12 ">
-                                                <div class="single-timeline-content d-flex ">
-
-                                                    <div class="timeline-text">
-                                                        <h6>Deadline pour rentrer en conflit</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Timeline Area-->
-                                <div class="apland-timeline-area">
-                                    <!-- Single Timeline Content-->
-                                    <div class="single-timeline-area">
-                                        <div class="timeline-date">
-                                            <p>05 nov 2022</p>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-12 ">
-                                                <div class="single-timeline-content d-flex ">
-
-                                                    <div class="timeline-text">
-                                                        <h6>Décision définitive</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -271,12 +197,9 @@
                        <h3>Personnes Impactées</h3>
                        <div class="row mt-3">
                            <ul class="list-group list-group-horizontal m-0 p-0 m-auto justify-content-center">
-                               <li class="list-group-item"><img src ="https://picsum.photos/id/235/30/30" alt="" class="rounded-circle"/></li>
-                               <li class="list-group-item"><img src ="https://picsum.photos/id/236/30/30" alt="" class="rounded-circle"/></li>
-                               <li class="list-group-item"><img src ="https://picsum.photos/id/237/30/30" alt="" class="rounded-circle"/></li>
-                               <li class="list-group-item"><img src ="https://picsum.photos/id/238/30/30" alt="" class="rounded-circle"/></li>
-                               <li class="list-group-item"><img src ="https://picsum.photos/id/239/30/30" alt="" class="rounded-circle"/></li>
-                               <li class="list-group-item"><img src ="https://picsum.photos/id/240/30/30" alt="" class="rounded-circle"/></li>
+                               {% for contributor in decision.contributors|filter(contributor => contributor.implication.name=="impactée") %}
+                               <li class="list-group-item"><img src ="https://picsum.photos/id/235/30/30" alt="{{ contributor.employee.firstName }} {{ contributor.employee.lastName }}" class="rounded-circle"/></li>
+                               {% endfor %}
                            </ul>
                        </div>
                    </div>
@@ -285,14 +208,15 @@
                         <h3>Personnes Expertes</h3>
                         <div class="row mt-3">
                             <ul class="list-group list-group-horizontal m-0 p-0 m-auto justify-content-center">
-                                <li class="list-group-item"><img src ="https://picsum.photos/id/241/30/30" alt="" class="rounded-circle"/></li>
-                                <li class="list-group-item"><img src ="https://picsum.photos/id/242/30/30" alt="" class="rounded-circle"/></li>
-                                <li class="list-group-item"><img src ="https://picsum.photos/id/243/30/30" alt="" class="rounded-circle"/></li>
-
+                                {% for contributor in decision.contributors|filter(contributor => contributor.implication.name=="experte") %}
+                                    <li class="list-group-item"><img src ="https://picsum.photos/id/236/30/30" alt="{{ contributor.employee.firstName }} {{ contributor.employee.lastName }}" class="rounded-circle"/></li>
+                                {% endfor %}
                             </ul>
                         </div>
                     </div>
             </div>
+            <!-- Buttons Area -->
+
         </div>
    </div>
     <div class="m-5">

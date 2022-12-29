@@ -23,6 +23,9 @@ class Timeline
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $endedAt = null;
 
+    #[ORM\ManyToOne(inversedBy: 'timelines')]
+    private ?Decision $decision = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class Timeline
     public function setEndedAt(?\DateTimeInterface $endedAt): self
     {
         $this->endedAt = $endedAt;
+
+        return $this;
+    }
+
+    public function getDecision(): ?Decision
+    {
+        return $this->decision;
+    }
+
+    public function setDecision(?Decision $decision): self
+    {
+        $this->decision = $decision;
 
         return $this;
     }
