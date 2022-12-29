@@ -9,8 +9,7 @@
     </div>
 
 
-
-    <div class="container text-center">
+    <div class="container-fluid text-center p-5">
         <div class="row">
             <div class="col">
                 <div class="accordion" id="accordionFlushExample">
@@ -70,7 +69,7 @@
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-headingSix">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#avis" aria-expanded="false" aria-controls="avis">
                                 Avis
                                 {% set number = 0 %}
                                 {% for contribution in decision.contributions %}
@@ -82,7 +81,7 @@
 
                             </button>
                         </h2>
-                        <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix" data-bs-parent="#accordionFlushExample">
+                        <div id="avis" class="accordion-collapse collapse" aria-labelledby="flush-headingSix" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
 
                                 <ul>
@@ -115,7 +114,7 @@
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-headingEight">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEight" aria-expanded="false" aria-controls="flush-collapseEight">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#conflits" aria-expanded="false" aria-controls="conflits">
                                 Conflits
                                 {% set number = 0 %}
                                 {% for contribution in decision.contributions %}
@@ -127,7 +126,7 @@
 
                             </button>
                         </h2>
-                        <div id="flush-collapseEight" class="accordion-collapse collapse" aria-labelledby="flush-headingEight" data-bs-parent="#accordionFlushExample">
+                        <div id="conflits" class="accordion-collapse collapse" aria-labelledby="flush-headingEight" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
 
                                 <ul>
@@ -160,86 +159,152 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="container">
-                    {#  <h4 class="text-center">Dates à retenir</h4>
-                    <div class="row">
-                        <div class="col">
-                            <div class="row text-right">
-                                test
-                            </div>
-                            <div class="row">
-                                test
-                            </div>
-                            <div class="row">
-                                test
-                            </div>
-                            <div class="row">
-                                test
-                            </div>
-                            <div class="row">
-                                test
+            <!-- Timeline and contributors Area -->
+            <div class="col-3">
+                <section class="timeline_area">
+                    <div class="container">
+                        <h3>Dates à Retenir</h3>
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- Timeline Area-->
+                                <div class="apland-timeline-area">
+                                    <!-- Single Timeline Content-->
+                                    <div class="single-timeline-area">
+                                        <div class="timeline-date">
+                                            <p>16 oct 2022</p>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="single-timeline-content d-flex ">
+
+                                                    <div class="timeline-text">
+                                                        <h6>Prise de Décision Commencée</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Timeline Area-->
+                                <div class="apland-timeline-area">
+                                    <!-- Single Timeline Content-->
+                                    <div class="single-timeline-area">
+                                        <div class="timeline-date">
+                                            <p>20 oct 2022</p>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12 ">
+                                                <div class="single-timeline-content d-flex ">
+
+                                                    <div class="timeline-text">
+                                                        <h6>Deadline pour donner son avis</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Timeline Area-->
+                                <div class="apland-timeline-area">
+                                    <!-- Single Timeline Content-->
+                                    <div class="single-timeline-area">
+                                        <div class="timeline-date">
+                                            <p>25 oct 2022</p>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12 ">
+                                                <div class="single-timeline-content d-flex ">
+
+                                                    <div class="timeline-text">
+                                                        <h6>Première décision prise</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Timeline Area-->
+                                <div class="apland-timeline-area">
+                                    <!-- Single Timeline Content-->
+                                    <div class="single-timeline-area">
+                                        <div class="timeline-date">
+                                            <p>30 oct 2022</p>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12 ">
+                                                <div class="single-timeline-content d-flex ">
+
+                                                    <div class="timeline-text">
+                                                        <h6>Deadline pour rentrer en conflit</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Timeline Area-->
+                                <div class="apland-timeline-area">
+                                    <!-- Single Timeline Content-->
+                                    <div class="single-timeline-area">
+                                        <div class="timeline-date">
+                                            <p>05 nov 2022</p>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12 ">
+                                                <div class="single-timeline-content d-flex ">
+
+                                                    <div class="timeline-text">
+                                                        <h6>Décision définitive</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                </section>
+                <!-- Contributors Area-->
 
-                        <div class="col">
-                            <div class="row">
-                                test
-                            </div>
-                            <div class="row">
-                                test
-                            </div>
-                            <div class="row">
-                                    test
-                            </div>
-                            <div class="row">
-                                    test
-                            </div>
-                            <div class="row">
-                                    test
-                            </div>
+                   <div class="container mt-5">
+                       <h3>Personnes Impactées</h3>
+                       <div class="row mt-3">
+                           <ul class="list-group list-group-horizontal m-0 p-0 m-auto justify-content-center">
+                               <li class="list-group-item"><img src ="https://picsum.photos/id/235/30/30" alt="" class="rounded-circle"/></li>
+                               <li class="list-group-item"><img src ="https://picsum.photos/id/236/30/30" alt="" class="rounded-circle"/></li>
+                               <li class="list-group-item"><img src ="https://picsum.photos/id/237/30/30" alt="" class="rounded-circle"/></li>
+                               <li class="list-group-item"><img src ="https://picsum.photos/id/238/30/30" alt="" class="rounded-circle"/></li>
+                               <li class="list-group-item"><img src ="https://picsum.photos/id/239/30/30" alt="" class="rounded-circle"/></li>
+                               <li class="list-group-item"><img src ="https://picsum.photos/id/240/30/30" alt="" class="rounded-circle"/></li>
+                           </ul>
+                       </div>
+                   </div>
 
+                    <div class="container mt-5">
+                        <h3>Personnes Expertes</h3>
+                        <div class="row mt-3">
+                            <ul class="list-group list-group-horizontal m-0 p-0 m-auto justify-content-center">
+                                <li class="list-group-item"><img src ="https://picsum.photos/id/241/30/30" alt="" class="rounded-circle"/></li>
+                                <li class="list-group-item"><img src ="https://picsum.photos/id/242/30/30" alt="" class="rounded-circle"/></li>
+                                <li class="list-group-item"><img src ="https://picsum.photos/id/243/30/30" alt="" class="rounded-circle"/></li>
+
+                            </ul>
                         </div>
-                    </div>#}
-                    <table>
-                        <tr>
-                            <td class="text-right">01/01/2023</td>
-                            <td class="text-left">Prise de décision commencée</td>
-                        </tr>
-                        <tr>
-                            <td>01/01/2024</td>
-                            <td class="text-left">Prise de décision commencée</td>
-                        </tr>
-                        <tr>
-                            <td>01/01/2025</td>
-                            <td class="text-left">Première décision prise</td>
-                        </tr>
-                        <tr>
-                            <td>01/01/2026</td>
-                            <td class="text-left">Deadline pour rentrer en conflit</td>
-                        </tr>
-                        <tr>
-                            <td>01/01/2028</td>
-                            <td class="text-left">Décision définitive</td>
-                        </tr>
-                    </table>
-                </div>
-
+                    </div>
             </div>
         </div>
+   </div>
+    <div class="m-5">
+        <a href="{{ path('app_decision_index') }}">back to list</a>
+
+        <a href="{{ path('app_decision_edit', {'id': decision.id}) }}">edit</a>
+
+        {{ include('decision/_delete_form.html.twig') }}
     </div>
+        {% endblock %}
 
 
 
 
 
-
-
-
-
-    <a href="{{ path('app_decision_index') }}">back to list</a>
-
-    <a href="{{ path('app_decision_edit', {'id': decision.id}) }}">edit</a>
-
-    {{ include('decision/_delete_form.html.twig') }}
-{% endblock %}
