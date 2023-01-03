@@ -21,6 +21,8 @@ class EmployeeFixtures extends Fixture
             $employee->setEmail($faker->email());
 
             $manager->persist($employee);
+
+            $this->addReference('employee_' . $i, $employee);
         }
         $manager->flush();
     }
