@@ -25,7 +25,7 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
             $decision->setInconvenients($faker->paragraph(6));
             $decision->setFirstDecision($faker->paragraph(6));
             $decision->setDefinitiveDecision($faker->paragraph(6));
-            $decision->setUser($this->getReference('user_' . $faker->numberBetween(0, 10)));
+            $decision->setUser($this->getReference('user_' . $faker->numberBetween(0, 9)));
 
             $manager->persist($decision);
             $this->addReference('decision_' . $i, $decision);

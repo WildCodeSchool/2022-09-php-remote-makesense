@@ -197,7 +197,7 @@
                        <h3>Personnes Impactées</h3>
                        <div class="row mt-3">
                            <ul class="list-group list-group-horizontal m-0 p-0 m-auto justify-content-center">
-                               {% for contributor in decision.contributors|filter(contributor => contributor.implication.name=="impactée") %}
+                               {% for contributor in decision.contributors|filter(contributor => contributor.implication.name=="Impactée") %}
                                <li class="list-group-item"><img src ="https://picsum.photos/id/235/30/30" alt="{{ contributor.employee.firstName }} {{ contributor.employee.lastName }}" class="rounded-circle"/></li>
                                {% endfor %}
                            </ul>
@@ -208,7 +208,7 @@
                         <h3>Personnes Expertes</h3>
                         <div class="row mt-3">
                             <ul class="list-group list-group-horizontal m-0 p-0 m-auto justify-content-center">
-                                {% for contributor in decision.contributors|filter(contributor => contributor.implication.name=="experte") %}
+                                {% for contributor in decision.contributors|filter(contributor => contributor.implication.name=="Experte") %}
                                     <li class="list-group-item"><img src ="https://picsum.photos/id/236/30/30" alt="{{ contributor.employee.firstName }} {{ contributor.employee.lastName }}" class="rounded-circle"/></li>
                                 {% endfor %}
                             </ul>
@@ -216,7 +216,6 @@
                     </div>
             </div>
             <!-- Buttons Area -->
-
         </div>
    </div>
     <div class="m-5">
