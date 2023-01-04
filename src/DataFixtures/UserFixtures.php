@@ -24,7 +24,6 @@ class UserFixtures extends Fixture
         // Création d’un utilisateur de type user simple
         $simpleUser = new User();
         $simpleUser->setEmail('conn.rubie@tillman.com');
-        $simpleUser->setRoles(['ROLE_SIMPLEUSER']);
         $simpleUser->setFirstName('Norbert');
         $simpleUser->setLastName('Huel');
         $simpleUser->setLogin('Norbert');
@@ -38,7 +37,6 @@ class UserFixtures extends Fixture
         // Création d’un utilisateur de type user simple
         $simpleUser = new User();
         $simpleUser->setEmail('sibyl.grimes@weissnat.com');
-        $simpleUser->setRoles(['ROLE_SIMPLEUSER']);
         $simpleUser->setFirstName('Boyd');
         $simpleUser->setLastName('O\'Reilly');
         $simpleUser->setLogin('Boyd');
@@ -68,7 +66,6 @@ class UserFixtures extends Fixture
         for ($i = 0; $i < 10; $i++) {
             $simpleUser = new user();
             $simpleUser->setEmail($faker->email());
-            $simpleUser->setRoles(['ROLE_SIMPLEUSER']);
             $simpleUser->setFirstname($faker->firstName());
             $simpleUser->setLastname($faker->lastName());
             $simpleUser->setLogin($faker->firstName());
