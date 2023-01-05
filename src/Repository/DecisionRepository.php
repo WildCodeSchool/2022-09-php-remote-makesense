@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Decision;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @extends ServiceEntityRepository<Decision>
@@ -39,28 +41,34 @@ class DecisionRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Decision[] Returns an array of Decision objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('d')
-//            ->andWhere('d.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('d.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Decision[] Returns an array of Decision objects
+     */
+    public function findAllByTimeline(): array
+    {
+        $queryBuilder = $this->createQueryBuilder('d')
+            ->join('d.timelines', 't')
+            ->where('t.startedAt > CURRENT_DATE()')
+            ->orderBy('t.startedAt', 'ASC')
+            ->addSelect('d')->addSelect('t')
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
 
-//    public function findOneBySomeField($value): ?Decision
-//    {
-//        return $this->createQueryBuilder('d')
-//            ->andWhere('d.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findAllByUser(UserInterface $user): array
+    {
+        $queryBuilder = $this->createQueryBuilder('d')
+            ->join('d.timelines', 't')
+            ->join('d.user', 'u')
+            ->where('t.startedAt > CURRENT_DATE()')
+            ->andwhere('d.user = :user')
+            ->setParameter('user', $user)
+            ->orderBy('t.startedAt', 'ASC')
+            ->setMaxResults(3)
+            ->addSelect('d')
+            ->addSelect('t')
+            ->addSelect('u')
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
 }

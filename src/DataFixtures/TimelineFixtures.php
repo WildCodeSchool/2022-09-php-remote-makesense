@@ -15,7 +15,7 @@ class TimelineFixtures extends Fixture implements DependentFixtureInterface
         $faker = Factory::create();
         for ($i = 0; $i < 10; $i++) {
             $timeline = new Timeline();
-            $timeline->setName('Première Décision Commencée');
+            $timeline->setName('Prise de Décision Commencée');
             $date = $faker->dateTimeInInterval('-1 week', '+6 days');
             $timeline->setStartedAt($date);
             $timeline->setEndedAt($date);
@@ -47,7 +47,7 @@ class TimelineFixtures extends Fixture implements DependentFixtureInterface
             $manager->persist($timeline);
 
             $timeline = new Timeline();
-            $timeline->setName('Decision définitive');
+            $timeline->setName('Décision définitive');
             $timeline->setStartedAt($date4);
             $timeline->setEndedAt($faker->dateTimeInInterval('+7 weeks', '+1 day'));
             $timeline->setDecision($this->getReference('decision_' . $i));

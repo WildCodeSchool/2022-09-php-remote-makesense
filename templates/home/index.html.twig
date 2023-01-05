@@ -3,6 +3,56 @@
 {% block title %}Home - Makesense{% endblock %}
 
 {% block body %}
-    {%  include "/include/_navbar.html.twig" %}
-    <h1>Hello Makesense</h1>
+    {% include "/include/_navbar.html.twig" %}
+    <h1>Hello {{ app.user.firstName }}</h1>
+    <h2>Mes décisions : prochaines étapes</h2>
+    {% for userDecision in userDecisions %}
+        <div class="row d-inline-flex">
+            <div class="card border-secondary col-sm-9 mb-3 m-3" style="max-width: 18rem;">
+                {% for timeline in userDecision.timelines %}
+                    {% if loop.first %}
+                        <div class="card-header bg-transparent border-secondary">
+                            Prochaine étape : {{ timeline.name }}
+                            <br>Le : {{ timeline.startedAt |date('d/m/Y') }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                <div class="card-body text-success">
+                    <h5 class="card-title">{{ userDecision.title }}</h5>
+                </div>
+                <div class="card-footer bg-transparent border-secondary">
+                    {{ userDecision.user.firstName }} {{ userDecision.user.lastName }}
+                    <br><a href="{{ path('app_decision_show', {id: userDecision.id }) }}"
+                           class="stretched-link"></a>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <h3>Aucune décision en cours </h3>
+    {% endfor %}
+    <br><a href="{{ path('app_home') }}">Voir toutes mes décisions 💫</a>
+
+    <h2>Mes contributions : prochaines étapes</h2>
+    {% for userContribution in userContributions %}
+        <div class="row d-inline-flex">
+            <div class="card border-secondary col-sm-9 mb-3 m-3" style="width: 18rem;">
+                <div class="card-header bg-transparent border-secondary">
+                    {{ userContribution.name }}
+                    <br>Le : {{ userContribution.endedAt |date('d/m/Y') }}
+                </div>
+                <div class="card-body text-success">
+                    <h5 class="card-title">{{ userContribution.decision.title }}</h5>
+                </div>
+                <div class="card-footer bg-transparent border-secondary">
+                    {{ userContribution.decision.user.firstName }} {{ userContribution.decision.user.lastName }}
+                    <br><a href="{{ path('app_decision_show', {id: userContribution.decision.id }) }}"
+                           class="stretched-link"></a>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <h3>Aucune contribution en cours </h3>
+    {% endfor %}
+    {# @TODO Mettre le lien vers les contributions #}
+    <br><a href="{{ path('app_home') }}">Voir toutes mes contributions ⭐️</a>
 {% endblock %}

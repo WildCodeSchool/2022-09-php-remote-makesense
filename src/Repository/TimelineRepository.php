@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Timeline;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @extends ServiceEntityRepository<Timeline>
@@ -39,28 +40,28 @@ class TimelineRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Timeline[] Returns an array of Timeline objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('t.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Timeline
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findAllByContributor(UserInterface $user): array
+    {
+        $queryBuilder = $this->createQueryBuilder('t')
+            ->join('t.decision', 'd')
+            ->join('d.contributors', 'c')
+            ->join('c.implication', 'i')
+            ->join('c.employee', 'e')
+            ->join('e.user', 'u')
+            ->where('u.id = :user')
+            ->andwhere('t.endedAt > CURRENT_DATE()')
+            ->andwhere("t.name LIKE '%avis%'")
+            ->orwhere("t.name LIKE '%conflit%'")
+            ->setParameter('user', $user)
+            ->orderBy('t.endedAt', 'ASC')
+            ->setMaxResults(3)
+            ->addSelect('d')
+            ->addSelect('e')
+            ->addSelect('u')
+            ->addSelect('c')
+            ->addSelect('i')
+            ->addSelect('t')
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
 }
