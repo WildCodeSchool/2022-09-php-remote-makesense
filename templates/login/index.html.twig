@@ -18,16 +18,5 @@
 
         <button type="submit">login</button>
     </form>
-
-
-    <li class="nav-item">
-        {% if app.user %}
-            {{ app.user.email }}
-            <a class="nav-link text-light border" aria-current="page" href="{{ path('app_logout') }}"> Se déconnecter</a>
-        {% else %}
-            <a class="nav-link text-light border" aria-current="page" href="{{ path('app_login') }}"> Se connecter</a>
-        {% endif %}
-    </li>
-
-
+    
 {% endblock %}
