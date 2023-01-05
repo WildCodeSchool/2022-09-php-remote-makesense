@@ -6,7 +6,9 @@ use App\Entity\Contribution;
 use App\Entity\Decision;
 use App\Form\DecisionType;
 use App\Repository\ContributionRepository;
+use App\Repository\ContributorRepository;
 use App\Repository\DecisionRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,10 +46,17 @@ class DecisionController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_decision_show', methods: ['GET'])]
-    public function show(Decision $decision): Response
+    public function show(Decision $decision, ContributorRepository $contributorRepository, UserRepository $userRepository): Response
     {
+        $decisionId = $decision->getId();
+        $contributor = $contributorRepository->findOneContributorBy($this->getUser(), $decisionId);
+        $userDecision = $userRepository->findOneByDecisionId($this->getUser(), $decisionId);
+
+        //dd($user);
         return $this->render('decision/show.html.twig', [
             'decision' => $decision,
+            'contributor' => $contributor,
+            'userDecision' => $userDecision,
         ]);
     }
 

@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Contributor;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @extends ServiceEntityRepository<Contributor>
@@ -39,6 +40,24 @@ class ContributorRepository extends ServiceEntityRepository
         }
     }
 
+
+    public function findOneContributorBy(UserInterface $user, int $decisionId): array
+    {
+        $queryBuilder = $this->createQueryBuilder('c')
+            ->join('c.decision', 'd')
+            ->join('c.employee', 'e')
+            ->join('e.user', 'u')
+            ->where('d.id = :decisionId')
+            ->andwhere('u.id = :user')
+            ->setParameter('user', $user)
+            ->setParameter('decisionId', $decisionId)
+            ->addSelect('c')
+            ->addSelect('d')
+            ->addSelect('e')
+            ->addSelect('u')
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
 //    /**
 //     * @return Contributor[] Returns an array of Contributor objects
 //     */
