@@ -3,12 +3,11 @@
 {% block title %}Home - Makesense{% endblock %}
 
 {% block body %}
-    {% include "/include/_navbar.html.twig" %}
     <h1>Hello {{ app.user.firstName }}</h1>
     <h2>Mes décisions : prochaines étapes</h2>
     {% for userDecision in userDecisions %}
         <div class="row d-inline-flex">
-            <div class="card border-secondary col-sm-9 mb-3 m-3" style="max-width: 18rem;">
+            <div class="card border-primary col-sm-9 mb-3 m-3" style="max-width: 18rem;">
                 {% for timeline in userDecision.timelines %}
                     {% if loop.first %}
                         <div class="card-header bg-transparent border-secondary">

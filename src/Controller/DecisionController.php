@@ -22,7 +22,8 @@ class DecisionController extends AbstractController
             'decisions' => $decisionRepository->findAll(),
         ]);
     }
-
+// @TODO Rediriger vers l'étape 2 (manager les décisions)
+// @TODO Rajouter deux méthodes : personnes impliquées, timeline
     #[Route('/new', name: 'app_decision_new', methods: ['GET', 'POST'])]
     public function new(Request $request, DecisionRepository $decisionRepository): Response
     {
