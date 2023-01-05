@@ -71,37 +71,4 @@ class DecisionRepository extends ServiceEntityRepository
             ->getQuery();
         return $queryBuilder->getResult();
     }
-
-    public function findAllByContributor(UserInterface $user): array
-    {
-        $queryBuilder = $this->createQueryBuilder('d')
-            ->join('d.contributors', 'c')
-            ->join('c.employee', 'e')
-            ->join('e.user', 'u')
-            ->join('d.timelines', 't')
-            ->where('u.id = :user')
-            ->andwhere('t.endedAt > CURRENT_DATE()')
-            ->andwhere("t.name = ':deadline pour donner son avis'")
-            ->orwhere("t.name = ':deadline pour entrer en conflit'")
-            ->setParameter('user', $user)
-            ->orderBy('t.endedAt', 'ASC')
-            ->setMaxResults(3)
-            ->addSelect('d')
-            ->addSelect('e')
-            ->addSelect('u')
-            ->addSelect('c')
-            ->addSelect('t')
-            ->getQuery();
-        return $queryBuilder->getResult();
-    }
-
-//    public function findOneBySomeField($value): ?Decision
-//    {
-//        return $this->createQueryBuilder('d')
-//            ->andWhere('d.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }

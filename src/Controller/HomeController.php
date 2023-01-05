@@ -16,12 +16,11 @@ use App\Entity\Timeline;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(DecisionRepository $decisionRepository): Response
+    public function index(DecisionRepository $decisionRepository, TimeLineRepository $timelineRepository): Response
     {
         $decisions = $decisionRepository->findAllByTimeline();
-
         $userDecisions = $decisionRepository->findAllByUser($this->getUser());
-        $userContributions = $decisionRepository->findAllByContributor($this->getUser());
+        $userContributions = $timelineRepository->findAllByContributor($this->getUser());
 
         return $this->render('home/index.html.twig', [
             'decision' => $decisions,
