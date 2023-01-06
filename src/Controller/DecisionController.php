@@ -46,11 +46,11 @@ class DecisionController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_decision_show', methods: ['GET'])]
-    public function show(Decision $decision, ContributorRepository $contributorRepository, UserRepository $userRepository): Response
+    public function show(Decision $decision, ContributorRepository $contributorRepo, UserRepository $userRepo): Response
     {
         $decisionId = $decision->getId();
-        $contributor = $contributorRepository->findOneContributorBy($this->getUser(), $decisionId);
-        $userDecision = $userRepository->findOneByDecisionId($this->getUser(), $decisionId);
+        $contributor = $contributorRepo->findOneContributorBy($this->getUser(), $decisionId);
+        $userDecision = $userRepo->findOneByDecisionId($this->getUser(), $decisionId);
 
         //dd($user);
         return $this->render('decision/show.html.twig', [
