@@ -8,6 +8,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @extends ServiceEntityRepository<User>
@@ -56,6 +57,19 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->save($user, true);
     }
 
+    public function findOneByDecisionId(UserInterface $user, int $decisionId): array
+    {
+        $queryBuilder = $this->createQueryBuilder('u')
+            ->join('u.decision', 'd')
+            ->where('d.id = :decisionId')
+            ->andWhere('d.user = :user')
+            ->setParameter('user', $user)
+            ->setParameter('decisionId', $decisionId)
+            ->addSelect('u')
+            ->addSelect('d')
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
 //    /**
 //     * @return UserFixtures[] Returns an array of UserFixtures objects
 //     */
