@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Decision index{% endblock %}
+
+{% block body %}
+    <h1>Decision index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Utility</th>
+                <th>Context</th>
+                <th>Benefits</th>
+                <th>Inconvenients</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for decision in decisions %}
+            <tr>
+                <td>{{ decision.id }}</td>
+                <td>{{ decision.title }}</td>
+                <td>{{ decision.content }}</td>
+                <td>{{ decision.utility }}</td>
+                <td>{{ decision.context }}</td>
+                <td>{{ decision.benefits }}</td>
+                <td>{{ decision.inconvenients }}</td>
+                <td>
+                    <a href="{{ path('app_decision_show', {'id': decision.id}) }}">show</a>
+                    <a href="{{ path('app_decision_edit', {'id': decision.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_decision_new') }}">Create new</a>
+{% endblock %}
