@@ -216,6 +216,7 @@
                     </div>
             </div>
             <!-- Buttons Area -->
+            <a href="{{ path('app_contribution_new_avis', {'decision': decision.id}) }}"> donner son avis </a>
         </div>
    </div>
     <div class="m-5">
@@ -224,6 +225,12 @@
         <a href="{{ path('app_decision_edit', {'id': decision.id}) }}">edit</a>
 
         {{ include('decision/_delete_form.html.twig') }}
+    </div>
+
+    <div class="container-fluid mt-4">
+        <div class="d-flex flex-row">
+            {{ render(controller('App\\Controller\\ContributionController::newAvis', {'decision': decision.id})) }}
+        </div>
     </div>
         {% endblock %}
 
