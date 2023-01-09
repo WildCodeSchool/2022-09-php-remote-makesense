@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Decision;
+use App\Entity\User;
 use App\Form\decision\DecisionType;
+use App\Form\decision\DefinitiveDecisionType;
 use App\Form\decision\FirstDecisionType;
 use App\Repository\ContributorRepository;
 use App\Repository\DecisionRepository;
@@ -32,6 +34,7 @@ class DecisionController extends AbstractController
     {
         $decision = new Decision();
         $form = $this->createForm(DecisionType::class, $decision);
+        // @TODO lier le User avec la New Decision
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -116,5 +119,34 @@ class DecisionController extends AbstractController
          return $this->renderForm('decision/_modal_new_first_decision.html.twig', [
              'form' => $form,
          ]);
+    }
+
+    #[Route('/new/DefinitiveDecision/{decision}', name: '_new_definitive_decision', methods: ['GET', 'POST'])]
+    public function addDefinitiveDecision(
+        Request $request,
+        Decision $decision,
+        DecisionRepository $decisionRepository
+    ): Response {
+        $form = $this->createForm(DefinitiveDecisionType::class, $decision, [
+            'action' => $this->generateUrl('_new_definitive_decision', ['decision' => $decision->getId()])
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $owner = $decisionRepository->findOneBy(['user' => $this->getUser()]);
+            if ($owner) {
+                $decisionRepository->save($decision, true);
+                $this->addFlash('success', "Votre Décision Définitive a bien été postée !");
+            } else {
+                $this->addFlash('danger', "Votre Décision Définitive n'a pas pu être postée !");
+                return $this->redirectToRoute('app_decision_show', [
+                    'id' => $decision->getId()], Response::HTTP_SEE_OTHER);
+            }
+            return $this->redirectToRoute('app_decision_show', ['id' => $decision->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('decision/_modal_new_definitive_decision.html.twig', [
+            'form' => $form,
+        ]);
     }
 }
