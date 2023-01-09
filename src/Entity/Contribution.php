@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\ContributionRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use DateTime;
 
 #[ORM\Entity(repositoryClass: ContributionRepository::class)]
 class Contribution
@@ -27,7 +29,14 @@ class Contribution
     private ?Contributor $contributor = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\NotBlank(message: 'vous devez saisir du texte')]
     private ?string $content = null;
+
+
+    public function __construct()
+    {
+        $this->date = new DateTime('now');
+    }
 
     public function getId(): ?int
     {
