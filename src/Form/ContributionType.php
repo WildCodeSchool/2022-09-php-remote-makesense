@@ -14,20 +14,7 @@ class ContributionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-//            ->add('type', ContributionType::class, [
-//            'default_value' => 'conflit'])
-//            ->add('date', DateType::class, [
-//                'input'  => 'datetime_immutable'])
-//            ->add('date', DateType::class, [
-//                'default_value'  => new \DateTime(),
-//                ])
-                ->add('content', CKEditorType::class)
-//            ->add('decision', null, [
-//                'default_value' => function($decision) {
-//                return $decision->getId();
-//                }
-//            ])
-//            ->add('contributor')
+             ->add('content', CKEditorType::class)
         ;
     }
 
