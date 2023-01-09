@@ -222,18 +222,27 @@
                         {% if timeline.name == 'Deadline pour donner son avis'
                             and "now" |date('Y-m-d') >= timeline.startedAt |date('Y-m-d')
                             and "now" |date('Y-m-d') <= timeline.endedAt |date('Y-m-d')  %}
-
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modal-avis"> Je donne mon avis</button>
+                              <div class="container-fluid mt-4">
+                                <div class="d-flex flex-row">
+                                    {{ render(controller('App\\Controller\\ContributionController::newOpinion', {'decision': decision.id})) }}
+                                </div>
+                            </div>
                                 <div class="container-fluid mt-4">
                                     <div class="d-flex flex-row">
                                         {{ render(controller('App\\Controller\\ContributionController::newAvis', {'decision': decision.id})) }}
                                     </div>
                                 </div>
-
                         {% endif %}
                         {% if timeline.name == 'Deadline pour entrer en conflit'
                             and "now" |date('Y-m-d') >= timeline.startedAt |date('Y-m-d')
                             and "now" |date('Y-m-d') <= timeline.endedAt |date('Y-m-d')  %}
-                            <button type="button" class="btn btn-secondary">J'entre en conflit</button>
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modal-conflict">J'entre en conflit</button>
+                            <div class="container-fluid mt-4">
+                                <div class="d-flex flex-row">
+                                    {{ render(controller('App\\Controller\\ContributionController::newConflict', {'decision': decision.id})) }}
+                                </div>
+                            </div>
                         {% endif %}
                     {% endfor %}
                     {% endif %}
@@ -265,8 +274,3 @@
     </div>
 
         {% endblock %}
-
-
-
-
-
