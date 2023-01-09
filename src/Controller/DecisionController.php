@@ -4,16 +4,19 @@ namespace App\Controller;
 
 use App\Entity\Contribution;
 use App\Entity\Decision;
+use App\Entity\User;
 use App\Form\DecisionType;
 use App\Repository\ContributionRepository;
 use App\Repository\ContributorRepository;
 use App\Repository\DecisionRepository;
 use App\Repository\UserRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[IsGranted('ROLE_USER')]
 #[Route('/decision')]
 class DecisionController extends AbstractController
 {
@@ -86,5 +89,35 @@ class DecisionController extends AbstractController
         }
 
         return $this->redirectToRoute('app_decision_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/new/firstDecision/{decision}', name: '_new_first_decision', methods: ['GET', 'POST'])]
+    public function addFirstDecision(
+        Request $request,
+        Decision $decision,
+        DecisionRepository $decisionRepository
+    ): Response {
+        $form = $this->createForm(DecisionType::class, $decision, [
+        'action' => $this->generateUrl('app_decision_new_first_decision', ['decision' => $decision->getId()])
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+             $owner = $decisionRepository->findOneBy(['user' => $this->getUser(), 'decision' => $decision]);
+             if ($owner) {
+                 $decisionRepository->save($decision, true);
+                 $this->addFlash('success', "La Première Décision a bien été postée !");
+             } else {
+                 $this->addFlash('danger', "La Première Décision n'a pas pu être postée !");
+                 return $this->redirectToRoute('app_decision_show', [
+                     'id' => $decision->getId()], Response::HTTP_SEE_OTHER);
+             }
+
+             return $this->redirectToRoute('app_decision_show', ['id' => $decision->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+         return $this->renderForm('decision/_modal_new_first_decision.html.twig', [
+             'form' => $form,
+         ]);
     }
 }
