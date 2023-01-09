@@ -29,6 +29,7 @@ class ContributionController extends AbstractController
     /**
      * @throws \Exception
      */
+
     #[Route('/new/opinion/{decision}', name: '_new_opinion', methods: ['GET', 'POST'])]
     public function newOpinion(
         Request $request,

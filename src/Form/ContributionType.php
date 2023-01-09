@@ -13,8 +13,8 @@ class ContributionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('content', CKEditorType::class)
-        ;
+
+            ->add('content', CKEditorType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

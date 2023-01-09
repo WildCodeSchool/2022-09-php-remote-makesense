@@ -228,6 +228,11 @@
                                     {{ render(controller('App\\Controller\\ContributionController::newOpinion', {'decision': decision.id})) }}
                                 </div>
                             </div>
+                                <div class="container-fluid mt-4">
+                                    <div class="d-flex flex-row">
+                                        {{ render(controller('App\\Controller\\ContributionController::newAvis', {'decision': decision.id})) }}
+                                    </div>
+                                </div>
                         {% endif %}
                         {% if timeline.name == 'Deadline pour entrer en conflit'
                             and "now" |date('Y-m-d') >= timeline.startedAt |date('Y-m-d')
@@ -258,8 +263,6 @@
                     {% endif %}
                 </div>
             </div>
-
-
         </div>
    </div>
     <div class="m-5">
@@ -269,9 +272,5 @@
 
         {{ include('decision/_delete_form.html.twig') }}
     </div>
+
         {% endblock %}
-
-
-
-
-
