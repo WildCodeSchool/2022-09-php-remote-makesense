@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\FormFactoryInterface;
 
 #[Route('/contribution', name: 'app_contribution')]
 class ContributionController extends AbstractController
@@ -35,10 +36,11 @@ class ContributionController extends AbstractController
         Request $request,
         ContributorRepository $contributorRepos,
         ContributionRepository $contributionRepos,
-        Decision $decision
+        Decision $decision,
+        FormFactoryInterface $formFactory
     ): Response {
         $contribution = new Contribution();
-        $form = $this->createForm(ContributionType::class, $contribution, [
+        $form = $formFactory->createNamed('form_opinion',ContributionType::class, $contribution, [
             'action' => $this->generateUrl('app_contribution_new_opinion', ['decision' => $decision->getId()])
         ]);
         $form->handleRequest($request);

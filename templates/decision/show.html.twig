@@ -227,12 +227,8 @@
                                 <div class="d-flex flex-row">
                                     {{ render(controller('App\\Controller\\ContributionController::newOpinion', {'decision': decision.id})) }}
                                 </div>
-                            </div>
-                                <div class="container-fluid mt-4">
-                                    <div class="d-flex flex-row">
-                                        {{ render(controller('App\\Controller\\ContributionController::newAvis', {'decision': decision.id})) }}
-                                    </div>
                                 </div>
+
                         {% endif %}
                         {% if timeline.name == 'Deadline pour entrer en conflit'
                             and "now" |date('Y-m-d') >= timeline.startedAt |date('Y-m-d')
@@ -252,7 +248,12 @@
                         {% if timeline.name == 'Première Décision Prise'
                             and "now" |date('Y-m-d') >= timeline.startedAt |date('Y-m-d')
                             and "now" |date('Y-m-d') <= timeline.endedAt |date('Y-m-d')  %}
-                            <button type="button" class="btn btn-secondary"> Je prends ma première décision</button>
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modal-first-decision"> Je prends ma première décision</button>
+                            <div class="container-fluid mt-4">
+                                <div class="d-flex flex-row">
+                                    {{ render(controller('App\\Controller\\DecisionController::addFirstDecision', {'decision': decision.id})) }}
+                                </div>
+                            </div>
                         {% endif %}
                         {% if timeline.name == 'Decision définitive'
                             and "now" |date('Y-m-d') >= timeline.startedAt |date('Y-m-d')
