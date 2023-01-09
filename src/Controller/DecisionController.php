@@ -101,15 +101,15 @@ class DecisionController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-             $owner = $decisionRepository->findOneBy(['user' => $this->getUser()]);
-             if ($owner) {
+            $owner = $decisionRepository->findOneBy(['user' => $this->getUser()]);
+            if ($owner) {
                  $decisionRepository->save($decision, true);
                  $this->addFlash('success', "Votre Première Décision a bien été postée !");
-             } else {
+            } else {
                  $this->addFlash('danger', "Votre Première Décision n'a pas pu être postée !");
                  return $this->redirectToRoute('app_decision_show', [
                      'id' => $decision->getId()], Response::HTTP_SEE_OTHER);
-             }
+            }
              return $this->redirectToRoute('app_decision_show', ['id' => $decision->getId()], Response::HTTP_SEE_OTHER);
         }
 

@@ -40,7 +40,7 @@ class ContributionController extends AbstractController
         FormFactoryInterface $formFactory
     ): Response {
         $contribution = new Contribution();
-        $form = $formFactory->createNamed('form_opinion',ContributionType::class, $contribution, [
+        $form = $formFactory->createNamed('form_opinion', ContributionType::class, $contribution, [
             'action' => $this->generateUrl('app_contribution_new_opinion', ['decision' => $decision->getId()])
         ]);
         $form->handleRequest($request);
