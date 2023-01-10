@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home - Makesense{% endblock %}
+{% block title %}Accueil - Makesense{% endblock %}
 
 {% block body %}
-    <h1>Hello {{ app.user.firstName }}</h1>
+    <h1>Bonjour {{ app.user.firstName }}</h1>
     <h2>Mes décisions : prochaines étapes</h2>
     {% for userDecision in userDecisions %}
         <div class="row d-inline-flex">

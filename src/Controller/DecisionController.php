@@ -2,18 +2,21 @@
 
 namespace App\Controller;
 
-use App\Entity\Contribution;
 use App\Entity\Decision;
-use App\Form\DecisionType;
-use App\Repository\ContributionRepository;
+use App\Entity\User;
+use App\Form\decision\DecisionType;
+use App\Form\decision\DefinitiveDecisionType;
+use App\Form\decision\FirstDecisionType;
 use App\Repository\ContributorRepository;
 use App\Repository\DecisionRepository;
 use App\Repository\UserRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[IsGranted('ROLE_USER')]
 #[Route('/decision')]
 class DecisionController extends AbstractController
 {
@@ -31,6 +34,7 @@ class DecisionController extends AbstractController
     {
         $decision = new Decision();
         $form = $this->createForm(DecisionType::class, $decision);
+        // @TODO lier le User avec la New Decision
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -86,5 +90,59 @@ class DecisionController extends AbstractController
         }
 
         return $this->redirectToRoute('app_decision_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/new/firstDecision/{decision}', name: '_new_first_decision', methods: ['GET', 'POST'])]
+    public function addFirstDecision(
+        Request $request,
+        Decision $decision,
+        DecisionRepository $decisionRepository
+    ): Response {
+        $form = $this->createForm(FirstDecisionType::class, $decision, [
+        'action' => $this->generateUrl('_new_first_decision', ['decision' => $decision->getId()])
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $owner = $decisionRepository->findOneBy(['user' => $this->getUser()]);
+            if ($owner) {
+                 $decisionRepository->save($decision, true);
+                 $this->addFlash('success', "Votre première décision a bien été postée !");
+            } else {
+                 $this->addFlash('danger', "Votre première décision n'a pas pu être postée !");
+            }
+             return $this->redirectToRoute('app_decision_show', ['id' => $decision->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+         return $this->renderForm('decision/_modal_new_first_decision.html.twig', [
+             'form' => $form,
+         ]);
+    }
+
+    #[Route('/new/DefinitiveDecision/{decision}', name: '_new_definitive_decision', methods: ['GET', 'POST'])]
+    public function addDefinitiveDecision(
+        Request $request,
+        Decision $decision,
+        DecisionRepository $decisionRepository
+    ): Response {
+        $form = $this->createForm(DefinitiveDecisionType::class, $decision, [
+            'action' => $this->generateUrl('_new_definitive_decision', ['decision' => $decision->getId()])
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $owner = $decisionRepository->findOneBy(['user' => $this->getUser()]);
+            if ($owner) {
+                $decisionRepository->save($decision, true);
+                $this->addFlash('success', "Votre décision définitive a bien été postée !");
+            } else {
+                $this->addFlash('danger', "Votre décision définitive n'a pas pu être postée !");
+            }
+            return $this->redirectToRoute('app_decision_show', ['id' => $decision->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('decision/_modal_new_definitive_decision.html.twig', [
+            'form' => $form,
+        ]);
     }
 }
