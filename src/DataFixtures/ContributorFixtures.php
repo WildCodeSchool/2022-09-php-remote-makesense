@@ -12,15 +12,31 @@ class ContributorFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
+        $contributor = new Contributor();
+        $contributor->setEmployee($this->getReference('employee_0'));
+        $contributor->setDecision($this->getReference('decision_5'));
+        $contributor->setImplication($this->getReference('implication_1'));
+        $manager->persist($contributor);
+        $this->addReference('contributor_0', $contributor);
+
+        $contributor = new Contributor();
+        $contributor->setEmployee($this->getReference('employee_0'));
+        $contributor->setDecision($this->getReference('decision_6'));
+        $contributor->setImplication($this->getReference('implication_2'));
+        $manager->persist($contributor);
+        $this->addReference('contributor_1', $contributor);
+
         $faker = Factory::create();
         for ($i = 0; $i < 15; $i++) {
             $contributor = new Contributor();
             $contributor->setEmployee($this->getReference('employee_0'));
             $contributor->setDecision($this->getReference('decision_' . ($i + 21)));
+
             $contributor->setImplication($this->getReference('implication_' . $faker->numberBetween(1, 2)));
             $manager->persist($contributor);
-            $this->addReference('contributor_' . $i, $contributor);
+            $this->addReference('contributor_' . ($i + 2), $contributor);
         }
+
 
         for ($i = 0; $i < 41; $i++) {
             $contributor = new Contributor();
@@ -30,7 +46,6 @@ class ContributorFixtures extends Fixture implements DependentFixtureInterface
             $manager->persist($contributor);
             $this->addReference('contributor_' . ($i + 15), $contributor);
         }
-
         $manager->flush();
     }
     public function getDependencies(): array

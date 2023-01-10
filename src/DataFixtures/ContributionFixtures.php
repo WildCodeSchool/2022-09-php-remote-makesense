@@ -16,6 +16,7 @@ class ContributionFixtures extends Fixture implements DependentFixtureInterface
 
         $faker = Factory::create();
 
+
         for ($i = 0; $i < 21; $i++) {
             $contribution = new Contribution();
             $contribution->setType($type[array_rand($type, 1)]);

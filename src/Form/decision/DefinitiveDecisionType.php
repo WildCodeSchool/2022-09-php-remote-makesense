@@ -1,26 +1,26 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\decision;
 
-use App\Entity\Contribution;
+use App\Entity\Decision;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ContributionType extends AbstractType
+class DefinitiveDecisionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-
-            ->add('content', CKEditorType::class);
+            ->add('definitiveDecision', CKEditorType::class)
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Contribution::class,
+            'data_class' => Decision::class,
         ]);
     }
 }

@@ -32,6 +32,7 @@ class Contribution
     #[Assert\NotBlank(message: 'vous devez saisir du texte')]
     private ?string $content = null;
 
+
     public function __construct()
     {
         $this->date = new DateTime('now');

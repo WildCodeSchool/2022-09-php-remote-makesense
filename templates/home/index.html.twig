@@ -3,8 +3,9 @@
 {% block title %}Accueil - Makesense{% endblock %}
 
 {% block body %}
-    <h1>Hello {{ app.user.firstName }}</h1>
+    <h1>Bonjour {{ app.user.firstName }}</h1>
     <h2>Mes décisions proches :</h2>
+
     {% for userDecision in userDecisions %}
         <div class="row d-inline-flex">
             <div class="card col-sm-9 mb-3 m-3" style="max-width: 18rem;">

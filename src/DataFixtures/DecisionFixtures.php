@@ -29,7 +29,6 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
 
         for ($i = 21; $i < 41; $i++) {
             $decision = new Decision();
-
             $decision->setTitle($faker->words(3, true));
             $decision->setContent($faker->paragraphs(6, true));
             $decision->setUtility($faker->paragraphs(6, true));
@@ -39,7 +38,6 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
             $decision->setFirstDecision($faker->paragraph(6));
             $decision->setDefinitiveDecision($faker->paragraph(6));
             $decision->setUser($this->getReference('user_' . $faker->numberBetween(1, 9)));
-
             $manager->persist($decision);
             $this->addReference('decision_' . $i, $decision);
         }

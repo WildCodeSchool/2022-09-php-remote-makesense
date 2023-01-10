@@ -164,7 +164,7 @@
             <div class="col-3">
                 <section class="timeline_area">
                     <div class="container">
-                        <h3>Dates à Retenir</h3>
+                        <h3>Dates à retenir</h3>
                         <div class="row">
                             <div class="col-12">
                                 <!-- Timeline Area-->
@@ -195,7 +195,7 @@
                 <!-- Contributors Area-->
 
                    <div class="container mt-5">
-                       <h3>Personnes Impactées</h3>
+                       <h3>Personnes impactées</h3>
                        <div class="row mt-3">
                            <ul class="list-group list-group-horizontal m-0 p-0 m-auto justify-content-center">
                                {% for contributor in decision.contributors|filter(contributor => contributor.implication.name=="Impactée") %}
@@ -206,7 +206,7 @@
                    </div>
 
                     <div class="container mt-5">
-                        <h3>Personnes Expertes</h3>
+                        <h3>Personnes expertes</h3>
                         <div class="row mt-3">
                             <ul class="list-group list-group-horizontal m-0 p-0 m-auto justify-content-center">
                                 {% for contributor in decision.contributors|filter(contributor => contributor.implication.name=="Experte") %}
@@ -218,39 +218,54 @@
                 <!-- Buttons Area -->
                 <div class="container mt-5">
                     {% if contributor %}
-                    {% for timeline in decision.timelines %}
-                        {% if timeline.name == 'Deadline pour donner son avis'
-                            and "now" |date('Y-m-d') >= timeline.startedAt |date('Y-m-d')
-                            and "now" |date('Y-m-d') <= timeline.endedAt |date('Y-m-d')  %}
-
+                        {% for timeline in decision.timelines %}
+                            {% if timeline.name == 'Deadline pour donner son avis'
+                                and "now" |date('Y-m-d') >= timeline.startedAt |date('Y-m-d')
+                                and "now" |date('Y-m-d') <= timeline.endedAt |date('Y-m-d')  %}
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-avis"> Je donne mon avis</button>
                                 <div class="container-fluid mt-4">
                                     <div class="d-flex flex-row">
-                                        {{ render(controller('App\\Controller\\ContributionController::newAvis', {'decision': decision.id})) }}
+                                        {{ render(controller('App\\Controller\\ContributionController::newOpinion', {'decision': decision.id})) }}
                                     </div>
                                 </div>
 
-                        {% endif %}
-                        {% if timeline.name == 'Deadline pour entrer en conflit'
-                            and "now" |date('Y-m-d') >= timeline.startedAt |date('Y-m-d')
-                            and "now" |date('Y-m-d') <= timeline.endedAt |date('Y-m-d')  %}
-                            <button type="button" class="btn btn-secondary">J'entre en conflit</button>
-                        {% endif %}
-                    {% endfor %}
+                            {% endif %}
+                            {% if timeline.name == 'Deadline pour entrer en conflit'
+                                and "now" |date('Y-m-d') >= timeline.startedAt |date('Y-m-d')
+                                and "now" |date('Y-m-d') <= timeline.endedAt |date('Y-m-d')  %}
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-conflict">J'entre en conflit</button>
+                                <div class="container-fluid mt-4">
+                                    <div class="d-flex flex-row">
+                                        {{ render(controller('App\\Controller\\ContributionController::newConflict', {'decision': decision.id})) }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
                     {% endif %}
 
                     {% if userDecision %}
-                    {% for timeline in decision.timelines %}
-                        {% if timeline.name == 'Première Décision Prise'
-                            and "now" |date('Y-m-d') >= timeline.startedAt |date('Y-m-d')
-                            and "now" |date('Y-m-d') <= timeline.endedAt |date('Y-m-d')  %}
-                            <button type="button" class="btn btn-secondary"> Je prends ma première décision</button>
-                        {% endif %}
-                        {% if timeline.name == 'Decision définitive'
-                            and "now" |date('Y-m-d') >= timeline.startedAt |date('Y-m-d')
-                            and "now" |date('Y-m-d') <= timeline.endedAt |date('Y-m-d')  %}
-                            <button type="button" class="btn btn-secondary">Je prends ma décision définitive</button>
-                        {% endif %}
-                    {% endfor %}
+                        {% for timeline in decision.timelines %}
+                            {% if timeline.name == 'Première décision prise'
+                                and "now" |date('Y-m-d') >= timeline.startedAt |date('Y-m-d')
+                                and "now" |date('Y-m-d') <= timeline.endedAt |date('Y-m-d')  %}
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-first-decision"> Je prends ma première décision</button>
+                                <div class="container-fluid mt-4">
+                                    <div class="d-flex flex-row">
+                                        {{ render(controller('App\\Controller\\DecisionController::addFirstDecision', {'decision': decision.id})) }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% if timeline.name == 'Décision définitive'
+                                and "now" |date('Y-m-d') >= timeline.startedAt |date('Y-m-d')
+                                and "now" |date('Y-m-d') <= timeline.endedAt |date('Y-m-d')  %}
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-definitive-decision">Je prends ma décision définitive</button>
+                                <div class="container-fluid mt-4">
+                                    <div class="d-flex flex-row">
+                                        {{ render(controller('App\\Controller\\DecisionController::addDefinitiveDecision', {'decision': decision.id})) }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
                     {% endif %}
                 </div>
             </div>
@@ -265,8 +280,3 @@
     </div>
 
         {% endblock %}
-
-
-
-
-
