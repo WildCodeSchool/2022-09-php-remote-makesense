@@ -107,11 +107,9 @@ class DecisionController extends AbstractController
             $owner = $decisionRepository->findOneBy(['user' => $this->getUser()]);
             if ($owner) {
                  $decisionRepository->save($decision, true);
-                 $this->addFlash('success', "Votre Première Décision a bien été postée !");
+                 $this->addFlash('success', "Votre première décision a bien été postée !");
             } else {
-                 $this->addFlash('danger', "Votre Première Décision n'a pas pu être postée !");
-                 return $this->redirectToRoute('app_decision_show', [
-                     'id' => $decision->getId()], Response::HTTP_SEE_OTHER);
+                 $this->addFlash('danger', "Votre première décision n'a pas pu être postée !");
             }
              return $this->redirectToRoute('app_decision_show', ['id' => $decision->getId()], Response::HTTP_SEE_OTHER);
         }
@@ -136,11 +134,9 @@ class DecisionController extends AbstractController
             $owner = $decisionRepository->findOneBy(['user' => $this->getUser()]);
             if ($owner) {
                 $decisionRepository->save($decision, true);
-                $this->addFlash('success', "Votre Décision Définitive a bien été postée !");
+                $this->addFlash('success', "Votre décision définitive a bien été postée !");
             } else {
-                $this->addFlash('danger', "Votre Décision Définitive n'a pas pu être postée !");
-                return $this->redirectToRoute('app_decision_show', [
-                    'id' => $decision->getId()], Response::HTTP_SEE_OTHER);
+                $this->addFlash('danger', "Votre décision définitive n'a pas pu être postée !");
             }
             return $this->redirectToRoute('app_decision_show', ['id' => $decision->getId()], Response::HTTP_SEE_OTHER);
         }

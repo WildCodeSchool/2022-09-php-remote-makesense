@@ -57,10 +57,7 @@ class ContributionController extends AbstractController
                 $this->addFlash('success', "L'avis a bien été posté !");
             } else {
                 $this->addFlash('danger', "L'avis n'a pas pu être posté !");
-                return $this->redirectToRoute('app_decision_show', [
-                    'id' => $decision->getId()], Response::HTTP_SEE_OTHER);
             }
-
             return $this->redirectToRoute('app_decision_show', ['id' => $decision->getId()], Response::HTTP_SEE_OTHER);
         }
 
@@ -97,8 +94,6 @@ class ContributionController extends AbstractController
                 $this->addFlash('success', "Le conflit a bien été posté !");
             } else {
                 $this->addFlash('danger', "Le conflit n'a pas pu être posté !");
-                return $this->redirectToRoute('app_decision_show', [
-                    'id' => $decision->getId()], Response::HTTP_SEE_OTHER);
             }
 
             return $this->redirectToRoute('app_decision_show', ['id' => $decision->getId()], Response::HTTP_SEE_OTHER);
