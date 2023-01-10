@@ -14,7 +14,20 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Factory::create();
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 21; $i++) {
+            $decision = new Decision();
+            $decision->setTitle($faker->words(3, true));
+            $decision->setContent($faker->paragraphs(6, true));
+            $decision->setUtility($faker->paragraphs(6, true));
+            $decision->setContext($faker->paragraphs(6, true));
+            $decision->setBenefits($faker->paragraphs(6, true));
+            $decision->setInconvenients($faker->paragraph(6));
+            $decision->setUser($this->getReference('user_0'));
+            $manager->persist($decision);
+            $this->addReference('decision_' . $i, $decision);
+        }
+
+        for ($i = 21; $i < 41; $i++) {
             $decision = new Decision();
 
             $decision->setTitle($faker->words(3, true));
@@ -25,7 +38,7 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
             $decision->setInconvenients($faker->paragraph(6));
             $decision->setFirstDecision($faker->paragraph(6));
             $decision->setDefinitiveDecision($faker->paragraph(6));
-            $decision->setUser($this->getReference('user_' . $faker->numberBetween(0, 9)));
+            $decision->setUser($this->getReference('user_' . $faker->numberBetween(1, 9)));
 
             $manager->persist($decision);
             $this->addReference('decision_' . $i, $decision);

@@ -11,9 +11,16 @@ class EmployeeFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
+        $employee = new Employee();
+        $employee->setFirstname('Norbert');
+        $employee->setLastname('Huel');
+        $employee->setEmail('conn.rubie@tillman.com');
+        $manager->persist($employee);
+        $this->addReference('employee_0', $employee);
+
         $faker = Factory::create();
 
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 1; $i < 50; $i++) {
             $employee = new Employee();
 
             $employee->setFirstname($faker->firstName());

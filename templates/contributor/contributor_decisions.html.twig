@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes contributions - Makesense{% endblock %}
+
+{% block body %}
+    <h1>Bonjour {{ app.user.firstName }}</h1>
+    <h2>Mes contributions</h2>
+
+    {% for contributor in contributors %}
+        {% if contributor.decision.user.id != app.user.id %}
+        <div class="row d-inline-flex">
+            <div class="card col-sm-9 mb-3 m-3" style="max-width: 16rem;">
+                {% for timeline in contributor.decision.timelines %}
+                    {% if loop.first %}
+                        <div class="card-header bg-transparent border-secondary">
+                            {{ timeline.name }}
+                            <br>Le : {{ timeline.endedAt |date('d/m/Y') }}
+                        </div>
+                    {% endif %}
+                    {% endfor %}
+                        <div class="card-body text-success">
+                            <h5 class="card-title">{{ contributor.decision.title }}</h5>
+                        </div>
+                        <div class="card-footer bg-transparent border-secondary">
+                            {{ contributor.decision.user.firstName }} {{ contributor.decision.user.lastName }}
+                            <br><a href="{{ path('app_decision_show', {id: contributor.decision.id }) }}"
+                           class="stretched-link"></a>
+                        </div>
+            </div>
+        </div>
+        {% endif %}
+        {% else %}
+        <h3>Aucune contribution en cours</h3>
+        {% endfor %}
+{% endblock %}

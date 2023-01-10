@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes décisions - Makesense{% endblock %}
+
+{% block body %}
+<h1>Bonjour {{ app.user.firstName }}</h1>
+<h2>Mes décisions</h2>
+    {% for decision in decisions %}
+    <div class="row d-inline-flex">
+        <div class="card col-sm-9 mb-3 m-3" style="max-width: 18rem;">
+            {% for timeline in decision.timelines %}
+                {% if loop.first %}
+                    <div class="card-header bg-transparent border-secondary">
+                        {{ timeline.name }}
+                        <br>Le : {{ timeline.startedAt |date('d/m/Y') }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <div class="card-body text-success">
+                <h5 class="card-title">{{ decision.title }}</h5>
+            </div>
+            <div class="card-footer bg-transparent border-secondary">
+                <br><a href="{{ path('app_decision_show', {id: decision.id }) }}"
+                       class="stretched-link"></a>
+            </div>
+
+        </div>
+    </div>
+            {% else %}
+    <h3>Aucune décision</h3>
+    {% endfor %}
+{% endblock %}

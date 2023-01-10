@@ -1,21 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Decision index{% endblock %}
+{% block title %}Index des décisions{% endblock %}
 
 {% block body %}
-    <h1>Decision index</h1>
+    <h1>Index des décisions</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Content</th>
-                <th>Utility</th>
-                <th>Context</th>
-                <th>Benefits</th>
-                <th>Inconvenients</th>
-                <th>actions</th>
+                <th>Identifiant</th>
+                <th>Titre</th>
+                <th>Détails</th>
+                <th>Utilité</th>
+                <th>Contexte</th>
+                <th>Bénéfices</th>
+                <th>Inconveniants</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -29,17 +29,17 @@
                 <td>{{ decision.benefits }}</td>
                 <td>{{ decision.inconvenients }}</td>
                 <td>
-                    <a href="{{ path('app_decision_show', {'id': decision.id}) }}">show</a>
-                    <a href="{{ path('app_decision_edit', {'id': decision.id}) }}">edit</a>
+                    <a href="{{ path('app_decision_show', {'id': decision.id}) }}">Voir</a>
+                    <a href="{{ path('app_decision_edit', {'id': decision.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="8">Aucune décision trouvée</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_decision_new') }}">Create new</a>
+    <a href="{{ path('app_decision_new') }}">Créer une nouvelle décision</a>
 {% endblock %}
