@@ -22,8 +22,11 @@ class ContributorController extends AbstractController
     }
 
     #[Route('/decisions', name: 'contributor_decisions', methods: ['GET'])]
-    public function decisionsContributor(Request $request, ContributorRepository $contributorRepo, Paginatorinterface $paginator): Response
-    {
+    public function decisionsContributor(
+        Request $request,
+        ContributorRepository $contributorRepo,
+        Paginatorinterface $paginator
+    ): Response {
         $contributors = $contributorRepo->findAllContributorsBy($this->getUser());
         $contributors = $paginator->paginate(
             $contributors,

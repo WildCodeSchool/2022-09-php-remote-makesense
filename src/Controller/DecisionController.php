@@ -30,8 +30,11 @@ class DecisionController extends AbstractController
     }
 
     #[Route('/mine', name: 'app_decision_mine', methods: ['GET'])]
-    public function myDecisions(Request $request, DecisionRepository $decisionRepository, PaginatorInterface $paginator): Response
-    {
+    public function myDecisions(
+        Request $request,
+        DecisionRepository $decisionRepository,
+        PaginatorInterface $paginator
+    ): Response {
         $decisions = $decisionRepository->findAllByUser($this->getUser());
         $decisions = $paginator->paginate(
             $decisions,
