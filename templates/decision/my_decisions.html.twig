@@ -28,5 +28,7 @@
     </div>
             {% else %}
     <h3>Aucune décision</h3>
+
     {% endfor %}
+    {{ knp_pagination_render(decisions) }}
 {% endblock %}

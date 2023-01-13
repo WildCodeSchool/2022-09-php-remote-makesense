@@ -10,6 +10,7 @@ use App\Form\decision\FirstDecisionType;
 use App\Repository\ContributorRepository;
 use App\Repository\DecisionRepository;
 use App\Repository\UserRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,10 +30,16 @@ class DecisionController extends AbstractController
     }
 
     #[Route('/mine', name: 'app_decision_mine', methods: ['GET'])]
-    public function myDecisions(DecisionRepository $decisionRepository): Response
+    public function myDecisions(Request $request, DecisionRepository $decisionRepository, PaginatorInterface $paginator): Response
     {
+        $decisions = $decisionRepository->findAllByUser($this->getUser());
+        $decisions = $paginator->paginate(
+            $decisions,
+            $request->query->getInt('page', 1),
+            9
+        );
         return $this->render('decision/my_decisions.html.twig', [
-            'decisions' => $decisionRepository->findAllByUser($this->getUser()),
+            'decisions' => $decisions,
         ]);
     }
 

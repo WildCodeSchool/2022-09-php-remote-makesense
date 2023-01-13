@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Contributor;
 use App\Repository\ContributorRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -20,10 +22,16 @@ class ContributorController extends AbstractController
     }
 
     #[Route('/decisions', name: 'contributor_decisions', methods: ['GET'])]
-    public function decisionsContributor(ContributorRepository $contributorRepo): Response
+    public function decisionsContributor(Request $request, ContributorRepository $contributorRepo, Paginatorinterface $paginator): Response
     {
+        $contributors = $contributorRepo->findAllContributorsBy($this->getUser());
+        $contributors = $paginator->paginate(
+            $contributors,
+            $request->query->getInt('page', 1),
+            9
+        );
         return $this->render('contributor/contributor_decisions.html.twig', [
-            'contributors' => $contributorRepo->findAllContributorsBy($this->getUser()),
+            'contributors' => $contributors,
         ]);
     }
 }
