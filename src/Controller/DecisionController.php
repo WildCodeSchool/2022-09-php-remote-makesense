@@ -27,6 +27,15 @@ class DecisionController extends AbstractController
             'decisions' => $decisionRepository->findAll(),
         ]);
     }
+
+    #[Route('/mine', name: 'app_decision_mine', methods: ['GET'])]
+    public function myDecisions(DecisionRepository $decisionRepository): Response
+    {
+        return $this->render('decision/my_decisions.html.twig', [
+            'decisions' => $decisionRepository->findAllByUser($this->getUser()),
+        ]);
+    }
+
 // @TODO Rediriger vers l'étape 2 (manager les décisions)
 // @TODO Rajouter deux méthodes : personnes impliquées, timeline
     #[Route('/new', name: 'app_decision_new', methods: ['GET', 'POST'])]

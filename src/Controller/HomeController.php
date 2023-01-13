@@ -19,7 +19,7 @@ class HomeController extends AbstractController
     public function index(DecisionRepository $decisionRepository, TimeLineRepository $timelineRepository): Response
     {
         $decisions = $decisionRepository->findAllByTimeline();
-        $userDecisions = $decisionRepository->findAllByUser($this->getUser());
+        $userDecisions = $decisionRepository->findFirstThreeByUser($this->getUser());
         $userContributions = $timelineRepository->findAllByContributor($this->getUser());
 
         return $this->render('home/index.html.twig', [
