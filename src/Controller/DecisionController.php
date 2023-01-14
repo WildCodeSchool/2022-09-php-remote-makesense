@@ -3,10 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Decision;
-use App\Entity\User;
 use App\Form\decision\DecisionType;
 use App\Form\decision\DefinitiveDecisionType;
 use App\Form\decision\FirstDecisionType;
+use App\Form\MyDecisionSearchType;
 use App\Repository\ContributorRepository;
 use App\Repository\DecisionRepository;
 use App\Repository\UserRepository;
@@ -35,14 +35,23 @@ class DecisionController extends AbstractController
         DecisionRepository $decisionRepository,
         PaginatorInterface $paginator
     ): Response {
-        $decisions = $decisionRepository->findAllByUser($this->getUser());
+        $form = $this->createform(MyDecisionSearchType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $search = $form->getData()['search'];
+            $data = $decisionRepository->findAllByUserByStatus($this->getUser(), $search);
+        } else {
+            $data = $decisionRepository->findAllByUser($this->getUser());
+        }
         $decisions = $paginator->paginate(
-            $decisions,
+            $data,
             $request->query->getInt('page', 1),
             9
         );
         return $this->render('decision/my_decisions.html.twig', [
             'decisions' => $decisions,
+            'form' => $form->createView(),
         ]);
     }
 

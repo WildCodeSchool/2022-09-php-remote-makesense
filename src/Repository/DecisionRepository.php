@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Decision;
+use App\Entity\MyDecisionSearch;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -79,6 +80,25 @@ class DecisionRepository extends ServiceEntityRepository
             ->where('d.user = :user')
             ->andwhere("t.name = 'Prise de décision commencée'")
             ->setParameter('user', $user)
+            ->orderBy('t.startedAt', 'DESC')
+            ->setMaxResults(100)
+            ->addSelect('d')
+            ->addSelect('t')
+            ->addSelect('u')
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
+    public function findAllByUserByStatus(UserInterface $user, array $search): array
+    {
+        $queryBuilder = $this->createQueryBuilder('d')
+            ->join('d.timelines', 't')
+            ->join('d.user', 'u')
+            ->where('d.user = :user')
+            ->andwhere('t.name = :search')
+            ->andwhere('t.startedAt <= CURRENT_DATE()')
+            ->andwhere('t.endedAt >= CURRENT_DATE()')
+            ->setParameter('user', $user)
+            ->setParameter('search', $search)
             ->orderBy('t.startedAt', 'DESC')
             ->setMaxResults(100)
             ->addSelect('d')

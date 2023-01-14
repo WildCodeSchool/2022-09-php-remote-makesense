@@ -27,11 +27,11 @@ class ContributorController extends AbstractController
         ContributorRepository $contributorRepo,
         Paginatorinterface $paginator
     ): Response {
-        $contributors = $contributorRepo->findAllContributorsBy($this->getUser());
+        $data = $contributorRepo->findAllContributorsBy($this->getUser());
         $contributors = $paginator->paginate(
-            $contributors,
+            $data,
             $request->query->getInt('page', 1),
-            9
+            11
         );
         return $this->render('contributor/contributor_decisions.html.twig', [
             'contributors' => $contributors,
