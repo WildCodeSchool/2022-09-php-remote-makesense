@@ -28,6 +28,14 @@ class DecisionController extends AbstractController
         ]);
     }
 
+    #[Route('/all', name: 'app_all_decisions', methods: ['GET'])]
+    public function showAll(DecisionRepository $decisionRepository): Response
+    {
+        return $this->render('decision/all_decisions.html.twig', [
+            'decisions' => $decisionRepository->findAll(),
+        ]);
+    }
+
     #[Route('/mine', name: 'app_decision_mine', methods: ['GET'])]
     public function myDecisions(DecisionRepository $decisionRepository): Response
     {
