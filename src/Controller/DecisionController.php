@@ -29,7 +29,7 @@ class DecisionController extends AbstractController
         ]);
     }
 
-    #[Route('/mine', name: 'app_decision_mine', methods: ['GET'])]
+    #[Route('/mine/', name: 'app_decision_mine', methods: ['GET'])]
     public function myDecisions(
         Request $request,
         DecisionRepository $decisionRepository,
@@ -40,15 +40,18 @@ class DecisionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $search = $form->getData()['search'];
-            $data = $decisionRepository->findAllByUserByStatus($this->getUser(), $search);
+            $decisions = $paginator->paginate(
+                $decisionRepository->findAllByUserByStatus($this->getUser(), $search),
+                $request->query->getInt('page', 1),
+                9
+            );
         } else {
-            $data = $decisionRepository->findAllByUser($this->getUser());
+            $decisions = $paginator->paginate(
+                $decisionRepository->findAllByUser($this->getUser()),
+                $request->query->getInt('page', 1),
+                9
+            );
         }
-        $decisions = $paginator->paginate(
-            $data,
-            $request->query->getInt('page', 1),
-            9
-        );
         return $this->render('decision/my_decisions.html.twig', [
             'decisions' => $decisions,
             'form' => $form->createView(),

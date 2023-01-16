@@ -54,8 +54,7 @@
 
 
     <div class ="d-flex justify-content-center">
-        {% do decisions.setPageRange(2) %}
-        {{ knp_pagination_render(decisions, 'include/_pagination.html.twig') }}
+        {{ knp_pagination_render(decisions) }}
     </div>
 </div>
 

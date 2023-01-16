@@ -17,15 +17,15 @@ class MyDecisionSearchType extends AbstractType
                 'required' => true,
                 'label' => false,
                 'choices' => [
-                    'Prise de décision commencée' => 'Prise de décision commencée',
-                    'Donner son avis' => 'Deadline pour donner son avis',
-                    'Prendre sa première décision' => 'Première décision prise',
-                    'Entrer un conflit' => 'Deadline pour entrer en conflit',
-                    'Décision définitive' => 'Décision définitive',
-                    'Décision terminée' => 'Décision terminée',
+                        'Choisissez le statut' => '',
+                        'Prise de décision commencée' => 'Prise de décision commencée',
+                        'Donner son avis' => 'Deadline pour donner son avis',
+                        'Prendre sa première décision' => 'Première décision prise',
+                        'Entrer un conflit' => 'Deadline pour entrer en conflit',
+                        'Décision définitive' => 'Décision définitive',
+                        'Décision terminée' => 'Décision terminée',
                     ]
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -35,10 +35,5 @@ class MyDecisionSearchType extends AbstractType
             'method' => 'get',
             'csrf_protection' => false,
         ]);
-    }
-
-    public function getBlockPrefix()
-    {
-        return '';
     }
 }

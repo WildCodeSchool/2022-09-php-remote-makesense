@@ -3,9 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Decision;
-use App\Entity\MyDecisionSearch;
-use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Query;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -88,7 +87,8 @@ class DecisionRepository extends ServiceEntityRepository
             ->getQuery();
         return $queryBuilder->getResult();
     }
-    public function findAllByUserByStatus(UserInterface $user, array $search): array
+
+    public function findAllByUserByStatus(UserInterface $user, string $search): array
     {
         $queryBuilder = $this->createQueryBuilder('d')
             ->join('d.timelines', 't')

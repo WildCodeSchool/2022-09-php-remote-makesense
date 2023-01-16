@@ -38,11 +38,8 @@
         {% endfor %}
     </div>
 
-
-
     <div class ="d-flex justify-content-center">
-        {% do contributors.setPageRange(2) %}
-        {{ knp_pagination_render(contributors, 'include/_pagination.html.twig') }}
+        {{ knp_pagination_render(contributors) }}
     </div>
     </div>
 {% endblock %}
