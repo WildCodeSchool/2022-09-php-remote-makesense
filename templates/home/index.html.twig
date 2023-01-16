@@ -4,11 +4,13 @@
 
 {% block body %}
     <h1>Bonjour {{ app.user.firstName }}</h1>
-    <h2>Mes décisions proches :</h2>
 
+
+    <div class="container">
+        <h2>Mes décisions proches :</h2>
+    <div class="row justify-content-start custom-line">
     {% for userDecision in userDecisions %}
-        <div class="row d-inline-flex">
-            <div class="card col-sm-9 mb-3 m-3" style="max-width: 18rem;">
+        <div class="card col-sm-10 col-md-5 col-lg-3 m-3">
                 {% for timeline in userDecision.timelines %}
                     {% if loop.first %}
                         <div class="card-header bg-transparent border-secondary">
@@ -25,11 +27,13 @@
                     <br><a href="{{ path('app_decision_show', {id: userDecision.id }) }}"
                            class="stretched-link"></a>
                 </div>
-            </div>
         </div>
+
     {% else %}
         <h3>Aucune décision en cours</h3>
     {% endfor %}
+    </div>
+
     <br><a href="{{ path('app_decision_mine') }}">Voir toutes mes décisions 💫</a>
 
     <h2>Mes contributions proches :</h2>
@@ -56,4 +60,5 @@
         <h3>Aucune contribution en cours</h3>
     {% endfor %}
     <br><a href="{{ path('app_contributor_decisions') }}">Voir toutes mes contributions ⭐️</a>
+    </div>
 {% endblock %}
