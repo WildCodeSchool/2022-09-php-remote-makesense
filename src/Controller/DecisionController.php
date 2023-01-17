@@ -3,13 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Decision;
-use App\Entity\User;
 use App\Form\decision\DecisionType;
 use App\Form\decision\DefinitiveDecisionType;
 use App\Form\decision\FirstDecisionType;
+use App\Form\MyDecisionSearchType;
 use App\Repository\ContributorRepository;
 use App\Repository\DecisionRepository;
 use App\Repository\UserRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,11 +37,32 @@ class DecisionController extends AbstractController
         ]);
     }
 
-    #[Route('/mine', name: 'app_decision_mine', methods: ['GET'])]
-    public function myDecisions(DecisionRepository $decisionRepository): Response
-    {
+    #[Route('/mine/', name: 'app_decision_mine', methods: ['GET'])]
+    public function myDecisions(
+        Request $request,
+        DecisionRepository $decisionRepository,
+        PaginatorInterface $paginator
+    ): Response {
+        $form = $this->createform(MyDecisionSearchType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $search = $form->getData()['search'];
+            $decisions = $paginator->paginate(
+                $decisionRepository->findAllByUserByStatus($this->getUser(), $search),
+                $request->query->getInt('page', 1),
+                9
+            );
+        } else {
+            $decisions = $paginator->paginate(
+                $decisionRepository->findAllByUser($this->getUser()),
+                $request->query->getInt('page', 1),
+                9
+            );
+        }
         return $this->render('decision/my_decisions.html.twig', [
-            'decisions' => $decisionRepository->findAllByUser($this->getUser()),
+            'decisions' => $decisions,
+            'form' => $form->createView(),
         ]);
     }
 
