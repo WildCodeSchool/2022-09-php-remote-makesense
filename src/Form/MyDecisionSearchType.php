@@ -22,7 +22,7 @@ class MyDecisionSearchType extends AbstractType
                         'Donner son avis' => 'Deadline pour donner son avis',
                         'Prendre sa première décision' => 'Première décision prise',
                         'Entrer un conflit' => 'Deadline pour entrer en conflit',
-                        'Décision définitive' => 'Décision définitive',
+                        'Décision définitive' =>  'Décision définitive',
                         'Décision terminée' => 'Décision terminée',
                     ]
             ]);
