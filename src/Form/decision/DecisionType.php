@@ -13,12 +13,12 @@ class DecisionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title')
-            ->add('content', CKEditorType::class)
-            ->add('utility', CKEditorType::class)
-            ->add('context', CKEditorType::class)
-            ->add('benefits', CKEditorType::class)
-            ->add('inconvenients', CKEditorType::class)
+            ->add('title', null, ['label' => 'Titre'])
+            ->add('content', CKEditorType::class, ['label' => 'Contenu'])
+            ->add('utility', CKEditorType::class, ['label' => 'Utilité'])
+            ->add('context', CKEditorType::class, ['label' => 'Contexte'])
+            ->add('benefits', CKEditorType::class, ['label' => 'Bénéfices'])
+            ->add('inconvenients', CKEditorType::class, ['label' => 'Inconvénients'])
         ;
     }
 
