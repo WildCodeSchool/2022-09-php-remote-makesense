@@ -36,7 +36,7 @@
 
     <br><a href="{{ path('app_decision_mine') }}">Voir toutes mes décisions 💫</a>
 
-    <h2>Mes contributions proches :</h2>
+    <h2  class="mt-5">Mes contributions proches :</h2>
     {% for userContribution in userContributions %}
         {% if userContribution.decision.user.id != app.user.id %}
         <div class="row d-inline-flex">
