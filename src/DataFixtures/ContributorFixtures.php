@@ -27,7 +27,7 @@ class ContributorFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference('contributor_1', $contributor);
 
         $faker = Factory::create();
-        for ($i = 0; $i < 15; $i++) {
+        for ($i = 0; $i < 13; $i++) {
             $contributor = new Contributor();
             $contributor->setEmployee($this->getReference('employee_0'));
             $contributor->setDecision($this->getReference('decision_' . ($i + 21)));
