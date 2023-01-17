@@ -23,7 +23,7 @@
                         </h2>
                         <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                             <div class="accordion-body">
-                                {{ decision.content }}
+                                {{ decision.content|raw}}
                             </div>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                             </button>
                         </h2>
                         <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">{{ decision.utility }}</div>
+                            <div class="accordion-body">{{ decision.utility|raw }}</div>
                         </div>
                     </div>
                     <div class="accordion-item">
@@ -45,7 +45,7 @@
                             </button>
                         </h2>
                         <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">{{ decision.context }}</div>
+                            <div class="accordion-body">{{ decision.context|raw }}</div>
                         </div>
                     </div>
                     <div class="accordion-item">
@@ -55,7 +55,7 @@
                             </button>
                         </h2>
                         <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">{{ decision.benefits }}</div>
+                            <div class="accordion-body">{{ decision.benefits|raw }}</div>
                         </div>
                     </div>
                     <div class="accordion-item">
@@ -65,7 +65,7 @@
                             </button>
                         </h2>
                         <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">{{ decision.inconvenients }}</div>
+                            <div class="accordion-body">{{ decision.inconvenients|raw }}</div>
                         </div>
                     </div>
                     <div class="accordion-item">
@@ -94,7 +94,7 @@
                                                     avis donné le {{ contribution.date |date('d/m/Y') }}
                                                     en tant que personne {{ contribution.contributor.implication.name }}
                                                 </h4>
-                                                <p>{{ contribution.content }} </p>
+                                                <p>{{ contribution.content|raw }} </p>
 
                                             </li>
                                         {% endif %}
@@ -110,7 +110,7 @@
                             </button>
                         </h2>
                         <div id="flush-collapseSeven" class="accordion-collapse collapse" aria-labelledby="flush-headingSeven" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">{{ decision.firstDecision }}</div>
+                            <div class="accordion-body">{{ decision.firstDecision|raw }}</div>
                         </div>
                     </div>
                     <div class="accordion-item">
@@ -139,7 +139,7 @@
                                                     conflit exprimé le {{ contribution.date |date('d/m/Y') }}
                                                     en tant que personne {{ contribution.contributor.implication.name }}
                                                 </h4>
-                                                <p>{{ contribution.content }} </p>
+                                                <p>{{ contribution.content|raw }} </p>
 
                                             </li>
                                         {% endif %}
@@ -155,7 +155,7 @@
                             </button>
                         </h2>
                         <div id="flush-collapseNine" class="accordion-collapse collapse" aria-labelledby="flush-headingNine" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">{{ decision.definitiveDecision }}</div>
+                            <div class="accordion-body">{{ decision.definitiveDecision|raw }}</div>
                         </div>
                     </div>
                 </div>
