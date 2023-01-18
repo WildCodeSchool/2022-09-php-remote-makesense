@@ -31,7 +31,7 @@
         <div class="card col-sm-10 col-md-5 col-lg-3 m-3">
             {% for timeline in decision.timelines %}
                 {% if loop.first %}
-                    <div class="card-header bg-transparent border-primary">
+                    <div class="card-header bg-transparent border-dark">
                         {{ timeline.name }}
                         <br><i class="bi bi-calendar2-week-fill text-success "> Le : {{ timeline.endedAt |date('d/m/Y') }}</i>
                     </div>
@@ -40,7 +40,7 @@
             <div class="card-body text-primary">
                 <h5 class="card-title">{{ decision.title }}</h5>
             </div>
-            <div class="card-footer bg-transparent border-primary">
+            <div class="card-footer bg-transparent border-dark">
                 <br><a href="{{ path('app_decision_show', {id: decision.id }) }}"
                        class="stretched-link"></a>
             </div>
