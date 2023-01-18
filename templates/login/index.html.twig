@@ -4,7 +4,7 @@
 
 {% block body %}
 
-    <h1>Se connecter</h1>
+    <h1><i class="bi bi-person-check"> Se connecter</i></h1>
     {% if error %}
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}

@@ -4,8 +4,8 @@
 
 {% block body %}
     <h1>Formulaire de création de décision</h1>
-
+<div class="col-6 m-auto">
     {{ include('decision/_form.html.twig') }}
-
-    <a href="{{ path('app_decision_index') }}">Retour à la liste</a>
+</div>
+    <a href="{{ path('app_decision_index') }}"><i class="bi bi-arrow-return-left"> Retour à la liste</i></a>
 {% endblock %}

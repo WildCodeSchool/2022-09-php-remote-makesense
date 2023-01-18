@@ -1,17 +1,45 @@
 body {
-    font-family: $font-text;
-    font-size: $font-size-m;
-    background-color: $background-color-soft;
+    background-color: $gray-200;
 }
+
 h1 {
     text-align: center;
-    margin: 1rem;
+    margin: 3rem;
+}
+
+h2 {
+    background-color: $blue;
+    color: $yellow;
+    border-radius: $border-radius-xl;
+    padding: 1rem 2rem;
+    font-weight: $font-weight-semibold;
 }
 
 .card {
-    box-shadow: $box-shadow-active;
+    box-shadow: $box-shadow-lg;
 }
 
 .password {
     font-size: $font-size-s;
 }
+.bi-calendar2-week-fill {
+    font-weight: bold;
+}
+.card-title {
+    font-weight: $font-weight-bold;
+}
+
+.accordion {
+    transition: height $accordion-transition, $accordion-icon-transition;
+}
+
+.card {
+    transition: all 0.5s;
+}
+
+.card:hover {
+    box-shadow: 0px 10px 20px #ccc;
+    transform: scale(1.1);
+    transition-duration: 0.5s;
+}
+
