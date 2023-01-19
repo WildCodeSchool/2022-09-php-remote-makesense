@@ -30,6 +30,35 @@ class DecisionController extends AbstractController
         ]);
     }
 
+    #[Route('/all', name: 'app_all_decisions', methods: ['GET'])]
+    public function showAll(
+        Request $request,
+        DecisionRepository $decisionRepository,
+        PaginatorInterface $paginator
+    ): Response {
+        $form = $this->createform(MyDecisionSearchType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $search = $form->getData()['search'];
+            $decisions = $paginator->paginate(
+                $decisionRepository->findAllByStatus($search),
+                $request->query->getInt('page', 1),
+                9
+            );
+        } else {
+            $decisions = $paginator->paginate(
+                $decisionRepository->findAll(),
+                $request->query->getInt('page', 1),
+                9
+            );
+        }
+        return $this->render('decision/all_decisions.html.twig', [
+            'decisions' => $decisions,
+            'form' => $form->createView(),
+        ]);
+    }
+
     #[Route('/mine/', name: 'app_decision_mine', methods: ['GET'])]
     public function myDecisions(
         Request $request,
