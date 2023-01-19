@@ -12,15 +12,11 @@
             {{ form_start(form) }}
             <div class="row justify-content-center custom-line">
                     <div class ="row justify-content-center custom-line m-3">
-                        <h3 class="text-center text-secondary text">Filtrer par statut en cours :</h3>
+                        <h3 class="text-center text-secondary text">Filtrer par statut en cours</h3>
                     </div>
-                    <div class ="row justify-content-center custom-line align-items-end">
-                        <div class="col col-sm-10 col-md-5 col-lg-3 m-3">
-                        {{ form_row(form.search) }}
-                        </div>
-                        <div class="col col-sm-10 col-md-5 col-lg-3 m-3 pb-3 align-items-end">
-                            <button class="btn btn-secondary text-primary"><i class="bi bi-search"> Rechercher</i></button>
-                        </div>
+                    <div class ="d-inline-flex justify-content-center m-3">
+                        <div>{{ form_row(form.search) }}</div>
+                        <div><button class="btn btn-secondary text-primary mx-3 mb-0 p-1 mt-1"><i class="bi bi-search me-2"></i><span> Rechercher</span></button></div>
                     </div>
             </div>
             {{ form_end(form) }}
@@ -33,7 +29,7 @@
                 {% if loop.first %}
                     <div class="card-header bg-transparent border-dark">
                         {{ timeline.name }}
-                        <br><i class="bi bi-calendar2-week-fill text-success "> Le : {{ timeline.endedAt |date('d/m/Y') }}</i>
+                        <br><i class="bi bi-calendar2-week-fill text-success me-2"> Le : {{ timeline.endedAt |date('d/m/Y') }}</i>
                     </div>
                 {% endif %}
             {% endfor %}

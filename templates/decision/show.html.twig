@@ -12,12 +12,12 @@
     <div class="container-fluid p-5">
         <div class="row">
             <div class="col">
-                <div class="accordion shadow-lg" id="accordionFlushExample">
+                <div class="accordion shadow" id="accordionFlushExample">
 
                     <div class="accordion-item">
                         <h3 class="accordion-header" id="panelsStayOpen-headingOne">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                                 <i class="bi bi-card-text"> Les détails de la décision</i>
+                                 <i class="bi bi-card-text me-2"></i><span>Les détails de la décision</span>
                             </button>
                         </h3>
                         <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
@@ -30,7 +30,7 @@
                     <div class="accordion-item">
                         <h3 class="accordion-header" id="flush-headingTwo">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                                <i class="bi bi-bullseye"> Objectifs</i>
+                                <i class="bi bi-bullseye me-2"></i><span>Objectifs</span>
                             </button>
                         </h3>
                         <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
@@ -40,7 +40,7 @@
                     <div class="accordion-item">
                         <h3 class="accordion-header" id="flush-headingThree">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                                <i class="bi bi-box"> Contexte actuel</i>
+                                <i class="bi bi-box me-2"></i><span>Contexte actuel</span>
                             </button>
                         </h3>
                         <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
@@ -50,7 +50,7 @@
                     <div class="accordion-item">
                         <h3 class="accordion-header" id="flush-headingFour">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-                                <i class="bi bi-bookmark-check"> Bénéfices</i>
+                                <i class="bi bi-bookmark-check me-2"></i><span>Bénéfices</span>
                             </button>
                         </h3>
                         <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
@@ -60,7 +60,7 @@
                     <div class="accordion-item">
                         <h3 class="accordion-header" id="flush-headingFive">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
-                                <i class="bi bi-bookmark-x"> Risques potentiels</i>
+                                <i class="bi bi-bookmark-x me-2"></i><span>Risques potentiels</span>
                             </button>
                         </h3>
                         <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
@@ -70,7 +70,7 @@
                     <div class="accordion-item">
                         <h3 class="accordion-header" id="flush-headingSix">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#avis" aria-expanded="false" aria-controls="avis">
-                                 <i class="bi bi-chat-left-text"> Avis </i>
+                                 <i class="bi bi-chat-left-text me-2"></i><span>Avis</span>
                                 {% set number = 0 %}
                                 {% for contribution in decision.contributions %}
                                     {% if  contribution.type == 'avis'  %}
@@ -105,7 +105,7 @@
                     <div class="accordion-item">
                         <h3 class="accordion-header" id="flush-headingSeven">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSeven">
-                                <i class="bi bi-1-square"> Première décision prise</i>
+                                <i class="bi bi-1-square me-2"></i><span>Première décision prise</span>
                             </button>
                         </h3>
                         <div id="flush-collapseSeven" class="accordion-collapse collapse" aria-labelledby="flush-headingSeven" data-bs-parent="#accordionFlushExample">
@@ -115,7 +115,7 @@
                     <div class="accordion-item">
                         <h3 class="accordion-header" id="flush-headingEight">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#conflits" aria-expanded="false" aria-controls="conflits">
-                                <i class="bi bi-backspace-reverse"> Conflits </i>
+                                <i class="bi bi-backspace-reverse me-2"></i><span>Conflits</span>
                                 {% set number = 0 %}
                                 {% for contribution in decision.contributions %}
                                     {% if  contribution.type == 'conflit'  %}
@@ -150,7 +150,7 @@
                     <div class="accordion-item">
                         <h3 class="accordion-header" id="flush-headingNine">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseNine" aria-expanded="false" aria-controls="flush-collapseNine">
-                                <i class="bi bi-calendar2-check"> Décision définitive</i>
+                                <i class="bi bi-calendar2-check me-2"></i><span>Décision définitive</span>
                             </button>
                         </h3>
                         <div id="flush-collapseNine" class="accordion-collapse collapse" aria-labelledby="flush-headingNine" data-bs-parent="#accordionFlushExample">
@@ -163,7 +163,7 @@
             <div class="col-4">
                 <section class="timeline_area">
                     <div class="container">
-                        <h4 class="text-center"><i class="bi bi-calendar-week"> Dates à retenir</i></h4>
+                        <h4 class="text-center"><i class="bi bi-calendar-week me-2"></i><span>Dates à retenir</span></h4>
                         <div class="row">
                             <div class="col-12">
                                 <!-- Timeline Area-->
@@ -194,7 +194,7 @@
                 <!-- Contributors Area-->
 
                    <div class="container mt-5 text-center">
-                       <h4><i class="bi bi-people"> Personnes impactées</i></h4>
+                       <h4><i class="bi bi-people me-2"></i><span>Personnes impactées</span></h4>
                        <div class="row mt-3">
                            <ul class="list-group list-group-horizontal m-0 p-0 m-auto justify-content-center">
                                {% for contributor in decision.contributors|filter(contributor => contributor.implication.name=="Impactée") %}
@@ -205,7 +205,7 @@
                    </div>
 
                     <div class="container mt-5 text-center">
-                        <h4><i class="bi bi-person-check"> Personnes expertes</i></h4>
+                        <h4><i class="bi bi-person-check me-2"></i><span>Personnes expertes</span></h4>
                         <div class="row mt-3">
                             <ul class="list-group list-group-horizontal m-0 p-0 m-auto justify-content-center">
                                 {% for contributor in decision.contributors|filter(contributor => contributor.implication.name=="Experte") %}
@@ -221,7 +221,7 @@
                             {% if timeline.name == 'Deadline pour donner son avis'
                                 and "now" |date('Y-m-d') >= timeline.startedAt |date('Y-m-d')
                                 and "now" |date('Y-m-d') <= timeline.endedAt |date('Y-m-d')  %}
-                                <button type="button" class="btn btn-sub p-3 fs-8" data-bs-toggle="modal" data-bs-target="#modal-avis"><i class="bi bi-chat-left-text"> Je donne mon avis</i></button>
+                                <button type="button" class="btn btn-sub p-3 fs-8" data-bs-toggle="modal" data-bs-target="#modal-avis"><i class="bi bi-chat-left-text me-2"></i><span>Je donne mon avis</span></button>
                                 <div class="container-fluid mt-4">
                                     <div class="d-flex flex-row">
                                         {{ render(controller('App\\Controller\\ContributionController::newOpinion', {'decision': decision.id})) }}
@@ -232,7 +232,7 @@
                             {% if timeline.name == 'Deadline pour entrer en conflit'
                                 and "now" |date('Y-m-d') >= timeline.startedAt |date('Y-m-d')
                                 and "now" |date('Y-m-d') <= timeline.endedAt |date('Y-m-d')  %}
-                                <button type="button" class="btn btn-submit p-3 fs-8" data-bs-toggle="modal" data-bs-target="#modal-conflict"><i class="bi bi-backspace-reverse"> J'entre en conflit</i></button>
+                                <button type="button" class="btn btn-submit p-3 fs-8" data-bs-toggle="modal" data-bs-target="#modal-conflict"><i class="bi bi-backspace-reverse me-2"></i><span>J'entre en conflit</span></button>
                                 <div class="container-fluid mt-4">
                                     <div class="d-flex flex-row">
                                         {{ render(controller('App\\Controller\\ContributionController::newConflict', {'decision': decision.id})) }}
@@ -247,7 +247,7 @@
                             {% if timeline.name == 'Première décision prise'
                                 and "now" |date('Y-m-d') >= timeline.startedAt |date('Y-m-d')
                                 and "now" |date('Y-m-d') <= timeline.endedAt |date('Y-m-d')  %}
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-first-decision"><i class="bi bi-1-square"> Je prends ma première décision</i></button>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-first-decision"><i class="bi bi-1-square me-2"></i><span>Je prends ma première décision</span></button>
                                 <div class="container-fluid mt-4">
                                     <div class="d-flex flex-row">
                                         {{ render(controller('App\\Controller\\DecisionController::addFirstDecision', {'decision': decision.id})) }}
@@ -257,7 +257,7 @@
                             {% if timeline.name == 'Décision définitive'
                                 and "now" |date('Y-m-d') >= timeline.startedAt |date('Y-m-d')
                                 and "now" |date('Y-m-d') <= timeline.endedAt |date('Y-m-d')  %}
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-definitive-decision"><i class="bi bi-calendar2-check"> Je prends ma décision définitive</i></button>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-definitive-decision"><i class="bi bi-calendar2-check me-2"></i><span>Je prends ma décision définitive</span></button>
                                 <div class="container-fluid mt-4">
                                     <div class="d-flex flex-row">
                                         {{ render(controller('App\\Controller\\DecisionController::addDefinitiveDecision', {'decision': decision.id})) }}
@@ -273,10 +273,10 @@
 <div class="ms-5">
     <div class="mt-4">
         {# @TODO relier le lien avec la page Toutes les décisions #}
-        <a href="#"><i class="bi bi-arrow-return-left"> Retour à toutes les décisions</i></a>
+        <a href="#"><i class="bi bi-arrow-return-left me-2"></i><span>Retour à toutes les décisions</span></a>
     </div>
     <div class="mt-2">
-        <a href="{{ path('app_decision_edit', {'id': decision.id}) }}"><i class="bi bi-gear"> Modifier</i></a>
+        <a href="{{ path('app_decision_edit', {'id': decision.id}) }}"><i class="bi bi-gear me-2"></i><span>Modifier</span></a>
     </div>
     <div class="mt-2 mb-2">
         {{ include('decision/_delete_form.html.twig') }}

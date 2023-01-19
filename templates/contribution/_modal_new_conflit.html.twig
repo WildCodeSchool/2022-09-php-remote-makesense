@@ -3,16 +3,16 @@
         <div class="modal-content">
             {{ form_start(form) }}
             <div class="modal-header modal-conflit">
-                <h5 class="modal-title"><i class="bi bi-backspace-reverse"> Ajouter un conflit</i></h5>
+                <h5 class="modal-title"><i class="bi bi-backspace-reverse me-2"></i><span>Ajouter un conflit</span></h5>
             </div>
             <div class="modal-body">
                 {{ form_widget(form) }}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-conflit"
-                        data-bs-dismiss="modal"><i class="bi bi-x-lg"> Annuler</i>
+                        data-bs-dismiss="modal"><i class="bi bi-x-lg me-2"></i><span>Annuler</span>
                 </button>
-                <button type="submit" class="btn btn-submit"><i class="bi bi-check-lg"> Ajouter mon conflit</i></button>
+                <button type="submit" class="btn btn-submit"><i class="bi bi-check-lg me-2"></i><span>Ajouter mon conflit</span></button>
             </div>
             {{ form_end(form) }}
         </div>

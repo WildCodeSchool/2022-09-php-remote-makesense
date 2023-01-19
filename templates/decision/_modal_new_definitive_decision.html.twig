@@ -3,16 +3,16 @@
         <div class="modal-content">
             {{ form_start(form) }}
             <div class="modal-header">
-                <h5 class="modal-title"><i class="bi bi-calendar2-check"> Ajouter ma décision définitive</i></h5>
+                <h5 class="modal-title"><i class="bi bi-calendar2-check me-2"></i><span>Ajouter ma décision définitive</span></h5>
             </div>
             <div class="modal-body">
                 {{ form_widget(form) }}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary"
-                        data-bs-dismiss="modal"><i class="bi bi-x-lg"> Annuler</i>
+                        data-bs-dismiss="modal"><i class="bi bi-x-lg me-2"></i><span>Annuler</span>
                 </button>
-                <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg"> Ajouter ma décision définitive</i></button>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-2"></i><span>Ajouter ma décision définitive</span></button>
             </div>
             {{ form_end(form) }}
         </div>

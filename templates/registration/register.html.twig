@@ -7,7 +7,7 @@
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
 
-    <h1><i class="bi bi-person-plus"> Inscription</i></h1>
+    <h1><i class="bi bi-person-plus me-2"></i><span>Inscription</span></h1>
     <div class="container col-3">
     {{ form_start(registrationForm) }}
 
@@ -28,7 +28,7 @@
                 label: 'Mot de passe'
             }) }}
 
-        <button type="submit" class="btn btn-primary mt-4"><i class="bi bi-check-lg"> S'inscrire</i></button>
+        <button type="submit" class="btn btn-primary mt-4"><i class="bi bi-check-lg me-2"></i><span>S'inscrire</span></button>
     {{ form_end(registrationForm) }}
     </div>
 
