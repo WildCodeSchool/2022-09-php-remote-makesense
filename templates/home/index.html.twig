@@ -46,7 +46,7 @@
     {% for userContribution in userContributions %}
         {% if userContribution.decision.user.id != app.user.id %}
         <div class="row d-inline-flex">
-            <div class="card col-sm-9 mb-3 m-3" style="width: 18rem;">
+            <div class="card col-sm-9 mb-3 m-3">
                 <div class="card-header bg-transparent border-dark">
                     {{ userContribution.name }}
                     <br><i class="bi bi-calendar2-week-fill text-success me-2"></i><span>Le : {{ userContribution.endedAt |date('d/m/Y') }}</span>
