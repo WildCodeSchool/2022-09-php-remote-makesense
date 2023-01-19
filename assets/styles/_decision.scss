@@ -60,7 +60,7 @@
     width: 11px;
     height: 11px;
     border-radius: 50%;
-    background-color: #f1c40f;
+    background-color: $warning;
     content: "";
     top: 50%;
     right: 26px;
@@ -100,5 +100,5 @@
 
 .accordion-button {
     background-color: $background-color-soft;
-    color: $color-cerise;
+    color: $primary;
 }
