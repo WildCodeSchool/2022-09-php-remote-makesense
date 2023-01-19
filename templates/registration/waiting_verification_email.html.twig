@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/png" href="{{ asset('build/images/favicon.png') }}"/>
+    <title>
+        {% block title %}En attente de vérification - Makesense{% endblock %}
+    </title>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+
+<body>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light static-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="https://makesense.org/wp-content/uploads/sites/4/2020/09/logo-makesense-dark.png" alt="Logo Makesense" height="36">
+            </a>
+        </div>
+    </nav>
+</header>
+
+{% for category, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
+    {% block body %}
+        <h1>Merci pour votre inscription ! <i class="bi bi-envelope-check"></i></h1>
+
+        <div class="container">
+            <br><p>Votre adresse est en cours de vérification et sera validée dès que possible, merci de votre compréhension :)
+
+                <br><br>L'équipe Makesense
+            </p>
+        </div>
+    {% endblock %}
+</body>
+</html>
+
+
+
