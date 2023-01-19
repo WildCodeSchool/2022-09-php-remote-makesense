@@ -58,6 +58,28 @@ class ContributorRepository extends ServiceEntityRepository
             ->getQuery();
         return $queryBuilder->getResult();
     }
+
+    public function findAllContributorsBy(UserInterface $user): array
+    {
+        $queryBuilder = $this->createQueryBuilder('c')
+            ->join('c.decision', 'd')
+            ->join('c.employee', 'e')
+            ->join('e.user', 'u')
+            ->join('d.timelines', 't')
+            ->where('u.id = :user')
+            ->andwhere('t.endedAt > CURRENT_DATE()')
+            ->andwhere("t.name LIKE '%avis%'")
+            ->orwhere("t.name LIKE '%conflit%'")
+            ->setParameter('user', $user)
+            ->orderBy('t.endedAt', 'ASC')
+            ->addSelect('c')
+            ->addSelect('d')
+            ->addSelect('e')
+            ->addSelect('u')
+            ->addSelect('t')
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
 //    /**
 //     * @return Contributor[] Returns an array of Contributor objects
 //     */

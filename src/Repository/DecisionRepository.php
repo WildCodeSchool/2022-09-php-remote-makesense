@@ -3,8 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Decision;
-use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Query;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -55,7 +55,7 @@ class DecisionRepository extends ServiceEntityRepository
         return $queryBuilder->getResult();
     }
 
-    public function findAllByUser(UserInterface $user): array
+    public function findFirstThreeByUser(UserInterface $user): array
     {
         $queryBuilder = $this->createQueryBuilder('d')
             ->join('d.timelines', 't')
@@ -65,6 +65,60 @@ class DecisionRepository extends ServiceEntityRepository
             ->setParameter('user', $user)
             ->orderBy('t.startedAt', 'ASC')
             ->setMaxResults(3)
+            ->addSelect('d')
+            ->addSelect('t')
+            ->addSelect('u')
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
+    public function findAllByUser(UserInterface $user): array
+    {
+        $queryBuilder = $this->createQueryBuilder('d')
+            ->join('d.timelines', 't')
+            ->join('d.user', 'u')
+            ->where('d.user = :user')
+            ->andwhere("t.name = 'Prise de décision commencée'")
+            ->setParameter('user', $user)
+            ->orderBy('t.startedAt', 'DESC')
+            ->setMaxResults(100)
+            ->addSelect('d')
+            ->addSelect('t')
+            ->addSelect('u')
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
+
+    public function findAllByUserByStatus(UserInterface $user, string $search): array
+    {
+        $queryBuilder = $this->createQueryBuilder('d')
+            ->join('d.timelines', 't')
+            ->join('d.user', 'u')
+            ->where('d.user = :user')
+            ->andwhere('t.name = :search')
+            ->andwhere('t.startedAt <= CURRENT_DATE()')
+            ->andwhere('t.endedAt >= CURRENT_DATE()')
+            ->setParameter('user', $user)
+            ->setParameter('search', $search)
+            ->orderBy('t.startedAt', 'DESC')
+            ->setMaxResults(100)
+            ->addSelect('d')
+            ->addSelect('t')
+            ->addSelect('u')
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
+
+    public function findAllByStatus(string $search): array
+    {
+        $queryBuilder = $this->createQueryBuilder('d')
+            ->join('d.timelines', 't')
+            ->join('d.user', 'u')
+            ->where('t.name = :search')
+            ->andwhere('t.startedAt <= CURRENT_DATE()')
+            ->andwhere('t.endedAt >= CURRENT_DATE()')
+            ->setParameter('search', $search)
+            ->orderBy('t.startedAt', 'DESC')
+            ->setMaxResults(100)
             ->addSelect('d')
             ->addSelect('t')
             ->addSelect('u')

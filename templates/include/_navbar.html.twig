@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light static-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-light static-top mb-5 shadow-lg">
     <div class="container">
         <a class="navbar-brand" href="/">
             <img src="https://makesense.org/wp-content/uploads/sites/4/2020/09/logo-makesense-dark.png" alt="Logo Makesense" height="36">
@@ -8,26 +8,23 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ms-auto ">
                 {% if app.user %}
-                    <li class="nav-item">
+                    <li class="nav-item ">
                         {# @TODO Mettre le lien vers toutes les décisions #}
-                        <a class="nav-link" href="#"><i class="bi bi-card-checklist"></i>Toutes les décisions</a>
+                        <a class="nav-link" href="{{ path('app_all_decisions') }}"><i class="bi bi-card-checklist"></i>Toutes les décisions</a>
                     </li>
 
                     <li class="nav-item">
-                        {# @TODO Mettre le lien vers les décisions #}
-                        <a class="nav-link" href="#"><i class="bi bi-calendar3"></i> Mes décisions</a>
+                        <a class="nav-link" href="{{ path('app_decision_mine') }}"><i class="bi bi-calendar3"></i> Mes décisions</a>
                     </li>
 
                     <li class="nav-item">
-                        {# @TODO Mettre le lien vers les contributions #}
-                        <a class="nav-link" href="#"><i class="bi bi-people"></i> Mes contributions</a>
+                        <a class="nav-link" href="{{ path('app_contributor_decisions') }}"><i class="bi bi-people"></i> Mes contributions</a>
                     </li>
 
                     <li class="nav-item">
                         {# @TODO Mettre le lien vers les notifications #}
-
                         <a class="nav-link" href="#"><i class="bi bi-bell"></i> Notifications</a>
                     </li>
 
@@ -51,8 +48,7 @@
                         <p class="nav-link">|</p>
                     </li>
                 <li class="nav-item">
-                    {# @TODO Mettre le lien pour s'inscrire #}
-                    <a class="nav-link" href="#">S'inscrire</a>
+                    <a class="nav-link" href="{{ path('app_register') }}">S'inscrire</a>
                 </li>
                 {% endif %}
             </ul>
