@@ -1,8 +1,10 @@
-footer>a>span {
-    font-size: 3rem;
-}
-
 footer {
-    margin-top: 1.5rem;
+    margin-top: auto;
+        a {
+            color: rgba(249, 250, 251, 0.5);
+            &:hover {
+                color: whitesmoke;
+            }
+        }
 }
 
