@@ -6,7 +6,7 @@
 
 
     <div class="container">
-        <h2>Mes contributions</h2>
+        <h1>Mes contributions</h1>
     <div class="row justify-content-center custom-line">
 
     {% for contributor in contributors %}
@@ -25,6 +25,8 @@
                             <h5 class="card-title">{{ contributor.decision.title }}</h5>
                         </div>
                         <div class="card-footer bg-transparent border-dark">
+                            <img src ="https://picsum.photos/id/236/30/30" alt="{{ contributor.decision.user.firstName }} {{ contributor.decision.user.lastName }}"
+                                 title="{{ contributor.decision.user.firstName }} {{ contributor.decision.user.lastName }}" class="rounded-circle"/>
                             {{ contributor.decision.user.firstName }} {{ contributor.decision.user.lastName }}
                             <br><a href="{{ path('app_decision_show', {id: contributor.decision.id }) }}"
                            class="stretched-link"></a>

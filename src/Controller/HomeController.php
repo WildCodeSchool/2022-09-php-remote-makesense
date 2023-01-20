@@ -28,4 +28,16 @@ class HomeController extends AbstractController
             'userContributions' => $userContributions,
         ]);
     }
+
+    #[Route('/aboutus', name: 'app_about_us')]
+    public function aboutUs(): Response
+    {
+        return $this->render('home/about_us.html.twig');
+    }
+
+    #[Route('/legalmentions', name: 'app_legal_mentions')]
+    public function legalMentions(): Response
+    {
+        return $this->render('home/legal_mentions.html.twig');
+    }
 }

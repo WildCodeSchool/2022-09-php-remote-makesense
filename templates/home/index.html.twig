@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Bonjour {{ app.user.firstName }}</h1>
 
-<div class = "home">
+<div class="home">
     <div class="container">
         <h2>Mes décisions à venir</h2>
     <div class="row justify-content-start custom-line">
@@ -23,11 +23,8 @@
                 <div class="card-body">
                     <h5 class="card-title text-primary">{{ userDecision.title }}</h5>
                 </div>
-                <div class="card-footer bg-transparent border-dark">
-                    <img src ="https://picsum.photos/id/236/30/30" alt="{{ userDecision.user.firstName }} {{ userDecision.user.lastName }}" title="{{ userDecision.user.firstName }} {{ userDecision.user.lastName }}" class="rounded-circle"/> {{ userDecision.user.firstName }} {{ userDecision.user.lastName }}
                     <br><a href="{{ path('app_decision_show', {id: userDecision.id }) }}"
                            class="stretched-link"></a>
-                </div>
         </div>
 
     {% else %}
@@ -40,7 +37,7 @@
     {% endfor %}
     </div>
 
-    <br><a href="{{ path('app_decision_mine') }}">Voir toutes mes décisions 💫</a>
+        <br><a href="{{ path('app_decision_mine') }}"><i class="bi bi-list-stars me-2"></i><span>Voir toutes mes décisions</span></a>
 
     <h2 class="mt-5">Mes contributions à venir</h2>
     {% for userContribution in userContributions %}
@@ -67,7 +64,7 @@
     {% else %}
         <p>Aucune contribution en cours</p>
     {% endfor %}
-    <br><a href="{{ path('app_contributor_decisions') }}">Voir toutes mes contributions ⭐️</a>
+        <br><a href="{{ path('app_contributor_decisions') }}"><i class="bi bi-stars me-2"></i><span>Voir toutes mes contributions</span></a>
     </div>
 </div>
 {% endblock %}
