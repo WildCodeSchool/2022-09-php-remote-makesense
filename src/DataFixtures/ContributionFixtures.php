@@ -31,7 +31,7 @@ class ContributionFixtures extends Fixture implements DependentFixtureInterface
             $contribution->setType($type[array_rand($type, 1)]);
             $contribution->setDate($faker->dateTime());
             $contribution->setContent($faker->sentences('3', true));
-            $contribution->setDecision($this->getReference('decision_' . $i));
+            $contribution->setDecision($this->getReference('decision_' . ($i - 2)));
             $contribution->setContributor($this->getReference('contributor_' . ($i - 21)));
             $manager->persist($contribution);
         }

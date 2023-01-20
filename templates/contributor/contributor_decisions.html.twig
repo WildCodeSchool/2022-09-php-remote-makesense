@@ -7,17 +7,58 @@
 
     <div class="container">
         <h2>Mes contributions</h2>
-    <div class="row justify-content-center custom-line">
 
+        <div class="jumbotron ">
+            <div class="container">
+                <div class ="row justify-content-center custom-line align-items-end">
+                    <div class="col bg-secondary bg-opacity-25 m-1 rounded-4">
+                        {{ form_start(pendingForm) }}
+                        <div class="row justify-content-center custom-line">
+                            <div class ="row justify-content-center custom-line align-items-end">
+                                <h4 class="text-center mt-2">Décisions en attente de contribution :</h4>
+                                <div class="col col-sm-10 col-md-5 col-lg-4 m-1 mb-3">
+                                {{ form_row(pendingForm.search) }}
+                                </div>
+                                <div class="col col-sm-10 col-md-5 col-lg-3 m-1 mb-3 align-items-end">
+                                    <button class="btn btn-primary">Rechercher</button>
+                                </div>
+                            </div>
+                        </div>
+                        {{ form_end(pendingForm) }}
+                    </div>
+                    <div class="col col bg-secondary bg-opacity-25 m-1 rounded-4">
+                        {{ form_start(addedForm) }}
+                        <div class="row justify-content-center custom-line">
+                            <div class ="row justify-content-center custom-line align-items-end">
+                                <h4 class="text-center mt-2">Mes contributions réalisées :</h4>
+                                <div class="col col-sm-10 col-md-5 col-lg-4 m-1 mb-3">
+                                    {{ form_row(addedForm.search) }}
+                                </div>
+                                <div class="col col-sm-10 col-md-5 col-lg-3 m-1 mb-3 align-items-end">
+                                    <button class="btn btn-primary">Rechercher</button>
+                                </div>
+                            </div>
+                        </div>
+                        {{ form_end(addedForm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <div class="row justify-content-center custom-line">
     {% for contributor in contributors %}
         {% if contributor.decision.user.id != app.user.id %}
 
-                <div class="card col-sm-10 col-md-5 col-lg-3 m-3">
+                <div class="card col-sm-10 col-md-5 col-lg-3 m-3 mx-5 ">
                 {% for timeline in contributor.decision.timelines %}
                     {% if loop.first %}
                         <div class="card-header bg-transparent border-secondary">
                             {{ timeline.name }}
                             <br>Le : {{ timeline.endedAt |date('d/m/Y') }}
+                        </div>
+                        <div class="card-header bg-transparent border-secondary">
+                            En tant que personne : <br>{{ contributor.implication.name }}
+
                         </div>
                     {% endif %}
                     {% endfor %}
