@@ -107,4 +107,22 @@ class DecisionRepository extends ServiceEntityRepository
             ->getQuery();
         return $queryBuilder->getResult();
     }
+
+    public function findAllByStatus(string $search): array
+    {
+        $queryBuilder = $this->createQueryBuilder('d')
+            ->join('d.timelines', 't')
+            ->join('d.user', 'u')
+            ->where('t.name = :search')
+            ->andwhere('t.startedAt <= CURRENT_DATE()')
+            ->andwhere('t.endedAt >= CURRENT_DATE()')
+            ->setParameter('search', $search)
+            ->orderBy('t.startedAt', 'DESC')
+            ->setMaxResults(100)
+            ->addSelect('d')
+            ->addSelect('t')
+            ->addSelect('u')
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
 }

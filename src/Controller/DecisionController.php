@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Decision;
+use App\Entity\User;
 use App\Form\decision\DecisionType;
 use App\Form\decision\DefinitiveDecisionType;
 use App\Form\decision\FirstDecisionType;
@@ -26,6 +27,35 @@ class DecisionController extends AbstractController
     {
         return $this->render('decision/index.html.twig', [
             'decisions' => $decisionRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/all', name: 'app_all_decisions', methods: ['GET'])]
+    public function showAll(
+        Request $request,
+        DecisionRepository $decisionRepository,
+        PaginatorInterface $paginator
+    ): Response {
+        $form = $this->createform(MyDecisionSearchType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $search = $form->getData()['search'];
+            $decisions = $paginator->paginate(
+                $decisionRepository->findAllByStatus($search),
+                $request->query->getInt('page', 1),
+                9
+            );
+        } else {
+            $decisions = $paginator->paginate(
+                $decisionRepository->findAll(),
+                $request->query->getInt('page', 1),
+                9
+            );
+        }
+        return $this->render('decision/all_decisions.html.twig', [
+            'decisions' => $decisions,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -65,10 +95,12 @@ class DecisionController extends AbstractController
     {
         $decision = new Decision();
         $form = $this->createForm(DecisionType::class, $decision);
-        // @TODO lier le User avec la New Decision
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var User $user */
+            $user = $this->getUser();
+            $decision->setUser($user);
             $decisionRepository->save($decision, true);
 
             return $this->redirectToRoute('app_decision_index', [], Response::HTTP_SEE_OTHER);
@@ -87,7 +119,6 @@ class DecisionController extends AbstractController
         $contributor = $contributorRepo->findOneContributorBy($this->getUser(), $decisionId);
         $userDecision = $userRepo->findOneByDecisionId($this->getUser(), $decisionId);
 
-        //dd($user);
         return $this->render('decision/show.html.twig', [
             'decision' => $decision,
             'contributor' => $contributor,

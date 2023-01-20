@@ -3,11 +3,11 @@
 {% block title %}Modifier la décision{% endblock %}
 
 {% block body %}
-    <h1>Modifier la décision</h1>
+    <h1><i class="bi bi-gear me-2"></i><span>Modifier la décision</span></h1>
 
-    {{ include('decision/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('decision/_form.html.twig', {'button_label': 'Enregistrer les modifications'}) }}
 
-    <a href="{{ path('app_decision_index') }}">Retour à la liste</a>
+    <a href="{{ path('app_decision_index') }}"><i class="bi bi-arrow-return-left me-2"></i><span>Retour à la liste</span></a>
 
     {{ include('decision/_delete_form.html.twig') }}
 {% endblock %}
