@@ -133,6 +133,156 @@ class TimelineFixtures extends Fixture implements DependentFixtureInterface
             'endedAt' => '2023-02-15 09:23:05',
             'decision' => 'decision_3',
         ],
+        [
+            'name' => 'Prise de décision commencée',
+            'startedAt' => '2022-01-15 09:23:05',
+            'endedAt' => '2023-01-15 09:23:05',
+            'decision' => 'decision_4',
+        ],
+        [
+            'name' => 'Deadline pour donner son avis',
+            'startedAt' => '2023-01-15 09:23:05',
+            'endedAt' => '2023-02-15 09:23:05',
+            'decision' => 'decision_4',
+        ],
+        [
+            'name' => 'Première décision prise',
+            'startedAt' => '2023-02-15 09:23:05',
+            'endedAt' => '2023-02-25 09:23:05',
+            'decision' => 'decision_4',
+        ],
+        [
+            'name' => 'Deadline pour entrer en conflit',
+            'startedAt' => '2023-02-25 09:23:05',
+            'endedAt' => '2023-03-01 09:23:05',
+            'decision' => 'decision_4',
+        ],
+        [
+            'name' => 'Décision définitive',
+            'startedAt' => '2023-03-01 09:23:05',
+            'endedAt' => '2023-03-15 09:23:05',
+            'decision' => 'decision_4',
+        ],
+        [
+            'name' => 'Prise de décision commencée',
+            'startedAt' => '2022-01-17 09:23:05',
+            'endedAt' => '2023-01-17 09:23:05',
+            'decision' => 'decision_5',
+        ],
+        [
+            'name' => 'Deadline pour donner son avis',
+            'startedAt' => '2023-01-17 09:23:05',
+            'endedAt' => '2023-02-17 09:23:05',
+            'decision' => 'decision_5',
+        ],
+        [
+            'name' => 'Première décision prise',
+            'startedAt' => '2023-02-17 09:23:05',
+            'endedAt' => '2023-02-25 09:23:05',
+            'decision' => 'decision_5',
+        ],
+        [
+            'name' => 'Deadline pour entrer en conflit',
+            'startedAt' => '2023-02-25 09:23:05',
+            'endedAt' => '2023-03-01 09:23:05',
+            'decision' => 'decision_5',
+        ],
+        [
+            'name' => 'Décision définitive',
+            'startedAt' => '2023-03-01 09:23:05',
+            'endedAt' => '2023-03-15 09:23:05',
+            'decision' => 'decision_5',
+        ],
+        [
+            'name' => 'Prise de décision commencée',
+            'startedAt' => '2022-01-20 09:23:05',
+            'endedAt' => '2023-01-20 09:23:05',
+            'decision' => 'decision_6',
+        ],
+        [
+            'name' => 'Deadline pour donner son avis',
+            'startedAt' => '2023-01-20 09:23:05',
+            'endedAt' => '2023-02-15 09:23:05',
+            'decision' => 'decision_6',
+        ],
+        [
+            'name' => 'Première décision prise',
+            'startedAt' => '2023-02-15 09:23:05',
+            'endedAt' => '2023-02-25 09:23:05',
+            'decision' => 'decision_6',
+        ],
+        [
+            'name' => 'Deadline pour entrer en conflit',
+            'startedAt' => '2023-02-25 09:23:05',
+            'endedAt' => '2023-02-28 09:23:05',
+            'decision' => 'decision_6',
+        ],
+        [
+            'name' => 'Décision définitive',
+            'startedAt' => '2023-02-28 09:23:05',
+            'endedAt' => '2023-03-15 09:23:05',
+            'decision' => 'decision_6',
+        ],
+        [
+            'name' => 'Prise de décision commencée',
+            'startedAt' => '2022-01-22 09:23:05',
+            'endedAt' => '2023-01-22 09:23:05',
+            'decision' => 'decision_7',
+        ],
+        [
+            'name' => 'Deadline pour donner son avis',
+            'startedAt' => '2023-01-22 09:23:05',
+            'endedAt' => '2023-02-15 09:23:05',
+            'decision' => 'decision_7',
+        ],
+        [
+            'name' => 'Première décision prise',
+            'startedAt' => '2023-02-15 09:23:05',
+            'endedAt' => '2023-02-25 09:23:05',
+            'decision' => 'decision_7',
+        ],
+        [
+            'name' => 'Deadline pour entrer en conflit',
+            'startedAt' => '2023-02-25 09:23:05',
+            'endedAt' => '2023-03-01 09:23:05',
+            'decision' => 'decision_7',
+        ],
+        [
+            'name' => 'Décision définitive',
+            'startedAt' => '2023-03-01 09:23:05',
+            'endedAt' => '2023-03-15 09:23:05',
+            'decision' => 'decision_7',
+        ],
+        [
+            'name' => 'Prise de décision commencée',
+            'startedAt' => '2023-01-01 09:23:05',
+            'endedAt' => '2023-01-01 09:23:05',
+            'decision' => 'decision_8',
+        ],
+        [
+            'name' => 'Deadline pour donner son avis',
+            'startedAt' => '2023-01-01 09:23:05',
+            'endedAt' => '2023-01-15 09:23:05',
+            'decision' => 'decision_8',
+        ],
+        [
+            'name' => 'Première décision prise',
+            'startedAt' => '2023-01-15 09:23:05',
+            'endedAt' => '2023-02-15 09:23:05',
+            'decision' => 'decision_8',
+        ],
+        [
+            'name' => 'Deadline pour entrer en conflit',
+            'startedAt' => '2023-02-15 09:23:05',
+            'endedAt' => '2023-02-20 09:23:05',
+            'decision' => 'decision_8',
+        ],
+        [
+            'name' => 'Décision définitive',
+            'startedAt' => '2023-02-20 09:23:05',
+            'endedAt' => '2023-03-15 09:23:05',
+            'decision' => 'decision_8',
+        ],
     ];
     public function load(ObjectManager $manager): void
     {
@@ -146,46 +296,6 @@ class TimelineFixtures extends Fixture implements DependentFixtureInterface
         }
 
         $faker = Factory::create();
-        for ($i = 4; $i < 9; $i++) {
-            $timeline = new Timeline();
-            $timeline->setName('Prise de décision commencée');
-            $date = $faker->dateTimeBetween('-20 days', '-10 days');
-            $timeline->setStartedAt($date);
-            $timeline->setEndedAt($date);
-            $timeline->setDecision($this->getReference('decision_' . $i));
-            $manager->persist($timeline);
-
-            $timeline = new Timeline();
-            $timeline->setName('Deadline pour donner son avis');
-            $timeline->setStartedAt($date);
-            $date2 = $faker->dateTimeBetween('+1 day', '+5 days');
-            $timeline->setEndedAt($date2);
-            $timeline->setDecision($this->getReference('decision_' . $i));
-            $manager->persist($timeline);
-
-            $timeline = new Timeline();
-            $timeline->setName('Première décision prise');
-            $timeline->setStartedAt($date2);
-            $date3 = $faker->dateTimeBetween('+6 days', '+10 days');
-            $timeline->setEndedAt($date3);
-            $timeline->setDecision($this->getReference('decision_' . $i));
-            $manager->persist($timeline);
-
-            $timeline = new Timeline();
-            $timeline->setName('Deadline pour entrer en conflit');
-            $timeline->setStartedAt($date3);
-            $date4 = $faker->dateTimeInInterval('+11 days', '+20 days');
-            $timeline->setEndedAt($date4);
-            $timeline->setDecision($this->getReference('decision_' . $i));
-            $manager->persist($timeline);
-
-            $timeline = new Timeline();
-            $timeline->setName('Décision définitive');
-            $timeline->setStartedAt($date4);
-            $timeline->setEndedAt($faker->dateTimeInInterval('+21 days', '+28 days'));
-            $timeline->setDecision($this->getReference('decision_' . $i));
-            $manager->persist($timeline);
-        }
 
         for ($i = 9; $i < 15; $i++) {
             $timeline = new Timeline();
