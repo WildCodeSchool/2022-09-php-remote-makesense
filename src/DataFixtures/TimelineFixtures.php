@@ -300,7 +300,7 @@ class TimelineFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 9; $i < 15; $i++) {
             $timeline = new Timeline();
             $timeline->setName('Prise de décision commencée');
-            $date = $faker->dateTimeBetween('-20 days', '-10 days');
+            $date = $faker->dateTimeBetween('-9 days', '-3 days');
             $timeline->setStartedAt($date);
             $timeline->setEndedAt($date);
             $timeline->setDecision($this->getReference('decision_' . $i));
@@ -309,7 +309,7 @@ class TimelineFixtures extends Fixture implements DependentFixtureInterface
             $timeline = new Timeline();
             $timeline->setName('Deadline pour donner son avis');
             $timeline->setStartedAt($date);
-            $date2 = $faker->dateTimeBetween('-9 days', '-3 days');
+            $date2 = $faker->dateTimeBetween('+1 day', '+10 days');
             $timeline->setEndedAt($date2);
             $timeline->setDecision($this->getReference('decision_' . $i));
             $manager->persist($timeline);
@@ -317,7 +317,7 @@ class TimelineFixtures extends Fixture implements DependentFixtureInterface
             $timeline = new Timeline();
             $timeline->setName('Première décision prise');
             $timeline->setStartedAt($date2);
-            $date3 = $faker->dateTimeBetween('+1 day', '+10 days');
+            $date3 = $faker->dateTimeBetween('+11 day', '+20 days');
             $timeline->setEndedAt($date3);
             $timeline->setDecision($this->getReference('decision_' . $i));
             $manager->persist($timeline);
@@ -325,7 +325,7 @@ class TimelineFixtures extends Fixture implements DependentFixtureInterface
             $timeline = new Timeline();
             $timeline->setName('Deadline pour entrer en conflit');
             $timeline->setStartedAt($date3);
-            $date4 = $faker->dateTimeInInterval('+11 days', '+20 days');
+            $date4 = $faker->dateTimeInInterval('+20 days', '+25 days');
             $timeline->setEndedAt($date4);
             $timeline->setDecision($this->getReference('decision_' . $i));
             $manager->persist($timeline);
@@ -333,7 +333,7 @@ class TimelineFixtures extends Fixture implements DependentFixtureInterface
             $timeline = new Timeline();
             $timeline->setName('Décision définitive');
             $timeline->setStartedAt($date4);
-            $timeline->setEndedAt($faker->dateTimeInInterval('+21 days', '+28 days'));
+            $timeline->setEndedAt($faker->dateTimeInInterval('+26 days', '+30 days'));
             $timeline->setDecision($this->getReference('decision_' . $i));
             $manager->persist($timeline);
         }
