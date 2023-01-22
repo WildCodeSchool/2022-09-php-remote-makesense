@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Repository\EmployeeRepository;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -11,10 +12,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
 
 class RegistrationController extends AbstractController
 {
@@ -29,39 +32,61 @@ class RegistrationController extends AbstractController
     public function register(
         Request $request,
         UserPasswordHasherInterface $userPasswordHasher,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        EmployeeRepository $employeeRepository,
+        MailerInterface $mailer
     ): Response {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
             );
+            $email = $user->getEmail();
+            $firstName = $user->getFirstName();
+            $lastName = $user->getLastName();
 
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $employee = $employeeRepository->findOneByForm($email, $firstName, $lastName);
+            if ($employee) {
+                $entityManager->persist($user);
+                $entityManager->flush();
 
-            // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user, (
+                $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user, (
                 new TemplatedEmail())
                     ->from(new Address('mailer@makesense.wild.com', 'MakeSense'))
                     ->to($user->getEmail())
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('registration/confirmation_email.html.twig'));
-            // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('app_home');
+                $this->addFlash('success', 'Vous avez reçu un email pour valider votre compte');
+
+                return $this->redirectToRoute('app_home');
+            } else {
+                $email = (new Email())
+                    ->from('makesense@makesense.com')
+                    ->to('admin@makesense.com')
+                    ->subject('Demande de création de compte')
+                    ->html($this->renderView('registration/admin_verification_user.html.twig', [
+                        'user' => $user]));
+
+                $mailer->send($email);
+
+                return $this->redirectToRoute('app_register_pending');
+            }
         }
-
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
+    }
+    #[Route('/register/pending', name: 'app_register_pending')]
+    public function pendingMessage(): Response
+    {
+        return $this->render('registration/waiting_verification_email.html.twig');
     }
 
     #[Route('/verify/email', name: 'app_verify_email')]

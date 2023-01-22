@@ -51,10 +51,10 @@ class UserFixtures extends Fixture
 
         // Création d’un utilisateur de type administrateur
         $admin = new User();
-        $admin->setEmail('jasmin77@hotmail.com');
+        $admin->setEmail('admin@makesense.com');
         $admin->setRoles(['ROLE_ADMIN']);
-        $admin->setFirstName('Rudy');
-        $admin->setLastName('Bednar');
+        $admin->setFirstName('Admin');
+        $admin->setLastName('Admin');
         $admin->setLogin('Rudy');
         $hashedPassword = $this->passwordHasher->hashPassword(
             $admin,
