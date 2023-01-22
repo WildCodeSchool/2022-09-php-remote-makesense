@@ -48,8 +48,8 @@ class DecisionRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('d')
             ->join('d.timelines', 't')
-            ->where('t.startedAt > CURRENT_DATE()')
-            ->orderBy('t.startedAt', 'ASC')
+            ->where("t.name = 'Prise de décision commencée'")
+            ->orderBy('t.startedAt', 'DESC')
             ->addSelect('d')->addSelect('t')
             ->getQuery();
         return $queryBuilder->getResult();
