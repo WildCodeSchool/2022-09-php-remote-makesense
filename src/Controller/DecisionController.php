@@ -48,7 +48,7 @@ class DecisionController extends AbstractController
             );
         } else {
             $decisions = $paginator->paginate(
-                $decisionRepository->findAll(),
+                $decisionRepository->findAllByTimeline(),
                 $request->query->getInt('page', 1),
                 9
             );
