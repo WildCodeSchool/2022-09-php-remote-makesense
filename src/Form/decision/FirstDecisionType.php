@@ -13,7 +13,7 @@ class FirstDecisionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('firstDecision', CKEditorType::class)
+            ->add('firstDecision', CKEditorType::class, ['label' => 'Contenu'])
         ;
     }
 

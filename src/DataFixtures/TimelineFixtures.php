@@ -136,7 +136,7 @@ class TimelineFixtures extends Fixture implements DependentFixtureInterface
         [
             'name' => 'Prise de décision commencée',
             'startedAt' => '2022-01-15 09:23:05',
-            'endedAt' => '2023-01-15 09:23:05',
+            'endedAt' => '2022-01-15 09:23:05',
             'decision' => 'decision_4',
         ],
         [
