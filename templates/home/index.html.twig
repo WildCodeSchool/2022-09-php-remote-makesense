@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Bonjour {{ app.user.firstName }}</h1>
 
-<div class="home">
+<div class="home mb-5">
     <div class="container">
         <h2>Mes décisions à venir</h2>
     <div class="row justify-content-start custom-line">
@@ -40,18 +40,20 @@
         <br><a href="{{ path('app_decision_mine') }}"><i class="bi bi-list-stars me-2"></i><span>Voir toutes mes décisions</span></a>
 
     <h2 class="mt-5">Mes contributions à venir</h2>
-    {% for userContribution in userContributions %}
-        {% if userContribution.decision.user.id != app.user.id %}
-        <div class="row d-inline-flex">
-            <div class="card col-sm-9 mb-3 m-3">
-                <div class="card-header bg-transparent border-dark">
-                    {{ userContribution.name }}
+            {% for userContribution in userContributions %}
+                {% if userContribution.decision.user.id != app.user.id %}
+                    <div class="row d-inline-flex">
+                        <div class="card col-sm-9 mb-3 m-3">
+                            <div class="card-header bg-transparent border-dark">
+
+            {{ userContribution.name }}
                     <br><i class="bi bi-calendar2-week-fill text-success me-2"></i><span>Le : {{ userContribution.endedAt |date('d/m/Y') }}</span>
                 </div>
                 <div class="card-body text-success">
                     <h5 class="card-title">{{ userContribution.decision.title }}</h5>
                 </div>
                 <div class="card-footer bg-transparent border-dark">
+
                     <img src ="https://picsum.photos/id/236/30/30" alt="{{ userContribution.decision.user.firstName }} {{ userContribution.decision.user.lastName }}"
                          title="{{ userContribution.decision.user.firstName }} {{ userContribution.decision.user.lastName }}" class="rounded-circle"/>
                     {{ userContribution.decision.user.firstName }} {{ userContribution.decision.user.lastName }}
@@ -61,9 +63,10 @@
             </div>
         </div>
         {% endif %}
+
     {% else %}
         <p>Aucune contribution en cours</p>
-    {% endfor %}
+        {%  endfor %}
         <br><a href="{{ path('app_contributor_decisions') }}"><i class="bi bi-stars me-2"></i><span>Voir toutes mes contributions</span></a>
     </div>
 </div>

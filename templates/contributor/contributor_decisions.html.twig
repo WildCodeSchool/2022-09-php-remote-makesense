@@ -3,8 +3,6 @@
 {% block title %}Mes contributions - Makesense{% endblock %}
 
 {% block body %}
-
-
     <div class="container">
         <h1>Mes contributions</h1>
     <div class="row justify-content-center custom-line">
@@ -13,6 +11,13 @@
         {% if contributor.decision.user.id != app.user.id %}
 
                 <div class="card col-sm-10 col-md-5 col-lg-3 m-3">
+                    {% if contributor.implication.name=="Impactée" %}
+                        <h6 class="mt-2 text-center text-uppercase"><i class="bi bi-people me-2"></i><span>Impacté</span></h6>
+                    {% endif %}
+                    {% if contributor.implication.name=="Experte" %}
+                        <h6 class="mt-2 text-center text-uppercase"><i class="bi bi-people me-2"></i><span>Expert</span></h6>
+                    {% endif %}
+
                 {% for timeline in contributor.decision.timelines %}
                     {% if loop.first %}
                         <div class="card-header bg-transparent border-dark">
