@@ -107,6 +107,7 @@ class ContributionFixtures extends Fixture implements DependentFixtureInterface
             $contribution->setContent($contributionDB['content']);
             $contribution->setDecision($this->getReference($contributionDB['decision']));
             $contribution->setContributor($this->getReference($contributionDB['contributor']));
+
             $manager->persist($contribution);
         }
 
