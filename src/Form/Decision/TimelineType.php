@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Decision;
 
 use App\Entity\Decision;
 use App\Entity\Timeline;
@@ -9,7 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class DecisionStep3Type extends AbstractType
+class TimelineType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

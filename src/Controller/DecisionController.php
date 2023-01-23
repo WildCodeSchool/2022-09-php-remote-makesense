@@ -5,12 +5,11 @@ namespace App\Controller;
 use App\Entity\Contributor;
 use App\Entity\Decision;
 use App\Entity\Timeline;
+use App\Form\Decision\DecisionContributorsType;
 use App\Form\Decision\DecisionType;
-use App\Form\DecisionStep2Type;
-use App\Form\DecisionStep3Type;
 use App\Entity\User;
-use App\Form\decision\DefinitiveDecisionType;
-use App\Form\decision\FirstDecisionType;
+use App\Form\Decision\DefinitiveDecisionType;
+use App\Form\Decision\FirstDecisionType;
 use App\Form\MyDecisionSearchType;
 use App\Repository\ContributorRepository;
 use App\Repository\DecisionRepository;
@@ -37,7 +36,7 @@ class DecisionController extends AbstractController
     #[Route('/{id}/step2', name: 'step2', methods: ['GET'])]
     public function step2(Decision $decision, Request $request, DecisionRepository $decisionRepository)
     {
-        $form = $this->createForm(DecisionStep2Type::class, $decision);
+        $form = $this->createForm(DecisionContributorsType::class, $decision);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -55,7 +54,7 @@ class DecisionController extends AbstractController
     {
         $timeline = new Timeline();
 
-        $form = $this->createForm(DecisionStep3Type::class, $decision);
+        $form = $this->createForm(TimelineType::class, $decision);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -178,6 +177,18 @@ class DecisionController extends AbstractController
         return $this->renderForm('decision/edit.html.twig', [
             'decision' => $decision,
             'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}/edit-contributors', name: 'app_decision_edit', methods: ['GET', 'POST'])]
+    public function editContributors(Request $request, Decision $decision): Response
+    {
+        $form = $this->createForm(DecisionContributorsType::class, $decision);
+
+        //@todo handle form submission
+        return $this->renderForm('decision/edit-contributors.html.twig', [
+            'form' => $form,
+            'decision' => $decision
         ]);
     }
 

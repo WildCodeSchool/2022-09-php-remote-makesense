@@ -1,0 +1,20 @@
+<div {{ attributes }}>
+    {{ form_start(form) }}
+
+    <ul>
+        {% for key, contributor in form.contributors %}
+            <li class="mb-2">
+                {{ form_widget(contributor.employee) }}
+                {{ form_widget(contributor.implication) }}
+                <button >retirer</button>
+            </li>
+        {%  endfor %}
+    </ul>
+
+    <button
+        data-action="live#action"
+        data-action-name="addNewContributor()"
+    >add contributor</button>
+
+    {{ form_end(form) }}
+</div>

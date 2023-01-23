@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1> {{ decision.title }}</h1>
+        {{ component('contributor_form', {
+            decision: decision
+        }) }}
+    </div>
+{% endblock %}
