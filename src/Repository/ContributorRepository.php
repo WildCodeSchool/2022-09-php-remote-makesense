@@ -80,6 +80,57 @@ class ContributorRepository extends ServiceEntityRepository
             ->getQuery();
         return $queryBuilder->getResult();
     }
+
+    public function findPendingContributions(UserInterface $user, string $search): array
+    {
+        $queryBuilder = $this->createQueryBuilder('c')
+            ->leftjoin('c.contributions', 'cn')
+            ->join('c.employee', 'e')
+            ->join('e.user', 'u')
+            ->join('c.decision', 'd')
+            ->join('d.timelines', 't')
+            ->where('u.id = :user')
+            ->andwhere('t.name = :search')
+            ->andWhere('cn.id IS NULL')
+            ->andwhere('t.endedAt > CURRENT_DATE()')
+            ->setParameter('user', $user)
+            ->setParameter('search', $search)
+            ->orderBy('t.endedAt', 'ASC')
+            ->addSelect('c')
+            ->addSelect('d')
+            ->addSelect('e')
+            ->addSelect('u')
+            ->addSelect('t')
+            ->addSelect('cn')
+            ->getQuery();
+
+        return $queryBuilder->getResult();
+    }
+
+    public function findAddedContributions(UserInterface $user, string $search): array
+    {
+        $queryBuilder = $this->createQueryBuilder('c')
+            ->join('c.contributions', 'cn')
+            ->join('c.employee', 'e')
+            ->join('e.user', 'u')
+            ->join('c.decision', 'd')
+            ->join('d.timelines', 't')
+            ->where('u.id = :user')
+            ->andwhere('cn.type LIKE :search')
+            ->andwhere('t.name LIKE :search')
+            ->setParameter('user', $user)
+            ->setParameter('search', '%' . $search . '%')
+            ->orderBy('t.endedAt', 'ASC')
+            ->addSelect('c')
+            ->addSelect('d')
+            ->addSelect('e')
+            ->addSelect('u')
+            ->addSelect('t')
+            ->addSelect('cn')
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
+
 //    /**
 //     * @return Contributor[] Returns an array of Contributor objects
 //     */
