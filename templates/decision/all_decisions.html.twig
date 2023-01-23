@@ -6,22 +6,18 @@
 
 
     <div class="container">
-        <h2>Toutes les décisions</h2>
+        <h1>Toutes les décisions</h1>
 
-        <div class="jumbotron bg-secondary">
+        <div class="jumbotron bg-primary m-1 rounded-4">
             <div class="container">
                 {{ form_start(form) }}
                 <div class="row justify-content-center custom-line">
                     <div class ="row justify-content-center custom-line m-3">
-                        <h3 class="text-center">Filtrer par statut en cours :</h3>
+                        <h3 class="text-center text-secondary">Filtrer par statut en cours</h3>
                     </div>
-                    <div class ="row justify-content-center custom-line align-items-end">
-                        <div class="col col-sm-10 col-md-5 col-lg-3 m-3">
-                            {{ form_row(form.search) }}
-                        </div>
-                        <div class="col col-sm-10 col-md-5 col-lg-3 m-3 align-items-end">
-                            <button class="btn btn-primary">Rechercher</button>
-                        </div>
+                    <div class ="d-inline-flex justify-content-center m-3">
+                        <div>{{ form_row(form.search) }}</div>
+                        <div><button class="btn btn-secondary text-primary mx-3 mb-0 p-1 mt-1"><i class="bi bi-search me-2"></i><span> Rechercher</span></button></div>
                     </div>
                 </div>
                 {{ form_end(form) }}
@@ -33,18 +29,17 @@
                 <div class="card col-sm-10 col-md-5 col-lg-3 m-3">
                     {% for timeline in decision.timelines %}
                         {% if loop.first %}
-                            <div class="card-header bg-transparent border-secondary">
+                            <div class="card-header bg-transparent border-dark">
                                 {{ timeline.name }}
-                                <br>Le : {{ timeline.endedAt |date('d/m/Y') }}
+                                <br><i class="bi bi-calendar2-week-fill text-success me-2"> Le : {{ timeline.endedAt |date('d/m/Y') }}</i>
                             </div>
                         {% endif %}
                     {% endfor %}
-                    <div class="card-body text-success">
+                    <div class="card-body text-primary">
                         <h5 class="card-title">{{ decision.title }}</h5>
                     </div>
-                    <div class="card-footer bg-transparent border-secondary">
-                        {{ decision.user.firstName }} {{ decision.user.lastName }}
-                        <br><a href="{{ path('app_decision_show', {id: decision.id }) }}"
+                    <div class="card-footer bg-transparent border-dark">
+                        <img src ="https://picsum.photos/id/236/30/30" alt="{{ decision.user.firstName }} {{ decision.user.lastName }}" title="{{ decision.user.firstName }} {{ decision.user.lastName }}" class="rounded-circle"/> {{ decision.user.firstName }} {{ decision.user.lastName }}                        <br><a href="{{ path('app_decision_show', {id: decision.id }) }}"
                                class="stretched-link"></a>
                     </div>
 
