@@ -14,7 +14,7 @@ class ContributionType extends AbstractType
     {
         $builder
 
-            ->add('content', CKEditorType::class);
+            ->add('content', CKEditorType::class, ['label' => 'Contenu']);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
