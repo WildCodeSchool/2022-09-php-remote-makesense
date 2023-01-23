@@ -1,46 +1,296 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Decision{% endblock %}
+{% block title %}Décision{% endblock %}
 
 {% block body %}
-    <h1>Decision</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ decision.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ decision.title }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ decision.content }}</td>
-            </tr>
-            <tr>
-                <th>Utility</th>
-                <td>{{ decision.utility }}</td>
-            </tr>
-            <tr>
-                <th>Context</th>
-                <td>{{ decision.context }}</td>
-            </tr>
-            <tr>
-                <th>Benefits</th>
-                <td>{{ decision.benefits }}</td>
-            </tr>
-            <tr>
-                <th>Inconvenients</th>
-                <td>{{ decision.inconvenients }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="text-center">
+        <h1>{{ decision.title }}</h1>
+        <p> par {{ decision.user.firstName }} {{ decision.user.lastName }}</p>
+    </div>
 
-    <a href="{{ path('app_decision_index') }}">back to list</a>
+    <div class="container-fluid p-5">
+        <div class="row">
+            <div class="col">
+                <div class="accordion shadow" id="accordionFlushExample">
 
-    <a href="{{ path('app_decision_edit', {'id': decision.id}) }}">edit</a>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="panelsStayOpen-headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                                 <i class="bi bi-card-text me-2"></i><span>Les détails de la décision</span>
+                            </button>
+                        </h3>
+                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                            <div class="accordion-body">
+                                {{ decision.content|raw}}
+                            </div>
+                        </div>
+                    </div>
 
-    {{ include('decision/_delete_form.html.twig') }}
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="flush-headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                <i class="bi bi-bullseye me-2"></i><span>Objectifs</span>
+                            </button>
+                        </h3>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">{{ decision.utility|raw }}</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="flush-headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                                <i class="bi bi-box me-2"></i><span>Contexte actuel</span>
+                            </button>
+                        </h3>
+                        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">{{ decision.context|raw }}</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="flush-headingFour">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                                <i class="bi bi-bookmark-check me-2"></i><span>Bénéfices</span>
+                            </button>
+                        </h3>
+                        <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">{{ decision.benefits|raw }}</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="flush-headingFive">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                                <i class="bi bi-bookmark-x me-2"></i><span>Risques potentiels</span>
+                            </button>
+                        </h3>
+                        <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">{{ decision.inconvenients|raw }}</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="flush-headingSix">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#avis" aria-expanded="false" aria-controls="avis">
+                                 <i class="bi bi-chat-left-text me-2"></i><span>Avis</span>
+                                {% set number = 0 %}
+                                {% for contribution in decision.contributions %}
+                                    {% if  contribution.type == 'avis'  %}
+                                        {% set number = number + 1 %}
+                                    {% endif %}
+                                {% endfor %}
+                                ({{ number }})
+
+                            </button>
+                        </h3>
+                        <div id="avis" class="accordion-collapse collapse" aria-labelledby="flush-headingSix" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+
+                                <ul>
+                                    {% for contribution in decision.contributions %}
+                                        {% if  contribution.type == 'avis'  %}
+                                            <li>
+                                                <h4>{{ contribution.contributor.employee.firstName }}
+                                                    {{ contribution.contributor.employee.lastName }} -
+                                                    avis donné le {{ contribution.date |date('d/m/Y') }}
+                                                    en tant que personne {{ contribution.contributor.implication.name }}
+                                                </h4>
+                                                <p>{{ contribution.content|raw }} </p>
+
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="flush-headingSeven">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSeven">
+                                <i class="bi bi-1-square me-2"></i><span>Première décision prise</span>
+                            </button>
+                        </h3>
+                        <div id="flush-collapseSeven" class="accordion-collapse collapse" aria-labelledby="flush-headingSeven" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">{{ decision.firstDecision|raw }}</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="flush-headingEight">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#conflits" aria-expanded="false" aria-controls="conflits">
+                                <i class="bi bi-backspace-reverse me-2"></i><span>Conflits</span>
+                                {% set number = 0 %}
+                                {% for contribution in decision.contributions %}
+                                    {% if  contribution.type == 'conflit'  %}
+                                        {% set number = number + 1 %}
+                                    {% endif %}
+                                {% endfor %}
+                                ({{ number }})
+
+                            </button>
+                        </h3>
+                        <div id="conflits" class="accordion-collapse collapse" aria-labelledby="flush-headingEight" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+
+                                <ul>
+                                    {% for contribution in decision.contributions %}
+                                        {% if  contribution.type == 'conflit'  %}
+                                            <li>
+                                                <h4>{{ contribution.contributor.employee.firstName }}
+                                                    {{ contribution.contributor.employee.lastName }} -
+                                                    conflit exprimé le {{ contribution.date |date('d/m/Y') }}
+                                                    en tant que personne {{ contribution.contributor.implication.name }}
+                                                </h4>
+                                                <p>{{ contribution.content|raw }} </p>
+
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="flush-headingNine">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseNine" aria-expanded="false" aria-controls="flush-collapseNine">
+                                <i class="bi bi-calendar2-check me-2"></i><span>Décision définitive</span>
+                            </button>
+                        </h3>
+                        <div id="flush-collapseNine" class="accordion-collapse collapse" aria-labelledby="flush-headingNine" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">{{ decision.definitiveDecision|raw }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Timeline and contributors Area -->
+            <div class="col-4">
+                <section class="timeline_area">
+                    <div class="container">
+                        <h4 class="text-center"><i class="bi bi-calendar-week me-2"></i><span>Dates à retenir</span></h4>
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- Timeline Area-->
+                                {% for timeline in decision.timelines %}
+                                <div class="apland-timeline-area">
+                                    <!-- Single Timeline Content-->
+                                    <div class="single-timeline-area ">
+                                        <div class="timeline-date">
+                                            <p>{{ timeline.endedAt |date('d/m/Y') }}</p>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                {% if "now" |date('Y-m-d') >= timeline.startedAt |date('Y-m-d')
+                                                    and "now" |date('Y-m-d') < timeline.endedAt |date('Y-m-d') %}
+                                                        <div class="single-timeline-content d-flex border-4 border-warning border-5 text-warning">
+                                                            <div class="timeline-text">
+                                                            <h6>{{timeline.name}}</h6>
+                                                            </div>
+                                                        </div>
+                                                        {% else %}
+                                                        <div class="single-timeline-content d-flex ">
+                                                            <div class="timeline-text">
+                                                                <h6>{{timeline.name}}</h6>
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Contributors Area-->
+
+                   <div class="container mt-5 text-center">
+                       <h4><i class="bi bi-people me-2"></i><span>Personnes impactées</span></h4>
+                       <div class="row mt-3">
+                           <ul class="list-group list-group-horizontal m-0 p-0 m-auto justify-content-center">
+                               {% for contributor in decision.contributors|filter(contributor => contributor.implication.name=="Impactée") %}
+                               <li class="list-group-item"><img src ="https://picsum.photos/id/235/30/30" alt="{{ contributor.employee.firstName }} {{ contributor.employee.lastName }}" title="{{ contributor.employee.firstName }} {{ contributor.employee.lastName }}" class="rounded-circle"/></li>
+                               {% endfor %}
+                           </ul>
+                       </div>
+                   </div>
+
+                    <div class="container mt-5 text-center">
+                        <h4><i class="bi bi-person-check me-2"></i><span>Personnes expertes</span></h4>
+                        <div class="row mt-3">
+                            <ul class="list-group list-group-horizontal m-0 p-0 m-auto justify-content-center">
+                                {% for contributor in decision.contributors|filter(contributor => contributor.implication.name=="Experte") %}
+                                    <li class="list-group-item"><img src ="https://picsum.photos/id/236/30/30" alt="{{ contributor.employee.firstName }} {{ contributor.employee.lastName }}" title="{{ contributor.employee.firstName }} {{ contributor.employee.lastName }}" class="rounded-circle"/></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                <!-- Buttons Area -->
+                <div class="container mt-5 d-flex flex-column col-6">
+                    {% if contributor %}
+                        {% for timeline in decision.timelines %}
+                            {% if timeline.name == 'Deadline pour donner son avis'
+                                and "now" |date('Y-m-d') >= timeline.startedAt |date('Y-m-d')
+                                and "now" |date('Y-m-d') <= timeline.endedAt |date('Y-m-d')  %}
+                                <button type="button" class="btn btn-sub p-3 fs-8" data-bs-toggle="modal" data-bs-target="#modal-avis"><i class="bi bi-chat-left-text me-2"></i><span>Je donne mon avis</span></button>
+                                <div class="container-fluid mt-4">
+                                    <div class="d-flex flex-row">
+                                        {{ render(controller('App\\Controller\\ContributionController::newOpinion', {'decision': decision.id})) }}
+                                    </div>
+                                </div>
+
+                            {% endif %}
+                            {% if timeline.name == 'Deadline pour entrer en conflit'
+                                and "now" |date('Y-m-d') >= timeline.startedAt |date('Y-m-d')
+                                and "now" |date('Y-m-d') <= timeline.endedAt |date('Y-m-d')  %}
+                                <button type="button" class="btn btn-submit p-3 fs-8" data-bs-toggle="modal" data-bs-target="#modal-conflict"><i class="bi bi-backspace-reverse me-2"></i><span>J'entre en conflit</span></button>
+                                <div class="container-fluid mt-4">
+                                    <div class="d-flex flex-row">
+                                        {{ render(controller('App\\Controller\\ContributionController::newConflict', {'decision': decision.id})) }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+                    {% if userDecision %}
+                        {% for timeline in decision.timelines %}
+                            {% if timeline.name == 'Première décision prise'
+                                and "now" |date('Y-m-d') >= timeline.startedAt |date('Y-m-d')
+                                and "now" |date('Y-m-d') <= timeline.endedAt |date('Y-m-d')  %}
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-first-decision"><i class="bi bi-1-square me-2"></i><span>Je prends ma première décision</span></button>
+                                <div class="container-fluid mt-4">
+                                    <div class="d-flex flex-row">
+                                        {{ render(controller('App\\Controller\\DecisionController::addFirstDecision', {'decision': decision.id})) }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% if timeline.name == 'Décision définitive'
+                                and "now" |date('Y-m-d') >= timeline.startedAt |date('Y-m-d')
+                                and "now" |date('Y-m-d') <= timeline.endedAt |date('Y-m-d')  %}
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-definitive-decision"><i class="bi bi-calendar2-check me-2"></i><span>Je prends ma décision définitive</span></button>
+                                <div class="container-fluid mt-4">
+                                    <div class="d-flex flex-row">
+                                        {{ render(controller('App\\Controller\\DecisionController::addDefinitiveDecision', {'decision': decision.id})) }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+   </div>
+<div class="ms-5">
+    <div class="mt-4">
+        {# @TODO relier le lien avec la page Toutes les décisions #}
+        <a href="#"><i class="bi bi-arrow-return-left me-2"></i><span>Retour à toutes les décisions</span></a>
+    </div>
+
+    {% if decision.user == app.user %}
+    <div class="mt-2">
+        <a href="{{ path('app_decision_edit', {'id': decision.id}) }}"><i class="bi bi-gear me-2"></i><span>Modifier</span></a>
+    </div>
+    <div class="mt-2 mb-2">
+        {{ include('decision/_delete_form.html.twig') }}
+    </div>
+    {% endif %}
+</div>
 {% endblock %}

@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Employee;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @extends ServiceEntityRepository<Employee>
@@ -12,7 +13,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Employee|null find($id, $lockMode = null, $lockVersion = null)
  * @method Employee|null findOneBy(array $criteria, array $orderBy = null)
  * @method Employee[]    findAll()
- * @method Employee[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Employee[]    findBy(array $criteria, array $orderBy = ull, $limit = null, $offset = null)
  */
 class EmployeeRepository extends ServiceEntityRepository
 {
@@ -38,6 +39,20 @@ class EmployeeRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function findOneByForm(string $email, string $firstName, string $lastName): array
+    {
+        return $this->createQueryBuilder('e')
+            ->Where('e.email = :email')
+            ->andWhere('e.firstname = :firstName')
+            ->andWhere('e.lastname = :lastName')
+            ->setParameter('email', $email)
+            ->setParameter('firstName', $firstName)
+            ->setParameter('lastName', $lastName)
+            ->getQuery()
+            ->getResult();
+    }
+
 
 //    /**
 //     * @return Employee[] Returns an array of Employee objects

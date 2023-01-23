@@ -2,10 +2,15 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-<div>
-    Steps:
-    {% include '@CraueFormFlow/FormFlow/stepList.html.twig' %}
-</div>
+    <div {{ stimulus_controller('symfony/ux-swup/swup') }}>
+<label class="form-label" for="comment">Your comment</label>
+
+        {{ stimulus_action('markdown', 'comment') }}
+        <main id="swup">
+
+        </main>
+    </div>
+
 {{ form_start(form) }}
 	{{ form_errors(form) }}
 

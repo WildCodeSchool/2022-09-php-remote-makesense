@@ -1,0 +1,20 @@
+<div class="modal" id="modal-avis">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            {{ form_start(form) }}
+            <div class="modal-header modal-avis">
+                <h5 class="modal-title"><i class="bi bi-chat-left-text me-2"></i><span>Ajouter un avis</span></h5>
+            </div>
+            <div class="modal-body">
+                {{ form_widget(form) }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-avis"
+                        data-bs-dismiss="modal"><i class="bi bi-x-lg me-2"></i><span>Annuler</span>
+                </button>
+                <button type="submit" class="btn btn-sub"><i class="bi bi-check-lg me-2"></i><span>Ajouter mon avis</span></button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>

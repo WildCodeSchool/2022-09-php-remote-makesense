@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\ContributionRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use DateTime;
 
 #[ORM\Entity(repositoryClass: ContributionRepository::class)]
 class Contribution
@@ -19,6 +21,22 @@ class Contribution
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date = null;
+
+    #[ORM\ManyToOne(inversedBy: 'contributions')]
+    private ?Decision $decision = null;
+
+    #[ORM\ManyToOne(inversedBy: 'contributions')]
+    private ?Contributor $contributor = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\NotBlank(message: 'vous devez saisir du texte')]
+    private ?string $content = null;
+
+
+    public function __construct()
+    {
+        $this->date = new DateTime('now');
+    }
 
     public function getId(): ?int
     {
@@ -45,6 +63,42 @@ class Contribution
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getDecision(): ?Decision
+    {
+        return $this->decision;
+    }
+
+    public function setDecision(?Decision $decision): self
+    {
+        $this->decision = $decision;
+
+        return $this;
+    }
+
+    public function getContributor(): ?Contributor
+    {
+        return $this->contributor;
+    }
+
+    public function setContributor(?Contributor $contributor): self
+    {
+        $this->contributor = $contributor;
+
+        return $this;
+    }
+
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+
+    public function setContent(?string $content): self
+    {
+        $this->content = $content;
 
         return $this;
     }

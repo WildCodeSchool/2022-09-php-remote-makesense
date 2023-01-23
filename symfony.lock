@@ -29,6 +29,9 @@
     "composer/xdebug-handler": {
         "version": "3.0.3"
     },
+    "craue/formflow-bundle": {
+        "version": "3.6.0"
+    },
     "doctrine/annotations": {
         "version": "1.13",
         "recipe": {
@@ -139,6 +142,9 @@
     },
     "gitonomy/gitlib": {
         "version": "v1.3.4"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v6.0.1"
     },
     "laminas/laminas-code": {
         "version": "4.5.1"
@@ -705,6 +711,9 @@
     },
     "symfony/yaml": {
         "version": "v6.0.3"
+    },
+    "symfonycasts/verify-email-bundle": {
+        "version": "v1.13.0"
     },
     "theseer/tokenizer": {
         "version": "1.2.1"
