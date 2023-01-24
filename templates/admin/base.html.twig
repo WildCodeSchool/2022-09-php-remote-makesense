@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="noindex">
+    <link rel="icon" type="image/png" href="{{ asset('build/images/cropped-favicon-32x32.png') }}"/>
+    <title>
+        {% block title %}MakeSense{% endblock %}
+    </title>
+    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('admin') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('admin') }}
+    {% endblock %}
+</head>
+
+<body>
+<div class="admin-wrapper">
+    {% include 'admin/_navbar-admin.html.twig' %}
+    <main>
+        <h1 class="p-3 text-bg-dark text-center fs-6 m-0">
+            Administration du site <a class="p-2 text-bg-light" href="{{ path('app_home') }}" target="_blank" >MakeSense</a>
+        </h1>
+        <div class="p-3">
+            {% block body %}{% endblock %}
+        </div>
+    </main>
+</div>
+</body>
+</html>
