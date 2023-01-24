@@ -59,10 +59,6 @@
                             {{ timeline.name }}
                             <br><i class="bi bi-calendar2-week-fill text-success me-2"></i><span class="text-success">Le : {{ timeline.endedAt |date('d/m/Y') }}</span>
                         </div>
-                        <div class="card-header bg-transparent border-dark">
-                            En tant que personne : <br>{{ contributor.implication.name }}
-
-                        </div>
                     {% endif %}
                     {% endfor %}
                         <div class="card-body text-primary">
