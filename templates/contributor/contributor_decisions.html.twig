@@ -3,12 +3,10 @@
 {% block title %}Mes contributions - Makesense{% endblock %}
 
 {% block body %}
-
-
     <div class="container">
         <h1>Mes contributions</h1>
-            <div class="container bg-white m-1 rounded-4">
-                <div class ="row justify-content-center custom-line align-items-end">
+
+                <div class ="row custom-line align-items-end">
                     <div class="col bg-primary m-1 rounded-4">
                         {{ form_start(pendingForm) }}
                         <div class="row justify-content-center custom-line">
@@ -18,7 +16,7 @@
                                 {{ form_row(pendingForm.search) }}
                                 </div>
                                 <div class="col col-sm-10 col-md-5 col-lg-4 mt-1 mb-1 align-items-end">
-                                    <button class="btn btn-secondary text-primary"><i class="bi bi-search me-2"></i><span> Rechercher</span></button>
+                                    <button class="btn btn-secondary text-primary"><i class="bi bi-search me-2"></i><span>Rechercher</span></button>
                                 </div>
                             </div>
                         </div>
@@ -33,30 +31,32 @@
                                     {{ form_row(addedForm.search) }}
                                 </div>
                                 <div class="col col-sm-10 col-md-5 col-lg-4 mt-1 mb-1 align-items-end">
-                                    <button class="btn btn-secondary text-primary"><i class="bi bi-search me-2"></i><span> Rechercher</span></button>
+                                    <button class="btn btn-secondary text-primary"><i class="bi bi-search me-2"></i><span>Rechercher</span></button>
                                 </div>
                             </div>
                         </div>
                         {{ form_end(addedForm) }}
                     </div>
                 </div>
-            </div>
 
 
-    <div class="row justify-content-center custom-line">
+    <div class="row custom-line">
     {% for contributor in contributors %}
         {% if contributor.decision.user.id != app.user.id %}
+<div class="col-sm-10 col-md-6 col-lg-4 mt-4 mb-4">
+            <div class="card h-100">
+                    {% if contributor.implication.name=="Impactée" %}
+                        <h6 class="mt-2 text-center text-uppercase"><i class="bi bi-people me-2"></i><span class="personImpact">Impacté</span></h6>
+                    {% endif %}
+                    {% if contributor.implication.name=="Experte" %}
+                        <h6 class="mt-2 text-center text-uppercase"><i class="bi bi-person-check me-2"></i><span class="personExpert">Expert</span></h6>
+                    {% endif %}
 
-                <div class="card col-sm-10 col-md-5 col-lg-3 m-3 mx-5 ">
                 {% for timeline in contributor.decision.timelines %}
                     {% if loop.first %}
                         <div class="card-header bg-transparent border-dark">
                             {{ timeline.name }}
-                            <br><i class="bi bi-calendar2-week-fill text-success me-2"> Le : {{ timeline.endedAt |date('d/m/Y') }}</i>
-                        </div>
-                        <div class="card-header bg-transparent border-dark">
-                            En tant que personne : <br>{{ contributor.implication.name }}
-
+                            <br><i class="bi bi-calendar2-week-fill text-success me-2"></i><span class="text-success">Le : {{ timeline.endedAt |date('d/m/Y') }}</span>
                         </div>
                     {% endif %}
                     {% endfor %}
@@ -71,7 +71,7 @@
                            class="stretched-link"></a>
                         </div>
                 </div>
-
+</div>
         {% endif %}
         {% else %}
         <h3>Aucune contribution en cours</h3>
@@ -79,8 +79,9 @@
         {% endfor %}
     </div>
 
-    <div class ="d-flex justify-content-center">
+    <div class ="d-flex justify-content-center mt-3 mb-5">
         {{ knp_pagination_render(contributors) }}
+    </div>
     </div>
     </div>
 {% endblock %}
