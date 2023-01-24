@@ -1,5 +1,9 @@
 body {
     background-color: $gray-200;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 h1 {
@@ -48,3 +52,10 @@ h2 {
     background-size: cover;
 }
 
+.personImpact {
+    color: $color-text;
+}
+
+.personExpert {
+    color: $color-cerise;
+}
