@@ -20,12 +20,12 @@
 
 <body>
 <div class="admin-wrapper">
+    <h1 class="p-3 text-white text-center fs-6 m-0 bg-primary baseAdmin">
+        Administration du site<a class="p-2" href="{{ path('app_all_decisions') }}" target="_blank">MakeSense</a>
+    </h1>
     {% include 'admin/_navbar-admin.html.twig' %}
     <main>
-        <h1 class="p-3 text-bg-dark text-center fs-6 m-0">
-            Administration du site <a class="p-2 text-bg-light" href="{{ path('app_home') }}" target="_blank" >MakeSense</a>
-        </h1>
-        <div class="p-3">
+         <div class="admin-container">
             {% block body %}{% endblock %}
         </div>
     </main>

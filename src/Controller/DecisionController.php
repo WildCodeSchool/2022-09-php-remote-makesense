@@ -22,14 +22,6 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/decision')]
 class DecisionController extends AbstractController
 {
-    #[Route('/', name: 'app_decision_index', methods: ['GET'])]
-    public function index(DecisionRepository $decisionRepository): Response
-    {
-        return $this->render('decision/index.html.twig', [
-            'decisions' => $decisionRepository->findAll(),
-        ]);
-    }
-
     #[Route('/all', name: 'app_all_decisions', methods: ['GET'])]
     public function showAll(
         Request $request,
@@ -103,7 +95,7 @@ class DecisionController extends AbstractController
             $decision->setUser($user);
             $decisionRepository->save($decision, true);
 
-            return $this->redirectToRoute('app_decision_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_decision_show', ['id' => $decision->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('decision/new.html.twig', [
@@ -135,7 +127,7 @@ class DecisionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $decisionRepository->save($decision, true);
 
-            return $this->redirectToRoute('app_decision_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_decision_show', ['id' => $decision->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('decision/edit.html.twig', [
@@ -151,7 +143,7 @@ class DecisionController extends AbstractController
             $decisionRepository->remove($decision, true);
         }
 
-        return $this->redirectToRoute('app_decision_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_decision_mine', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/new/firstDecision/{decision}', name: '_new_first_decision', methods: ['GET', 'POST'])]

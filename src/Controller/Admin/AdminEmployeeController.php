@@ -9,15 +9,24 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/employee')]
 class AdminEmployeeController extends AbstractController
 {
     #[Route('/', name: 'app_admin_employee_index', methods: ['GET'])]
-    public function index(EmployeeRepository $employeeRepository): Response
-    {
+    public function index(
+        EmployeeRepository $employeeRepository,
+        PaginatorInterface $paginator,
+        Request $request
+    ): Response {
+        $employees = $paginator->paginate(
+            $employeeRepository->findAllEmployee(),
+            $request->query->getInt('page', 1),
+            15
+        );
         return $this->render('admin/admin_employee/index.html.twig', [
-            'employees' => $employeeRepository->findAll(),
+            'employees' => $employees,
         ]);
     }
 

@@ -4,9 +4,8 @@ namespace App\Controller;
 
 use App\Repository\DecisionRepository;
 use App\Repository\TimelineRepository;
-use App\Security\EmailVerifier;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
@@ -22,10 +21,14 @@ class HomeController extends AbstractController
         $userDecisions = $decisionRepository->findFirstThreeByUser($this->getUser());
         $userContributions = $timelineRepository->findAllByContributor($this->getUser());
 
-        return $this->render('home/index.html.twig', [
-            'decision' => $decisions,
-            'userDecisions' => $userDecisions,
-            'userContributions' => $userContributions,
-        ]);
+        if ($this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_admin_decisions');
+        } else {
+            return $this->render('home/index.html.twig', [
+                'decision' => $decisions,
+                'userDecisions' => $userDecisions,
+                'userContributions' => $userContributions,
+            ]);
+        }
     }
 }

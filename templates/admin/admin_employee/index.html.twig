@@ -3,37 +3,42 @@
 {% block title %}Employee index{% endblock %}
 
 {% block body %}
-    <h1>Employee index</h1>
+    <h1>Liste des employés</h1>
 
-    <table class="table">
+    <a class="btn btn-primary mb-3" href="{{ path('app_admin_employee_new') }}">Ajouter un employé</a>
+
+    <table class="table table-striped">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Email</th>
-                <th>actions</th>
+                <th scope="col">Identifiant</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Email</th>
             </tr>
         </thead>
         <tbody>
         {% for employee in employees %}
             <tr>
                 <td>{{ employee.id }}</td>
-                <td>{{ employee.firstname }}</td>
                 <td>{{ employee.lastname }}</td>
+                <td>{{ employee.firstname }}</td>
                 <td>{{ employee.email }}</td>
                 <td>
-                    <a href="{{ path('app_admin_employee_show', {'id': employee.id}) }}">show</a>
-                    <a href="{{ path('app_admin_employee_edit', {'id': employee.id}) }}">edit</a>
+                    <a href="{{ path('app_admin_employee_show', {'id': employee.id}) }}" class="btn btn-primary"><i class="bi bi-eye me-2"></i><span>Voir</span></a>
+                    <a href="{{ path('app_admin_employee_edit', {'id': employee.id}) }}" class="btn btn-warning"><i class="bi bi-gear me-2"></i><span>Modifier</span></a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5">Aucun employé trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_employee_new') }}">Create new</a>
+    <div class ="d-flex justify-content-center mt-3 mb-5">
+        {{ knp_pagination_render(employees) }}
+    </div>
+
+
 {% endblock %}
