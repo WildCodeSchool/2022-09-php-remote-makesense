@@ -1,20 +1,53 @@
 <div {{ attributes }}>
-    {{ form_start(form) }}
+    {{ form_start(form, {
+        attr: {
+            'data-action': 'live#action',
+            'data-action-name': 'prevent|save'
+        }
+    }) }}
 
     <ul>
         {% for key, contributor in form.contributors %}
             <li class="mb-2">
-                {{ form_widget(contributor.employee) }}
+                {{ contributor.vars.value.employee.firstname }} {{ contributor.vars.value.employee.lastname }}
+{#                {{ form_widget(contributor.employee) }}#}
                 {{ form_widget(contributor.implication) }}
-                <button >retirer</button>
+                <button
+                    type="button"
+                    data-action="live#action"
+                    data-action-name="removeContributor(contributorIndex={{ key }})"
+                >retirer</button>
+                {{ dump(contributor) }}
             </li>
         {%  endfor %}
     </ul>
 
+    <div class="mb-3">
+        <label for="search">Rechercher un employé</label>
+        <input type="search"
+               id="search"
+               class="form-control"
+               data-model="search"
+        >
+        <div class="list-group">
+            {% for employee in this.results %}
+                <button
+                    type="button"
+                    class="list-group-item list-group-item-action"
+                    data-action="live#action"
+                    data-action-name="addNewContributor(employeeId={{ employee.id }})">
+                    {{ employee.firstname }} {{ employee.lastname }}
+                </button>
+            {% endfor %}
+        </div>
+    </div>
+
     <button
+        type="button"
+        class="btn btn-primary"
         data-action="live#action"
         data-action-name="addNewContributor()"
-    >add contributor</button>
+    >Ajouter un contributeur</button>
 
     {{ form_end(form) }}
 </div>

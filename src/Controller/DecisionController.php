@@ -34,7 +34,7 @@ class DecisionController extends AbstractController
     }
 
     #[Route('/{id}/step2', name: 'step2', methods: ['GET'])]
-    public function step2(Decision $decision, Request $request, DecisionRepository $decisionRepository)
+    public function step2(Decision $decision, Request $request, DecisionRepository $decisionRepository): Response
     {
         $form = $this->createForm(DecisionContributorsType::class, $decision);
         $form->handleRequest($request);
@@ -50,7 +50,7 @@ class DecisionController extends AbstractController
     }
 
     #[Route('/{id}/step3', name: 'step3', methods: ['GET'])]
-    public function step3(Decision $decision, Request $request, DecisionRepository $decisionRepository)
+    public function step3(Decision $decision, Request $request, DecisionRepository $decisionRepository):Response
     {
         $timeline = new Timeline();
 
@@ -180,12 +180,18 @@ class DecisionController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit-contributors', name: 'app_decision_edit', methods: ['GET', 'POST'])]
-    public function editContributors(Request $request, Decision $decision): Response
+    #[Route('/{id}/edit-contributors', name: 'app_decision_contributors_edit', methods: ['GET', 'POST'])]
+    public function editContributors(Request $request, Decision $decision, DecisionRepository $decisionRepository): Response
     {
         $form = $this->createForm(DecisionContributorsType::class, $decision);
 
-        //@todo handle form submission
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $decisionRepository->save($decision, true);
+//
+//            return $this->redirectToRoute('app_decision_index', [], Response::HTTP_SEE_OTHER);
+//        }
         return $this->renderForm('decision/edit-contributors.html.twig', [
             'form' => $form,
             'decision' => $decision
