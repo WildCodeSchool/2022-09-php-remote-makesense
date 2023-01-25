@@ -55,7 +55,7 @@ class ContributorController extends AbstractController
             $contributors = $paginator->paginate(
                 $data,
                 $request->query->getInt('page', 1),
-                11
+                9
             );
         }
         return $this->render('contributor/contributor_decisions.html.twig', [
