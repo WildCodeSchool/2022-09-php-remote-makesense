@@ -24,7 +24,7 @@ class AdminDecisionController extends AbstractController
         $decisions = $paginator->paginate(
             $decisionRepository->findAll(),
             $request->query->getInt('page', 1),
-            4
+            7
         );
         return $this->render('admin/admin_decision/index.html.twig', [
             'decisions' => $decisions,

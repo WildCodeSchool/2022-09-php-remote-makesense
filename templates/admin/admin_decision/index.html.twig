@@ -12,11 +12,8 @@
             <th scope="col">Identifiant</th>
             <th scope="col">Titre</th>
             <th scope="col">Auteur</th>
-            <th scope="col">Timeline</th>
             <th scope="col">Première décision prise</th>
             <th scope="col">Décision définitive</th>
-            <th scope="col">Contributeurs</th>
-            <th scope="col">Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -25,15 +22,6 @@
                 <td>{{ decision.id }}</td>
                 <td>{{ decision.title|raw }}</td>
                 <td>{{ decision.user.firstname|raw }} {{ decision.user.lastname|raw }}</td>
-                <td>
-                    <ul>
-                    {% for timeline in decision.timelines %}
-                        <li>
-                    {{ timeline.name|raw }} - {{ timeline.endedAt|date('d/m/Y') }}
-                        </li>
-                     {% endfor %}
-                    </ul>
-                </td>
                 <td>
                     {% for timeline in decision.timelines %}
                     {% if timeline.name == 'Première décision prise' %}
@@ -48,7 +36,7 @@
                 <td>
                     {% for timeline in decision.timelines %}
                         {% if timeline.name == 'Décision définitive'%}
-                            {% if  "now"|date_modify("+3 days") > timeline.endedAt and decision.definitiveDecision is empty%}
+                            {% if  "now"|date_modify("+3 days") > timeline.endedAt and decision.definitiveDecision is empty %}
                                 <div class = "bg-warning text-white text-center">En retard</div>
                             {% elseif decision.definitiveDecision is not empty%}
                                 <div class = "bg-success text-white text-center"><i class="bi bi-check-square me-2"></i><span>Décision définitive publiée</span></div>
@@ -56,18 +44,9 @@
                         {% endif %}
                     {% endfor %}
                 </td>
-                <td>
-                    <ul>
-                        {% for contributor in decision.contributors %}
-                        <li>
-                    {{ contributor.employee.firstname|raw }} {{ contributor.employee.lastname|raw }} - Personne {{contributor.implication.name|raw }}
-                        </li>
-                         {% endfor %}
-                    </ul>
-                </td>
 
-                <td>
-                    <a class="btn btn-primary text-white mb-1" href="{{ path('app_admin_decision_show', {'id': decision.id}) }}"><i class="bi bi-eye me-2"></i><span>Consulter</span></a>
+                <td class="d-flex justify-content-end">
+                    <a class="btn btn-primary text-white me-2" href="{{ path('app_admin_decision_show', {'id': decision.id}) }}"><i class="bi bi-eye me-2"></i><span>Consulter</span></a>
                     {{ include('decision/_delete_form.html.twig') }}
                 </td>
             </tr>
