@@ -6,7 +6,7 @@
     <div class="container">
         <h1> {{ decision.title }}</h1>
         {{ component('contributor_form', {
-            decision: decision
+            decision: decision.id ? decision : null
         }) }}
     </div>
 {% endblock %}

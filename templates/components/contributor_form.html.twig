@@ -9,8 +9,8 @@
     <ul>
         {% for key, contributor in form.contributors %}
             <li class="mb-2">
-                {{ contributor.vars.value.employee.firstname }} {{ contributor.vars.value.employee.lastname }}
-{#                {{ form_widget(contributor.employee) }}#}
+{#                {{ contributor.vars.value.employee.firstname }} {{ contributor.vars.value.employee.lastname }}#}
+                {{ form_widget(contributor.employee) }}
                 {{ form_widget(contributor.implication) }}
                 <button
                     type="button"
@@ -42,12 +42,14 @@
         </div>
     </div>
 
-    <button
-        type="button"
-        class="btn btn-primary"
-        data-action="live#action"
-        data-action-name="addNewContributor()"
-    >Ajouter un contributeur</button>
+{#    <button#}
+{#        type="button"#}
+{#        class="btn btn-primary"#}
+{#        data-action="live#action"#}
+{#        data-action-name="addNewContributor()"#}
+{#    >Ajouter un contributeur</button>#}
 
-    {{ form_end(form) }}
+    {{ form_row(form.enregistrer) }}
+
+    {{ form_end(form, {render_rest: false}) }}
 </div>

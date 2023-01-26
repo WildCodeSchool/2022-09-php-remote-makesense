@@ -158,6 +158,16 @@ class Decision
         return $this;
     }
 
+//    public function setContributors(Contributor $contributor): self
+//    {
+//        if (!$this->contributors->contains($contributor)) {
+//            $this->contributors->add($contributor);
+//            $contributor->setDecision($this);
+//        }
+//
+//        return $this;
+//    }
+
     public function removeContributor(Contributor $contributor): self
     {
         if ($this->contributors->removeElement($contributor)) {
