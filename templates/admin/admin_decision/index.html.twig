@@ -1,0 +1,64 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Index des décisions{% endblock %}
+
+{% block body %}
+    <h1 class="mt-3">Index des décisions</h1>
+
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Identifiant</th>
+            <th scope="col">Titre</th>
+            <th scope="col">Auteur</th>
+            <th scope="col">Première décision prise</th>
+            <th scope="col">Décision définitive</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for decision in decisions %}
+            <tr>
+                <td>{{ decision.id }}</td>
+                <td>{{ decision.title|raw }}</td>
+                <td>{{ decision.user.firstname|raw }} {{ decision.user.lastname|raw }}</td>
+                <td>
+                    {% for timeline in decision.timelines %}
+                    {% if timeline.name == 'Première décision prise' %}
+                        {% if  "now"|date_modify("+1 days") > timeline.endedAt and decision.firstDecision is empty%}
+                            <div class = "bg-warning text-white text-center"><i class="bi bi-exclamation-triangle me-2"></i><span>En retard</span></div>
+                        {% elseif decision.firstDecision is not empty %}
+                            <div class = "bg-success text-white text-center"><i class="bi bi-check-square me-2"></i><span>Première décision publiée</span></div>
+                        {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for timeline in decision.timelines %}
+                        {% if timeline.name == 'Décision définitive'%}
+                            {% if  "now"|date_modify("+3 days") > timeline.endedAt and decision.definitiveDecision is empty %}
+                                <div class = "bg-warning text-white text-center">En retard</div>
+                            {% elseif decision.definitiveDecision is not empty%}
+                                <div class = "bg-success text-white text-center"><i class="bi bi-check-square me-2"></i><span>Décision définitive publiée</span></div>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </td>
+
+                <td class="d-flex justify-content-end">
+                    <a class="btn btn-primary text-white me-2" href="{{ path('app_admin_decision_show', {'id': decision.id}) }}"><i class="bi bi-eye me-2"></i><span>Consulter</span></a>
+                    {{ include('decision/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">Aucune décision trouvée</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class ="d-flex justify-content-center mt-3 mb-5">
+        {{ knp_pagination_render(decisions) }}
+    </div>
+{% endblock %}

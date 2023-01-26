@@ -1,0 +1,75 @@
+body {
+    background-color: $gray-200;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-container {
+    margin-left : 2rem;
+    margin-right: 2rem;
+}
+
+h1 {
+    text-align: center;
+    margin: 3rem;
+}
+
+h2 {
+    background-color: $blue;
+    color: $yellow;
+    border-radius: $border-radius-xl;
+    padding: 1rem 2rem;
+    font-weight: $font-weight-semibold;
+}
+
+.card {
+    box-shadow: $box-shadow;
+    border-style: none;
+}
+
+.password {
+    font-size: $font-size-s;
+}
+.bi-calendar2-week-fill {
+    font-weight: bold;
+}
+.card-title {
+    font-weight: $font-weight-bold;
+}
+
+.accordion {
+    transition: height $accordion-transition, $accordion-icon-transition;
+}
+
+.card {
+    transition: all 0.5s;
+}
+
+.card:hover {
+    box-shadow: 0px 10px 20px #ccc;
+    transform: scale(1.1);
+    transition-duration: 0.5s;
+}
+.home {
+    background-image: url(/assets/images/websitemesa-de-trabajo-56.png) ;
+    background-size: cover;
+}
+
+.personImpact {
+    color: $color-text;
+}
+
+.personExpert {
+    color: $color-cerise;
+}
+
+.baseAdmin {
+    a {
+        color: whitesmoke;
+        &:hover {
+            color: rgba(249, 250, 251, 0.5);
+        }
+    }
+}
