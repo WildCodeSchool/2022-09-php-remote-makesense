@@ -26,47 +26,6 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/decision')]
 class DecisionController extends AbstractController
 {
-    #[Route('/', name: 'app_decision_index', methods: ['GET'])]
-    public function index(DecisionRepository $decisionRepository): Response
-    {
-        return $this->render('decision/index.html.twig', [
-            'decisions' => $decisionRepository->findAll(),
-        ]);
-    }
-
-    #[Route('/{id}/step2', name: 'step2', methods: ['GET'])]
-    public function step2(Decision $decision, Request $request, DecisionRepository $decisionRepository): Response
-    {
-        $form = $this->createForm(DecisionContributorsType::class, $decision);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $decisionRepository->save($decision, true);
-            return $this->redirectToRoute('app_decision_step3', [], Response::HTTP_SEE_OTHER);
-        }
-        return $this->renderForm('decision/edit-step2.html.twig', [
-            'decision' => $decision,
-            'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}/step3', name: 'step3', methods: ['GET'])]
-    public function step3(Decision $decision, Request $request, DecisionRepository $decisionRepository):Response
-    {
-        $timeline = new Timeline();
-
-        $form = $this->createForm(TimelineType::class, $decision);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $decisionRepository->save($decision, true);
-        }
-        return $this->renderForm('decision/edit-step3.html.twig', [
-            'decision' => $decision,
-            'form' => $form,
-        ]);
-    }
-
     #[Route('/all', name: 'app_all_decisions', methods: ['GET'])]
     public function showAll(
         Request $request,
@@ -150,7 +109,7 @@ class DecisionController extends AbstractController
             $decision->addTimeline($timeline2);
             $decisionRepository->save($decision, true);
 
-            return $this->redirectToRoute('app_decision_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_decision_show', ['id' => $decision->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('decision/new.html.twig', [
@@ -182,7 +141,7 @@ class DecisionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $decisionRepository->save($decision, true);
 
-            return $this->redirectToRoute('app_decision_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_decision_show', ['id' => $decision->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('decision/edit.html.twig', [
@@ -237,7 +196,7 @@ class DecisionController extends AbstractController
             $decisionRepository->remove($decision, true);
         }
 
-        return $this->redirectToRoute('app_decision_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_decision_mine', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/new/firstDecision/{decision}', name: '_new_first_decision', methods: ['GET', 'POST'])]

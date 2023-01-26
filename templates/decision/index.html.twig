@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Index des décisions</h1>
 
-    <a href="{{ path('app_decision_new') }}">Créer une nouvelle décision</a>
+    <a class="btn btn-primary" href="{{ path('app_decision_new') }}">Créer une nouvelle décision</a>
 
     <table class="table">
         <thead>
@@ -17,7 +17,6 @@
                 <th>Contexte</th>
                 <th>Bénéfices</th>
                 <th>Inconveniants</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
