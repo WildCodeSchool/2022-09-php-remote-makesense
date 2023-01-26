@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\decision;
+namespace App\Form\Decision;
 
 use App\Entity\Decision;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;

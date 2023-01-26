@@ -1,0 +1,68 @@
+<div {{ attributes }}>
+    {% if this.hasChanged %}
+        <div>
+            modification enregistrée
+        </div>
+    {% endif %}
+    {% for implication in this.implications %}
+        <section class="mb-4">
+            <h3>{{ implication.name }}</h3>
+            <ul class="list-unstyled">
+                {% for key, contributor in this.contributors|filter(contributor => contributor.implication == implication) %}
+                    <li class="mb-2">
+                        <div class="input-group">
+                            <input
+                                type="text"
+                                class="form-control"
+                                readonly value="{{ contributor.employee.firstname }} {{ contributor.employee.lastname }}">
+                            <button class="btn btn-primary text-white dropdown-toggle"
+                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Modifier l'implication
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                {% for implicationElem in this.implications|filter(implicationElem => implicationElem != implication ) %}
+                                    <li>
+                                        <button
+                                            class="dropdown-item"
+                                            type="button"
+                                            data-action="live#action"
+                                            data-action-name="changeContributorImplication(contributorId={{ contributor.id }}, implicationId={{ implicationElem.id }})"
+                                        >{{ implicationElem.name }}
+                                        </button>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <button
+                                class="btn btn-danger"
+                                type="button"
+                                data-action="live#action"
+                                data-action-name="removeContributor(contributorId={{ contributor.id }})"
+                            >retirer</button>
+                        </div>
+
+                    </li>
+                {%  endfor %}
+            </ul>
+        </section>
+    {% endfor %}
+
+    <div class="mb-3">
+        <label for="search">Rechercher un employé</label>
+        <input type="search"
+               id="search"
+               class="form-control"
+               data-model="search"
+        >
+        <div class="list-group">
+            {% for employee in this.results %}
+                <button
+                    type="button"
+                    class="list-group-item list-group-item-action"
+                    data-action="live#action"
+                    data-action-name="addNewContributor(employeeId={{ employee.id }})">
+                    {{ employee.firstname }} {{ employee.lastname }}
+                </button>
+            {% endfor %}
+        </div>
+    </div>
+</div>
