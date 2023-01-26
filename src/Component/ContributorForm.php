@@ -8,6 +8,8 @@ use App\Repository\ContributorRepository;
 use App\Repository\DecisionRepository;
 use App\Repository\EmployeeRepository;
 use App\Repository\ImplicationRepository;
+use App\Services\ContributorMailerService;
+use App\Services\MailerService;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
@@ -37,7 +39,7 @@ class ContributorForm extends AbstractController
     ) {
     }
     #[LiveAction]
-    public function addNewContributor(#[LiveArg] ?int $employeeId): void
+    public function addNewContributor(#[LiveArg] ?int $employeeId, ContributorMailerService $mailer): void
     {
         if ($employeeId) {
             $employee = $this->employeeRepository->findOneBy(['id' => $employeeId]);
@@ -50,6 +52,9 @@ class ContributorForm extends AbstractController
             $this->decisionRepository->save($this->decision, true);
             $this->search = null;
             $this->hasChanged = true;
+            $emailTo = $contributor->getEmployee()->getEmail();
+            $decision = $this->decision;
+            $mailer->sendEmail($emailTo, $contributor, $decision);
         }
     }
 

@@ -15,11 +15,13 @@ class TimelineType extends AbstractType
         $builder
             //->add('name')
             //->add('startedAt')
-            ->add('startedAt',  DateType::class, [
+            ->add('startedAt', DateType::class, [
                 'widget' => 'single_text',
+                'label' => 'Date de début',
             ])
-            ->add('endedAt',  DateType::class, [
+            ->add('endedAt', DateType::class, [
                 'widget' => 'single_text',
+                'label' => 'Date de fin',
             ])
         ;
     }

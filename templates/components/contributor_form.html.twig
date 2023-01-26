@@ -1,7 +1,8 @@
 <div {{ attributes }}>
     {% if this.hasChanged %}
-        <div>
-            modification enregistrée
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Modifications enregistrées avec succès.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><span aria-hidden="true"></span></button>
         </div>
     {% endif %}
     {% for implication in this.implications %}
@@ -64,5 +65,8 @@
                 </button>
             {% endfor %}
         </div>
+        <a href=" {{ path('app_decision_show', {id: decision.id }) }}" class=" btn btn-primary mt-5">
+            <i class="bi bi-arrow-return-left me-2"></i><span>Retour à la decision</span>
+        </a>
     </div>
 </div>

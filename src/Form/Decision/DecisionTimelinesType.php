@@ -21,8 +21,8 @@ class DecisionTimelinesType extends AbstractType
                 'allow_add' => false,
                 'allow_delete' => false,
                 'by_reference' => false
-            ])
-            ->add('enregistrer', SubmitType::class);
+            ]);
+            //->add('envoyer', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

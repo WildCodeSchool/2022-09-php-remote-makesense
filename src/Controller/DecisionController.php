@@ -97,16 +97,16 @@ class DecisionController extends AbstractController
             /** @var User $user */
             $user = $this->getUser();
             $decision->setUser($user);
-            $timeline0 = new Timeline();
-            $timeline0->setName('Prise de décision commencée');
-            $timeline1 = new Timeline();
-            $timeline1->setName('Deadline pour donner son avis');
-            $timeline2 = new Timeline();
-            $timeline2->setName('Première décision prise');
-
-            $decision->addTimeline($timeline0);
-            $decision->addTimeline($timeline1);
-            $decision->addTimeline($timeline2);
+//            $timeline0 = new Timeline();
+//            $timeline0->setName('Prise de décision commencée');
+//            $timeline1 = new Timeline();
+//            $timeline1->setName('Deadline pour donner son avis');
+//            $timeline2 = new Timeline();
+//            $timeline2->setName('Première décision prise');
+//
+//            $decision->addTimeline($timeline0);
+//            $decision->addTimeline($timeline1);
+//            $decision->addTimeline($timeline2);
             $decisionRepository->save($decision, true);
 
             return $this->redirectToRoute('app_decision_show', ['id' => $decision->getId()], Response::HTTP_SEE_OTHER);
@@ -151,17 +151,13 @@ class DecisionController extends AbstractController
     }
 
     #[Route('/{id}/edit-contributors', name: 'app_decision_contributors_edit', methods: ['GET', 'POST'])]
-    public function editContributors(Request $request, Decision $decision, DecisionRepository $decisionRepository): Response
-    {
+    public function editContributors(
+        Request $request,
+        Decision $decision,
+        DecisionRepository $decisionRepository
+    ): Response {
         $form = $this->createForm(DecisionContributorsType::class, $decision);
 
-//        $form->handleRequest($request);
-//
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            $decisionRepository->save($decision, true);
-//
-//            return $this->redirectToRoute('app_decision_index', [], Response::HTTP_SEE_OTHER);
-//        }
         return $this->renderForm('decision/edit-contributors.html.twig', [
             'form' => $form,
             'decision' => $decision
@@ -181,7 +177,7 @@ class DecisionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $decisionRepository->save($decision, true);
 
-            return $this->redirectToRoute('app_decision_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_decision_show', ['id' => $decision->getId()], Response::HTTP_SEE_OTHER);
         }
         return $this->renderForm('decision/edit-timelines.html.twig', [
             'form' => $form,
