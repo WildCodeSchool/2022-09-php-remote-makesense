@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\Decision;
+namespace App\Form;
 
 use App\Entity\Decision;
 use App\Entity\Timeline;
@@ -9,7 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TimelineType extends AbstractType
+class TimelineBisType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -34,15 +34,10 @@ class TimelineType extends AbstractType
 //'Décision définitive',
 
 
-    public function getBlockPrefix(): string
-    {
-        return 'DecisionStep3';
-    }
-
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Decision::class,
+            'data_class' => Timeline::class,
         ]);
     }
 }

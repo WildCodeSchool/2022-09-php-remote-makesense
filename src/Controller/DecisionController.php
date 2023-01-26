@@ -6,6 +6,7 @@ use App\Entity\Contributor;
 use App\Entity\Decision;
 use App\Entity\Timeline;
 use App\Form\Decision\DecisionContributorsType;
+use App\Form\Decision\DecisionTimelinesType;
 use App\Form\Decision\DecisionType;
 use App\Entity\User;
 use App\Form\Decision\DefinitiveDecisionType;
@@ -137,6 +138,16 @@ class DecisionController extends AbstractController
             /** @var User $user */
             $user = $this->getUser();
             $decision->setUser($user);
+            $timeline0 = new Timeline();
+            $timeline0->setName('Prise de décision commencée');
+            $timeline1 = new Timeline();
+            $timeline1->setName('Deadline pour donner son avis');
+            $timeline2 = new Timeline();
+            $timeline2->setName('Première décision prise');
+
+            $decision->addTimeline($timeline0);
+            $decision->addTimeline($timeline1);
+            $decision->addTimeline($timeline2);
             $decisionRepository->save($decision, true);
 
             return $this->redirectToRoute('app_decision_index', [], Response::HTTP_SEE_OTHER);
@@ -193,6 +204,27 @@ class DecisionController extends AbstractController
 //            return $this->redirectToRoute('app_decision_index', [], Response::HTTP_SEE_OTHER);
 //        }
         return $this->renderForm('decision/edit-contributors.html.twig', [
+            'form' => $form,
+            'decision' => $decision
+        ]);
+    }
+
+    #[Route('/{id}/edit-timelines', name: 'app_decision_timelines_edit', methods: ['GET', 'POST'])]
+    public function editTimelines(
+        Request $request,
+        Decision $decision,
+        DecisionRepository $decisionRepository
+    ): Response {
+        $form = $this->createForm(DecisionTimelinesType::class, $decision);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $decisionRepository->save($decision, true);
+
+            return $this->redirectToRoute('app_decision_index', [], Response::HTTP_SEE_OTHER);
+        }
+        return $this->renderForm('decision/edit-timelines.html.twig', [
             'form' => $form,
             'decision' => $decision
         ]);
