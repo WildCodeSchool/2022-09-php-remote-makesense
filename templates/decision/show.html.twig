@@ -278,10 +278,9 @@
             </div>
         </div>
    </div>
-<div class="ms-5">
+<div class="ms-5 mb-5">
     <div class="mt-4">
-        {# @TODO relier le lien avec la page Toutes les décisions #}
-        <a href="#"><i class="bi bi-arrow-return-left me-2"></i><span>Retour à toutes les décisions</span></a>
+        <a href="{{ path('app_all_decisions') }}"><i class="bi bi-arrow-return-left me-2"></i><span>Retour à toutes les décisions</span></a>
     </div>
 
     {% if decision.user == app.user %}
