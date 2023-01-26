@@ -4,89 +4,88 @@ namespace App\Component;
 
 use App\Entity\Contributor;
 use App\Entity\Decision;
-use App\Form\Decision\DecisionContributorsType;
+use App\Repository\ContributorRepository;
 use App\Repository\DecisionRepository;
 use App\Repository\EmployeeRepository;
 use App\Repository\ImplicationRepository;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormInterface;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
-use Symfony\UX\LiveComponent\LiveCollectionTrait;
 
 #[AsLiveComponent('contributor_form')]
 class ContributorForm extends AbstractController
 {
     use DefaultActionTrait;
-    use LiveCollectionTrait;
 
-    #[LiveProp(writable: true, fieldName: 'decisionField')]
+    #[LiveProp(writable: true)]
     public ?Decision $decision = null;
 
     #[LiveProp(writable: true)]
     public ?string $search = null;
 
+    public bool $hasChanged = false;
+
     public function __construct(
         private readonly EmployeeRepository $employeeRepository,
-        private readonly ImplicationRepository $implicationRepository,
-        private readonly DecisionRepository $decisionRepository
+        private readonly ImplicationRepository $implicationRepos,
+        private readonly DecisionRepository $decisionRepository,
+        private readonly ContributorRepository $contributorRepos
     ) {
-
     }
-
-    protected function instantiateForm(): FormInterface
-    {
-        return $this->createForm(DecisionContributorsType::class, $this->decision);
-    }
-
     #[LiveAction]
-    public function addNewContributor(#[LiveArg] ?int $employeeId)
+    public function addNewContributor(#[LiveArg] ?int $employeeId): void
     {
         if ($employeeId) {
             $employee = $this->employeeRepository->findOneBy(['id' => $employeeId]);
+
             $contributor = new Contributor();
             $contributor->setEmployee($employee);
-            $contributor->setImplication($this->implicationRepository->find(1));
+            $contributor->setImplication($this->implicationRepos->find(1));
+
             $this->decision->addContributor($contributor);
             $this->decisionRepository->save($this->decision, true);
             $this->search = null;
-//            $this->notifEmployee->sendMail($employee, $this->decision);
-            //$this->formValues['contributors'][] = ['firstname' => $employee->getFirstname(), 'lastname' => $employee->getLastname()];
+            $this->hasChanged = true;
         }
     }
 
-    #[LiveAction]
-    public function removeContributor(#[LiveArg] int $contributorIndex)
+    public function getContributors(): Collection
     {
-        unset($this->formValues['contributors'][$contributorIndex]);
+        return $this->decision->getContributors();
     }
 
     #[LiveAction]
-    public function save(DecisionRepository $decisionRepository)
+    public function removeContributor(#[LiveArg] int $contributorId): void
     {
-        // shortcut to submit the form with form values
-        // if any validation fails, an exception is thrown automatically
-        // and the component will be re-rendered with the form errors
-        $this->submitForm();
-
-        /** @var Decision $decision*/
-        $decision = $this->getFormInstance()->getData();
-        $decisionRepository->save($decision, true);
-
-        $this->addFlash('success', 'Décision sauvegardée !');
-
-        return $this->redirectToRoute('app_decision_show', [
-            'id' => $this->decision->getId(),
-        ]);
+        $contributor = $this->contributorRepos->find($contributorId);
+        if ($contributor) {
+            $this->decision->removeContributor($contributor);
+            $this->decisionRepository->save($this->decision, true);
+            $this->hasChanged = true;
+        }
     }
 
     public function getResults(): array
     {
         return $this->search ? $this->employeeRepository->search($this->search) : [];
     }
+
+    public function getImplications(): array
+    {
+        return $this->implicationRepos->findAll();
+    }
+
+    #[LiveAction]
+    public function changeContributorImplication(#[LiveArg] int $contributorId, #[LiveArg] int $implicationId): void
+    {
+        $implication = $this->implicationRepos->find($implicationId);
+        $contributor = $this->contributorRepos->find($contributorId);
+        $contributor->setImplication($implication);
+        $this->contributorRepos->save($contributor, true);
+        $this->hasChanged = true;
+    }
 }
-
-
