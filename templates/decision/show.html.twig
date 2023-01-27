@@ -206,7 +206,7 @@
                        <div class="row mt-3">
                            <ul class="list-group list-group-horizontal m-0 p-0 m-auto justify-content-center">
                                {% for contributor in decision.contributors|filter(contributor => contributor.implication.name=="Impactée") %}
-                               <li class="list-group-item"><img src ="https://picsum.photos/id/235/30/30" alt="{{ contributor.employee.firstName }} {{ contributor.employee.lastName }}" title="{{ contributor.employee.firstName }} {{ contributor.employee.lastName }}" class="rounded-circle"/></li>
+                               <li class="list-group-item"><img src ="https://picsum.photos/id/235/30/30" alt="{{ contributor.employee.firstname }} {{ contributor.employee.lastname }}" title="{{ contributor.employee.firstname }} {{ contributor.employee.lastname }}" class="rounded-circle"/></li>
                                {% endfor %}
                            </ul>
                        </div>
@@ -217,7 +217,7 @@
                         <div class="row mt-3">
                             <ul class="list-group list-group-horizontal m-0 p-0 m-auto justify-content-center">
                                 {% for contributor in decision.contributors|filter(contributor => contributor.implication.name=="Experte") %}
-                                    <li class="list-group-item"><img src ="https://picsum.photos/id/236/30/30" alt="{{ contributor.employee.firstName }} {{ contributor.employee.lastName }}" title="{{ contributor.employee.firstName }} {{ contributor.employee.lastName }}" class="rounded-circle"/></li>
+                                    <li class="list-group-item"><img src ="https://picsum.photos/id/236/30/30" alt="{{ contributor.employee.firstname }} {{ contributor.employee.lastname }}" title="{{ contributor.employee.firstname }} {{ contributor.employee.lastname }}" class="rounded-circle"/></li>
                                 {% endfor %}
                             </ul>
                         </div>
@@ -279,17 +279,22 @@
         </div>
    </div>
 <div class="ms-5 mb-5">
-    <div class="mt-4">
-        <a href="{{ path('app_all_decisions') }}"><i class="bi bi-arrow-return-left me-2"></i><span>Retour à toutes les décisions</span></a>
-    </div>
-
     {% if decision.user == app.user %}
     <div class="mt-2">
-        <a href="{{ path('app_decision_edit', {'id': decision.id}) }}"><i class="bi bi-gear me-2"></i><span>Modifier</span></a>
+        <a href="{{ path('app_decision_edit', {'id': decision.id}) }}" class="btn btn-warning m-2">
+            <i class="bi bi-gear me-2"></i><span>Modifier</span>
+        </a>
+        <a href="{{ path('app_decision_contributors_edit', {'id': decision.id}) }}" class="btn btn-warning m-2">
+            <i class="bi bi-gear me-2"></i><span>Modifier les contributeurs</span>
+        </a>
+        <a href="{{ path('app_decision_timelines_edit', {'id': decision.id}) }}" class="btn btn-warning m-2">
+            <i class="bi bi-gear me-2"></i><span>Modifier la timeline</span>
+        </a>
     </div>
     <div class="mt-2 mb-2">
         {{ include('decision/_delete_form.html.twig') }}
     </div>
+        <a href="{{ path('app_all_decisions') }}"><i class="bi bi-arrow-return-left me-2"></i><span>Retour à toutes les décisions</span></a>
     {% endif %}
 </div>
 {% endblock %}
