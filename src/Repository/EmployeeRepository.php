@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Employee;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @extends ServiceEntityRepository<Employee>
@@ -38,6 +39,29 @@ class EmployeeRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function findAllEmployee(): array
+    {
+        return $this->createQueryBuilder('e')
+            ->orderBy('e.lastname', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+
+    public function findOneByForm(string $email, string $firstName, string $lastName): array
+    {
+        return $this->createQueryBuilder('e')
+            ->Where('e.email = :email')
+            ->andWhere('e.firstname = :firstName')
+            ->andWhere('e.lastname = :lastName')
+            ->setParameter('email', $email)
+            ->setParameter('firstName', $firstName)
+            ->setParameter('lastName', $lastName)
+            ->getQuery()
+            ->getResult();
+    }
+
 
 //    /**
 //     * @return Employee[] Returns an array of Employee objects

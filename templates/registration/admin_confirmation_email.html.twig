@@ -1,0 +1,15 @@
+<h1>Bonjour, un nouvel utilisateur s'est inscrit !</h1>
+
+<p>
+    Un nouvel utilisateur vient de créer son compte. <br><br>
+    Veuillez vérifier l'identité de ce dernier :
+    Cliquez sur le lien ci-dessous : <br><br>
+    <a href="{{ signedUrl|raw }}">Confirmer mon adresse mail</a>.
+    Ce lien expirera dans {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.<br><br>
+    Ou vous connecter pour gérer les utilisateurs :<br><br>
+    <a href="{{ path('app_login') }}">Se connecter sur MakeSense</a>
+</p>
+
+<p>
+    L'équipe MakeSense vous remercie !
+</p>

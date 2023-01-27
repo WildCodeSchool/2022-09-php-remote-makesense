@@ -170,18 +170,26 @@
                                 {% for timeline in decision.timelines %}
                                 <div class="apland-timeline-area">
                                     <!-- Single Timeline Content-->
-                                    <div class="single-timeline-area">
+                                    <div class="single-timeline-area ">
                                         <div class="timeline-date">
                                             <p>{{ timeline.endedAt |date('d/m/Y') }}</p>
                                         </div>
                                         <div class="row">
                                             <div class="col-12">
-                                                <div class="single-timeline-content d-flex ">
-
-                                                    <div class="timeline-text">
-                                                        <h6>{{timeline.name}}</h6>
-                                                    </div>
-                                                </div>
+                                                {% if "now" |date('Y-m-d') >= timeline.startedAt |date('Y-m-d')
+                                                    and "now" |date('Y-m-d') < timeline.endedAt |date('Y-m-d') %}
+                                                        <div class="single-timeline-content d-flex border-4 border-warning border-5 text-warning">
+                                                            <div class="timeline-text">
+                                                            <h6>{{timeline.name}}</h6>
+                                                            </div>
+                                                        </div>
+                                                        {% else %}
+                                                        <div class="single-timeline-content d-flex ">
+                                                            <div class="timeline-text">
+                                                                <h6>{{timeline.name}}</h6>
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
                                             </div>
                                         </div>
                                     </div>
@@ -270,12 +278,11 @@
             </div>
         </div>
    </div>
-<div class="ms-5">
+<div class="ms-5 mb-5">
     <div class="mt-4">
-        {# @TODO relier le lien avec la page Toutes les décisions #}
-        <a href="{{ path('app_all_decisions')}}"><i class="bi bi-arrow-return-left me-2"></i><span>Retour à toutes les décisions</span></a>
+        <a href="{{ path('app_all_decisions') }}"><i class="bi bi-arrow-return-left me-2"></i><span>Retour à toutes les décisions</span></a>
     </div>
-    {% if userDecision %}
+    {% if decision.user == app.user %}
     <div class="mt-2">
         <a href="{{ path('app_decision_edit', {'id': decision.id}) }}"><i class="bi bi-gear me-2"></i><span>Modifier</span></a>
     </div>

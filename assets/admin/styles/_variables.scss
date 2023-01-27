@@ -1,0 +1,107 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital@1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata&family=Raleway:ital@1&display=swap");
+
+$font-family-sans-serif: Raleway, Helvetica, Arial, sans-serif; // TEXT AND TITLES
+$font-family-monospace: inconsolata, monospace; // ONLY TEXT
+
+$gray-100: #f9fafb;
+$gray-200: #f2f4f7;
+$gray-300: #eceff3;
+$gray-400: #e0e4eb;
+$gray-500: #c0cad8;
+$gray-700: #a1afc4;
+
+$orange : #e67919;
+$yellow: #fff30d;
+
+$font-weight-semibold: 500;
+
+// BACKGROUND -- WHITE
+$background-color-soft: rgb(249, 250, 251);
+$white: #f9fafb;
+
+// BACKGROUND -- BLACK
+$background-color-inverse-soft: rgb(31, 39, 50);
+$black: #1f2732;
+
+// BACKGROUND -- DARK
+$background-color-inverse-softer: rgb(59, 73, 94);
+$gray-900: #3b495e;
+
+$background-color-inverse-softer-active: rgb(79, 97, 125);
+$gray-800: #586d8d;
+
+// BACKGROUND -- BLUE/GREEN
+$background-color-primary: rgb(25, 108, 132);
+$blue: #196c84;
+
+// BACKGROUND -- BLUE/GREEN LIGHTER
+$background-color-primary-active: rgb(32, 136, 167);
+
+// BACKGROUND -- YELLOW
+$background-color-secondary: rgb(255, 243, 13);
+$secondary:$yellow;
+
+// BACKGROUND -- YELLOW DARKER
+$background-color-secondary-active: rgb(244, 232, 4);
+
+// BACKGROUND/TEXT -- SUCCESS GREEN
+$background-color-success: rgb(39, 174, 96);
+$green: #70af90;
+
+// BACKGROUND -- SUCCESS GREEN LIGHTER
+$background-color-success-active: rgb(42, 187, 103);
+
+//BACKGROUND/TEXT -- WARNING ORANGE
+$background-color-warning: rgb(230, 121, 25);
+$warning: $orange;
+
+//BACKGROUND -- WARNING ORANGE LIGHTER
+$background-color-warning-active: rgb(233, 137, 53);
+
+// BACKGROUND/TEXT -- DANGER RED
+$background-color-danger: rgb(217, 58, 58);
+$red: #d93a3a;
+
+// BACKGROUND -- DANGER RED LIGHTER
+$background-color-danger-active: rgb(221, 75, 75);
+
+// BACKGROUND -- INFO GRAY
+$color-neutral-70: rgb(192, 202, 216);
+$cyan: #c0cad8;
+
+// COLOR -- CHERRY
+$color-cerise: rgb(155, 8, 79);
+$purple:  #9b084f;
+// COLOR -- CHERRY LIGHTER
+$color-tertiary-active: rgb(193, 11, 99);
+$pink:    #c10b63;
+
+// COLOR -- GREEN LIGHT
+$color-atlantis: rgb(193, 233, 78);
+
+// TEXT STANDARD -- DARK
+$color-text: rgb(12, 57, 68);
+
+// TEXT STANDARD -- LIGHT
+$color-text-light: rgb(130, 148, 176);
+
+// ********* FONT SIZES *********
+$font-size-xl: 3rem;
+$font-size-l: 1.4rem;
+$font-size-m: 1.2rem;
+$font-size-s: 1rem;
+$font-size-base: 1.2rem;
+
+// ********* FONT *********
+$font-text: Raleway, Helvetica, Arial, sans-serif; // TEXT AND TITLES
+$font-code: inconsolata, monospace; // ONLY TEXT
+
+// ********* LINE HEIGHT *********
+$line-height-m: 1.3;
+
+// ********* BOX SHADOW *********
+$box-shadow-l: 2px 4px 10px 0 rgba(0, 0, 0, 0.1);
+$box-shadow-elevated-l: 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+$box-shadow-active: 0 0 6px 1px rgba(20, 100, 160, 0.5);

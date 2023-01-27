@@ -18,11 +18,10 @@ class MyDecisionSearchType extends AbstractType
                 'label' => false,
                 'choices' => [
                         'Choisissez le statut' => '',
-                        'Prise de décision commencée' => 'Prise de décision commencée',
-                        'Donner son avis' => 'Deadline pour donner son avis',
+                        'Avis en cours' => 'Deadline pour donner son avis',
                         'Prendre sa première décision' => 'Première décision prise',
-                        'Entrer un conflit' => 'Deadline pour entrer en conflit',
-                        'Décision définitive' =>  'Décision définitive',
+                        'Conflits en cours' => 'Deadline pour entrer en conflit',
+                        'Prendre sa décision définitive' =>  'Décision définitive',
                         'Décision terminée' => 'Décision terminée',
                     ]
             ]);
