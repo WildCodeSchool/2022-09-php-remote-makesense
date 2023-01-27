@@ -35,11 +35,12 @@ class ContributorForm extends AbstractController
         private readonly EmployeeRepository $employeeRepository,
         private readonly ImplicationRepository $implicationRepos,
         private readonly DecisionRepository $decisionRepository,
-        private readonly ContributorRepository $contributorRepos
+        private readonly ContributorRepository $contributorRepos,
+        private readonly ContributorMailerService $mailer
     ) {
     }
     #[LiveAction]
-    public function addNewContributor(#[LiveArg] ?int $employeeId, ContributorMailerService $mailer): void
+    public function addNewContributor(#[LiveArg] ?int $employeeId): void
     {
         if ($employeeId) {
             $employee = $this->employeeRepository->findOneBy(['id' => $employeeId]);
@@ -54,7 +55,7 @@ class ContributorForm extends AbstractController
             $this->hasChanged = true;
             $emailTo = $contributor->getEmployee()->getEmail();
             $decision = $this->decision;
-            $mailer->sendEmail($emailTo, $contributor, $decision);
+            $this->mailer->sendEmail($emailTo, $contributor, $decision);
         }
     }
 

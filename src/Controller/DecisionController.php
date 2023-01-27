@@ -97,16 +97,22 @@ class DecisionController extends AbstractController
             /** @var User $user */
             $user = $this->getUser();
             $decision->setUser($user);
-//            $timeline0 = new Timeline();
-//            $timeline0->setName('Prise de décision commencée');
-//            $timeline1 = new Timeline();
-//            $timeline1->setName('Deadline pour donner son avis');
-//            $timeline2 = new Timeline();
-//            $timeline2->setName('Première décision prise');
-//
-//            $decision->addTimeline($timeline0);
-//            $decision->addTimeline($timeline1);
-//            $decision->addTimeline($timeline2);
+            $timeline0 = new Timeline();
+            $timeline0->setName('Prise de décision commencée');
+            $timeline1 = new Timeline();
+            $timeline1->setName('Deadline pour donner son avis');
+            $timeline2 = new Timeline();
+            $timeline2->setName('Première décision prise');
+            $timeline3 = new Timeline();
+            $timeline3->setName('Deadline pour entrer en conflit');
+            $timeline4 = new Timeline();
+            $timeline4->setName('Décision définitive');
+
+            $decision->addTimeline($timeline0);
+            $decision->addTimeline($timeline1);
+            $decision->addTimeline($timeline2);
+            $decision->addTimeline($timeline3);
+            $decision->addTimeline($timeline4);
             $decisionRepository->save($decision, true);
 
             return $this->redirectToRoute('app_decision_show', ['id' => $decision->getId()], Response::HTTP_SEE_OTHER);

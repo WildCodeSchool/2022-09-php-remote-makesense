@@ -52,7 +52,7 @@ class Decision
     #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Contribution::class)]
     private Collection $contributions;
 
-    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Timeline::class)]
+    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Timeline::class, cascade: ['persist'])]
     private Collection $timelines;
 
     public function __construct()
