@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier la timeline{% endblock %}
+
+{% block body %}
+
+      <h1><i class="bi bi-gear me-2"></i><span>Modifier la timeline</span></h1>
+
+    {{ form_start(form) }}
+        {% for timeline in form.timelines %}
+            <div class="container text-center col-6 pt-5 bg-info mt-2 rounded-4">
+            <h4><i class="bi bi-arrow-right me-2"></i>{{ timeline.vars.value.name }}</span></h4>
+                <div class="d-flex justify-content-center p-3">
+                    <div class="col-3 me-3 text-dark">
+            {{ form_row(timeline.startedAt, {
+
+            }) }}
+                    </div>
+                    <div class="col-3 text-dark">
+            {{ form_row(timeline.endedAt, {
+            }) }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    <div class="text-center">
+    <button class="btn btn-primary mt-3 col-3"><i class="bi bi-check-lg me-2"></i><span>{{ button_label|default('Enregistrer') }}</span></button>
+    </div>
+    {{ form_end(form) }}
+
+    <a href=" {{ path('app_decision_show', {id: decision.id }) }} ">
+        <i class="bi bi-arrow-return-left me-2"></i><span>Retour à la decision</span>
+    </a>
+
+
+{% endblock %}

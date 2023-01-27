@@ -1,0 +1,44 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Index des utilisateurs{% endblock %}
+
+{% block body %}
+    <h1>Index des utilisateurs</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Identifiant</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Email</th>
+                <th scope="col">Rôle</th>
+                <th scope="col">Date de création</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td class="d-flex justify-content-end">
+                    <a href="{{ path('app_admin_user_show', {'id': user.id}) }}" class="btn btn-primary me-2"><i class="bi bi-eye me-2"></i><span>Voir</span></a>
+                    <a href="{{ path('app_admin_user_edit', {'id': user.id}) }}" class="btn btn-warning me-2"><i class="bi bi-gear me-2"></i><span>Modifier</span></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">Aucun utilisateur trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class ="d-flex justify-content-center mt-3 mb-5">
+        {{ knp_pagination_render(users) }}
+    </div>
+{% endblock %}

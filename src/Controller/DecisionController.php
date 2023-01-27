@@ -2,11 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Contributor;
 use App\Entity\Decision;
+use App\Entity\Timeline;
+use App\Form\Decision\DecisionContributorsType;
+use App\Form\Decision\DecisionTimelinesType;
+use App\Form\Decision\DecisionType;
 use App\Entity\User;
-use App\Form\decision\DecisionType;
-use App\Form\decision\DefinitiveDecisionType;
-use App\Form\decision\FirstDecisionType;
+use App\Form\Decision\DefinitiveDecisionType;
+use App\Form\Decision\FirstDecisionType;
 use App\Form\MyDecisionSearchType;
 use App\Repository\ContributorRepository;
 use App\Repository\DecisionRepository;
@@ -22,14 +26,6 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/decision')]
 class DecisionController extends AbstractController
 {
-    #[Route('/', name: 'app_decision_index', methods: ['GET'])]
-    public function index(DecisionRepository $decisionRepository): Response
-    {
-        return $this->render('decision/index.html.twig', [
-            'decisions' => $decisionRepository->findAll(),
-        ]);
-    }
-
     #[Route('/all', name: 'app_all_decisions', methods: ['GET'])]
     public function showAll(
         Request $request,
@@ -101,9 +97,25 @@ class DecisionController extends AbstractController
             /** @var User $user */
             $user = $this->getUser();
             $decision->setUser($user);
+            $timeline0 = new Timeline();
+            $timeline0->setName('Prise de décision commencée');
+            $timeline1 = new Timeline();
+            $timeline1->setName('Deadline pour donner son avis');
+            $timeline2 = new Timeline();
+            $timeline2->setName('Première décision prise');
+            $timeline3 = new Timeline();
+            $timeline3->setName('Deadline pour entrer en conflit');
+            $timeline4 = new Timeline();
+            $timeline4->setName('Décision définitive');
+
+            $decision->addTimeline($timeline0);
+            $decision->addTimeline($timeline1);
+            $decision->addTimeline($timeline2);
+            $decision->addTimeline($timeline3);
+            $decision->addTimeline($timeline4);
             $decisionRepository->save($decision, true);
 
-            return $this->redirectToRoute('app_decision_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_decision_show', ['id' => $decision->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('decision/new.html.twig', [
@@ -135,12 +147,47 @@ class DecisionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $decisionRepository->save($decision, true);
 
-            return $this->redirectToRoute('app_decision_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_decision_show', ['id' => $decision->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('decision/edit.html.twig', [
             'decision' => $decision,
             'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}/edit-contributors', name: 'app_decision_contributors_edit', methods: ['GET', 'POST'])]
+    public function editContributors(
+        Request $request,
+        Decision $decision,
+        DecisionRepository $decisionRepository
+    ): Response {
+        $form = $this->createForm(DecisionContributorsType::class, $decision);
+
+        return $this->renderForm('decision/edit-contributors.html.twig', [
+            'form' => $form,
+            'decision' => $decision
+        ]);
+    }
+
+    #[Route('/{id}/edit-timelines', name: 'app_decision_timelines_edit', methods: ['GET', 'POST'])]
+    public function editTimelines(
+        Request $request,
+        Decision $decision,
+        DecisionRepository $decisionRepository
+    ): Response {
+        $form = $this->createForm(DecisionTimelinesType::class, $decision);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $decisionRepository->save($decision, true);
+
+            return $this->redirectToRoute('app_decision_show', ['id' => $decision->getId()], Response::HTTP_SEE_OTHER);
+        }
+        return $this->renderForm('decision/edit-timelines.html.twig', [
+            'form' => $form,
+            'decision' => $decision
         ]);
     }
 
@@ -151,7 +198,7 @@ class DecisionController extends AbstractController
             $decisionRepository->remove($decision, true);
         }
 
-        return $this->redirectToRoute('app_decision_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_decision_mine', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/new/firstDecision/{decision}', name: '_new_first_decision', methods: ['GET', 'POST'])]
@@ -161,24 +208,24 @@ class DecisionController extends AbstractController
         DecisionRepository $decisionRepository
     ): Response {
         $form = $this->createForm(FirstDecisionType::class, $decision, [
-        'action' => $this->generateUrl('_new_first_decision', ['decision' => $decision->getId()])
+            'action' => $this->generateUrl('_new_first_decision', ['decision' => $decision->getId()])
         ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $owner = $decisionRepository->findOneBy(['user' => $this->getUser()]);
             if ($owner) {
-                 $decisionRepository->save($decision, true);
-                 $this->addFlash('success', "Votre première décision a bien été postée !");
+                $decisionRepository->save($decision, true);
+                $this->addFlash('success', "Votre première décision a bien été postée !");
             } else {
-                 $this->addFlash('danger', "Votre première décision n'a pas pu être postée !");
+                $this->addFlash('danger', "Votre première décision n'a pas pu être postée !");
             }
-             return $this->redirectToRoute('app_decision_show', ['id' => $decision->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_decision_show', ['id' => $decision->getId()], Response::HTTP_SEE_OTHER);
         }
 
-         return $this->renderForm('decision/_modal_new_first_decision.html.twig', [
-             'form' => $form,
-         ]);
+        return $this->renderForm('decision/_modal_new_first_decision.html.twig', [
+            'form' => $form,
+        ]);
     }
 
     #[Route('/new/DefinitiveDecision/{decision}', name: '_new_definitive_decision', methods: ['GET', 'POST'])]

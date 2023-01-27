@@ -8,6 +8,9 @@
     {% endfor %}
 
     <h1><i class="bi bi-person-plus me-2"></i><span>Inscription</span></h1>
+
+    <small class="mb-4 text-center"><i class="bi bi-info-square me-2"></i><span>A noter : seuls les employés de Makesense sont autorisés à se créer un compte. Merci de votre compréhension.</span></small>
+
     <div class="container col-3">
     {{ form_start(registrationForm) }}
 
@@ -27,9 +30,14 @@
             {{ form_row(registrationForm.plainPassword, {
                 label: 'Mot de passe'
             }) }}
+    </div>
 
-        <button type="submit" class="btn btn-primary mt-4"><i class="bi bi-check-lg me-2"></i><span>S'inscrire</span></button>
+<div class="container col-3">
+    <div class="text-center mt-4 mb-5">
+        <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-2"></i><span>S'inscrire</span></button>
     {{ form_end(registrationForm) }}
     </div>
+</div>
+
 
 {% endblock %}

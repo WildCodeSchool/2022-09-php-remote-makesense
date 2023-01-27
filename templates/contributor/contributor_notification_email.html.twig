@@ -1,0 +1,14 @@
+<h1>Bonjour {{ contributor.employee.firstname }}, vous avez été invité à participer à une décision</h1>
+
+<p>Décision : {{ decision.title }}</p>
+<p>Auteur : {{ decision.user.firstname }} {{ decision.user.Lastname }}</p>
+
+<a href=" {{ path('app_decision_show', {id: decision.id }) }} ">Cliquez sur le lien de la décision.</a>
+
+{# @TODO Ajouter le lien vers la creation de compte  #}
+<p> Si vous n'avez pas encore créé votre compte, nous vous invitons à le faire dès maitenant </p>
+<a href=" {{ path('app_register') }} ">Cliquez sur le lien de la décision.</a>
+
+<p>
+    L'équipe MakeSense vous remercie !
+</p>

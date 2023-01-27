@@ -3,21 +3,22 @@
 {% block title %}Accueil - Makesense{% endblock %}
 
 {% block body %}
+    {{ include('include/_btn.html.twig') }}
     <h1>Bonjour {{ app.user.firstName }}</h1>
 
-    <div class="home">
-        <div class="container">
-            <h2>Mes décisions à venir</h2>
-            <div class="row justify-content-start custom-line">
-                {% for userDecision in userDecisions %}
-                    <div class="card col-sm-10 col-md-5 col-lg-3 m-3">
-                        {% for timeline in userDecision.timelines %}
-                            {% if loop.first %}
-                                <div class="card-header bg-transparent border-dark">
-                                    Prochaine étape :
-                                    <br>{{ timeline.name }}
-                                    <br><i class="bi bi-calendar2-week-fill text-success me-2"> Le
-                                        : {{ timeline.endedAt |date('d/m/Y') }}</i>
+<div class="home">
+    <div class="container mb-5">
+        <h2>Mes décisions à venir</h2>
+    <div class="row justify-content-start custom-line">
+    {% for userDecision in userDecisions %}
+        <div class="card col-sm-10 col-md-5 col-lg-3 m-3">
+                {% for timeline in userDecision.timelines %}
+                    {% if loop.first %}
+                        <div class="card-header bg-transparent border-dark">
+                            Prochaine étape :
+                            <br>{{ timeline.name }}
+                            <br><i class="bi bi-calendar2-week-fill text-success me-2"></i><span>Le
+                                : {{ timeline.endedAt |date('d/m/Y') }}</span>
                                 </div>
                             {% endif %}
                         {% endfor %}
@@ -38,9 +39,9 @@
                     </div>
 
                 {% endfor %}
-            </div>
+    </div>
 
-            <br><a href="{{ path('app_decision_mine') }}">Voir toutes mes décisions 💫</a>
+        <br><a href="{{ path('app_decision_mine') }}"><i class="bi bi-list-stars me-2"></i><span>Voir toutes mes décisions</span></a>
 
             <h2 class="mt-5">Mes contributions à venir</h2>
             <div class="row justify-content-start custom-line">
@@ -50,8 +51,8 @@
                 <div class="card col-sm-10 col-md-5 col-lg-3 m-3">
                     <div class="card-header bg-transparent border-dark">
                         {{ userContribution.name }}
-                        <br><i class="bi bi-calendar2-week-fill text-success me-2"> Le
-                            : {{ userContribution.endedAt |date('d/m/Y') }}</i>
+                        <br><i class="bi bi-calendar2-week-fill text-success me-2"></i><span class="text-success">Le :
+                            {{ userContribution.endedAt |date('d/m/Y') }}</span>
                     </div>
                     <div class="card-body text-primary">
                         <h5 class="card-title">{{ userContribution.decision.title }}</h5>
@@ -66,12 +67,14 @@
                                class="stretched-link"></a>
                     </div>
                 </div>
-            {% endif %}
-            {% else %}
-                <p>Aucune contribution en cours</p>
-            {% endfor %}
-            </div>
-            <br><a href="{{ path('app_contributor_decisions') }}">Voir toutes mes contributions ⭐️</a>
-        </div>
+        {% endif %}
+
+    {% else %}
+        <p>Aucune contribution en cours</p>
+        {% endfor %}
+        <br><a href="{{ path('app_contributor_decisions') }}"><i class="bi bi-stars me-2"></i><span>Voir toutes mes contributions</span></a>
     </div>
+    </div>
+</div>
+
 {% endblock %}

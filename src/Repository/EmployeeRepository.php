@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @method Employee|null find($id, $lockMode = null, $lockVersion = null)
  * @method Employee|null findOneBy(array $criteria, array $orderBy = null)
  * @method Employee[]    findAll()
- * @method Employee[]    findBy(array $criteria, array $orderBy = ull, $limit = null, $offset = null)
+ * @method Employee[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class EmployeeRepository extends ServiceEntityRepository
 {
@@ -40,6 +40,15 @@ class EmployeeRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllEmployee(): array
+    {
+        return $this->createQueryBuilder('e')
+            ->orderBy('e.lastname', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+
     public function findOneByForm(string $email, string $firstName, string $lastName): array
     {
         return $this->createQueryBuilder('e')
@@ -53,7 +62,16 @@ class EmployeeRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-
+    public function search(string $search): array
+    {
+        return $this->createQueryBuilder('e')
+            ->where('e.firstname LIKE :search')
+            ->orwhere('e.lastname LIKE :search')
+            ->setParameter('search', $search . '%')
+            ->orderBy('e.firstname')
+            ->getQuery()
+            ->getResult();
+    }
 //    /**
 //     * @return Employee[] Returns an array of Employee objects
 //     */

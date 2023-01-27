@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="robots" content="noindex">
         <link rel="icon" type="image/png" href="{{ asset('build/images/cropped-favicon-32x32.png') }}"/>
+
         <title>
             {% block title %}MakeSense{% endblock %}
         </title>
@@ -31,5 +32,9 @@
         {% endfor %}
         {% block body %}
         {% endblock %}
+
+            {% include "include/_footer.html.twig" %}
+
     </body>
+
 </html>

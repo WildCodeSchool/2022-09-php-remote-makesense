@@ -60,7 +60,7 @@ class RegistrationController extends AbstractController
                 new TemplatedEmail())
                     ->from(new Address('mailer@makesense.wild.com', 'MakeSense'))
                     ->to($user->getEmail())
-                    ->subject('Please Confirm your Email')
+                    ->subject('Veuillez confirmer votre adresse mail')
                     ->htmlTemplate('registration/confirmation_email.html.twig'));
 
                 $this->addFlash('success', 'Vous avez reçu un email pour valider votre compte');
