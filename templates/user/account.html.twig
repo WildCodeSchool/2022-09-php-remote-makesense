@@ -3,21 +3,28 @@
 {% block title %}Mon compte{% endblock %}
 
 {% block body %}
-<div class = "container col-8">
+<div class="container col-6 mb-5">
 
     <h1>Mon compte</h1>
      <ul class="list-group">
         <li class="list-group-item active text-center"><h2>{{ user.firstName }} {{ user.lastName }}</h2></li>
-        <li class="list-group-item d-flex mt-2"><div class="bg-primary text-secondary  p-4 ">Création du compte </div>
+        <li class="list-group-item d-flex mt-2"><div class="bg-primary text-secondary p-4 col-3">Création du compte </div>
             <div class="p-4">{{ user.createdAt |date('d/m/Y')}} </div>
         </li>
-         <li class="list-group-item d-flex mt-2"><div class="bg-primary text-secondary  p-4 ">Gestion du compte</div>
-             <div><div class="p-4"><button class="btn btn-primary mt-4" type="submit">Modifier mon mot de passe</button>
-             <div class="p-4"><button class="btn btn-primary mt-4" type="submit">Modifier mon avatar</button></div></div>
+         <li class="list-group-item d-flex mt-2">
+             <div class="bg-primary text-secondary p-4 col-3">Gestion du compte</div>
+             <div class="p-2">
+                 <button class="btn btn-primary mt-4" type="submit">Modifier mon mot de passe</button>
+             </div>
+             <div class="p-2">
+                 <button class="btn btn-primary mt-4" type="submit">Modifier mon avatar</button>
+             </div>
+
          </li>
 
-         <li class="list-group-item d-flex mt-2"><div class="bg-primary text-secondary  p-4 ">Contacter l'administrateur</div>
-
+         <li class="list-group-item d-flex mt-2">
+             <div class="bg-primary text-secondary p-4 col-3">Contacter l'administrateur</div>
+             <div class="p-4">Pour toute modification concernant votre nom, prénom ou e-mail : <a href="{{ path('contact_us') }}">contactez l'administrateur</a> </div>
          </li>
 
     </ul>
