@@ -69,7 +69,7 @@ class TimelineController extends AbstractController
     #[Route('/{id}', name: 'app_timeline_delete', methods: ['POST'])]
     public function delete(Request $request, Timeline $timeline, TimelineRepository $timelineRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$timeline->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $timeline->getId(), $request->request->get('_token'))) {
             $timelineRepository->remove($timeline, true);
         }
 

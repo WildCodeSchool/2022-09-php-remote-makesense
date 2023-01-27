@@ -67,7 +67,7 @@ class EmployeeRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('e')
             ->where('e.firstname LIKE :search')
             ->orwhere('e.lastname LIKE :search')
-            ->setParameter('search',  $search . '%')
+            ->setParameter('search', $search . '%')
             ->orderBy('e.firstname')
             ->getQuery()
             ->getResult();

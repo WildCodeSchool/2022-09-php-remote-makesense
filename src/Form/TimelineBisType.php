@@ -14,15 +14,18 @@ class TimelineBisType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name',EntityType::class, [
+            ->add('name', EntityType::class, [
                 'class' => Timeline::class,
-                'choice_label' => 'name',])
+                'choice_label' => 'name',
+                ])
             ->add('started_at', EntityType::class, [
                 'class' => Timeline::class,
-                'choice_label' => 'started_at',])
+                'choice_label' => 'started_at',
+                ])
             ->add('ended_at', EntityType::class, [
                 'class' => Timeline::class,
-                'choice_label' => 'ended_at',])
+                'choice_label' => 'ended_at',
+                ])
         ;
     }
 
