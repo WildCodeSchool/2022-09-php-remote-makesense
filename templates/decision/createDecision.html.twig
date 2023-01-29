@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+{% block title %}{% endblock %}
+
+{% block body %}
+    <div {{ stimulus_controller('symfony/ux-swup/swup') }}>
+<label class="form-label" for="comment">Your comment</label>
+
+        {{ stimulus_action('markdown', 'comment') }}
+        <main id="swup">
+
+        </main>
+    </div>
+
+{{ form_start(form) }}
+	{{ form_errors(form) }}
+
+	{% if flow.getCurrentStepNumber() == 1 %}
+        <div>
+            next step.<br />
+            {{ form_row(form.) }}
+        </div>
+    {% endif %}
+
+	{{ form_rest(form) }}
+
+	{% include '@CraueFormFlow/FormFlow/buttons.html.twig' %}
+{{ form_end(form) }}
+{% endblock %}

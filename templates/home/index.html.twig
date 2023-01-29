@@ -3,6 +3,7 @@
 {% block title %}Accueil - Makesense{% endblock %}
 
 {% block body %}
+    {{ include('include/_btn.html.twig') }}
     <h1>Bonjour {{ app.user.firstName }}</h1>
 
 <div class="home">
