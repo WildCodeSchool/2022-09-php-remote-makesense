@@ -6,6 +6,8 @@ use App\Repository\EmployeeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: EmployeeRepository::class)]
 class Employee
@@ -122,7 +124,6 @@ class Employee
         if ($user !== null && $user->getEmployee() !== $this) {
             $user->setEmployee($this);
         }
-
         $this->user = $user;
 
         return $this;
