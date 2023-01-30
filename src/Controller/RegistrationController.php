@@ -55,7 +55,6 @@ class RegistrationController extends AbstractController
             if ($employee) {
                 $entityManager->persist($user);
                 $entityManager->flush();
-
                 $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user, (
                 new TemplatedEmail())
                     ->from(new Address('mailer@makesense.wild.com', 'MakeSense'))

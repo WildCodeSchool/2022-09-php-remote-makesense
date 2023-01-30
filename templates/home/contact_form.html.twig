@@ -3,14 +3,17 @@
 {% block title %}Nous contacter - Makesense{% endblock %}
 
 {% block body %}
+
+<div class="home mb-5">
     <h1 class="modal-title"><span>Nous contacter</span></h1>
 
-    <div class="container col-lg-6 mt-lg-4">
+    <div class="container col-lg-6 mt-lg-4 bg-info bg-opacity-50 shadow-sm mx-auto pt-3 pb-3 rounded-2">
             {{ form_start(contactForm) }}
                 {{ form_widget(contactForm) }}
-            <div class="text-center mb-4">
+            <div class="text-center mb-4 ">
                 <button type="submit" class="btn btn-success text-white"><i class="bi bi-check-lg me-2"></i><span>Envoyer mon message</span></button>
             </div>
             {{ form_end(contactForm) }}
         </div>
+</div>
 {% endblock %}

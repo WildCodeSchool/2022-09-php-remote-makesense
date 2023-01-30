@@ -44,6 +44,13 @@
     }
 }
 
+@media only screen and (max-width: 992px) {
+    .timeline_area {
+        padding-left: 50px;
+    }
+
+}
+
 .single-timeline-area .timeline-date::after {
     position: absolute;
     width: 3px;
