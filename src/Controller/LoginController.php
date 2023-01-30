@@ -74,7 +74,7 @@ class LoginController extends AbstractController
 
                 $mailer->send($email);
 
-                $this->addFlash('success', 'Email envoé avec succès');
+                $this->addFlash('success', 'Email envoyé avec succès');
                 return $this->redirectToRoute('app_login');
             }
             $this->addFlash('danger', 'un problème est survenu');
@@ -111,7 +111,7 @@ class LoginController extends AbstractController
                 $entityManager->flush();
 
                 $this->addFlash('success', 'Mot de passe modifié avec succès');
-                $this->redirectToRoute('app_login');
+                return $this->redirectToRoute('app_login');
             }
             return $this->render('login/reset_password.html.twig', [
                 'passwordForm' => $form->createView()

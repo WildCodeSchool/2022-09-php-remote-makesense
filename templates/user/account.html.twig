@@ -7,9 +7,9 @@
 
     <h1>Mon compte</h1>
      <ul class="list-group">
-        <li class="list-group-item active text-center"><h2>{{ user.firstName }} {{ user.lastName }}</h2></li>
+        <li class="list-group-item active text-center"><h2>{{ app.user.firstName }} {{ app.user.lastName }}</h2></li>
         <li class="list-group-item d-flex mt-2"><div class="bg-primary text-secondary p-4 col-3">Création du compte </div>
-            <div class="p-4">{{ user.createdAt |date('d/m/Y')}}</div>
+            <div class="p-4">{{ app.user.createdAt |date('d/m/Y')}}</div>
         </li>
          <li class="list-group-item d-flex mt-2">
              <div class="bg-primary text-secondary p-4 col-3">Gestion du compte</div>
@@ -28,12 +28,12 @@
          </li>
 
          <li class="list-group-item d-flex mt-2"><div class="bg-primary text-secondary p-4 col-3">Nombre de décisions créées </div>
-             <div class="p-4"> {{ user.decision|length }}</div>
+             <div class="p-4"> {{ app.user.decision|length }}</div>
          </li>
          <li class="list-group-item d-flex mt-2"><div class="bg-primary text-secondary p-4 col-3">Nombre de décisions nécéssitant ma contribution </div>
              <div class="p-4">
                  {% set counter = 0 %}
-                 {% for contributor in user.employee.contributors %}
+                 {% for contributor in app.user.employee.contributors %}
                          {% set counter = counter + 1 %}
                  {% endfor %}
                  {{ counter }}
@@ -43,7 +43,7 @@
          <li class="list-group-item d-flex mt-2"><div class="bg-primary text-secondary p-4 col-3">Nombre de contributions réalisées </div>
              <div class="p-4">
                  {% set counter = 0 %}
-                 {% for contributor in user.employee.contributors %}
+                 {% for contributor in app.user.employee.contributors %}
                      {% for contribution in contributor.contributions %}
                          {% set counter = counter + 1 %}
                      {% endfor %}
