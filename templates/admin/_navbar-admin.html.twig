@@ -23,15 +23,15 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href=""><i class="bi bi-people me-2"></i><span>Statistiques</span></a>
+                        <a class="nav-link" href="{{ path('app_admin_stats') }}"><i class="bi bi-people me-2"></i><span>Statistiques</span></a>
                     </li>
 
 
                     <div class="btn-group">
                         <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                             {# <i class="bi bi-person-workspace"></i> #}
-                            <img src ="https://picsum.photos/id/236/30/30" alt="{{ app.user.firstName }} {{ app.user.lastName }}"
-                                 title="{{ app.user.firstName }} {{ app.user.lastName }}" class="rounded-circle"/>
+                            <img src ="{{ vich_uploader_asset(app.user) }}" alt="{{ app.user.firstName }} {{ app.user.lastName }}"
+                                 title="{{ app.user.firstName }} {{ app.user.lastName }}" class="avatar image-fluid"/>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li class="dropdown-item fst-italic text-uppercase">{{ app.user.firstName }} {{ app.user.LastName }}</li>

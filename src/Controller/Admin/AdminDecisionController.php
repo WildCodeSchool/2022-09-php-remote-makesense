@@ -44,4 +44,12 @@ class AdminDecisionController extends AbstractController
             'userDecision' => $userDecision,
         ]);
     }
+
+    #[Route('/statistiques/', name: 'app_admin_stats')]
+    public function stat(DecisionRepository $decisionRepository, ContributorRepository $contributorRepo): Response
+    {
+        return $this->render('/admin/admin_decision/stats.html.twig', [
+            'decisions' => $decisionRepository->findAll(),
+        ]);
+    }
 }

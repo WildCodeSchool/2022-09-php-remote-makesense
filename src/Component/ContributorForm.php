@@ -47,7 +47,7 @@ class ContributorForm extends AbstractController
 
             $contributor = new Contributor();
             $contributor->setEmployee($employee);
-            $contributor->setImplication($this->implicationRepos->find(1));
+            $contributor->setImplication($this->implicationRepos->findOneBy(['terms' => 'impacted']));
 
             $this->decision->addContributor($contributor);
             $this->decisionRepository->save($this->decision, true);

@@ -84,11 +84,17 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $admin->setRoles(['ROLE_ADMIN']);
         $admin->setFirstName('admin');
         $admin->setLastName('admin');
+        $admin->setPoster('test.jpg');
+        if (!is_dir($this->containerBag->get('upload_directory'))) {
+            mkdir(directory: $this->containerBag->get('upload_directory'), recursive: true);
+        }
+        copy($image, $this->containerBag->get('upload_directory') . 'test.jpg');
         $hashedPassword = $this->passwordHasher->hashPassword(
             $admin,
             'adminPassword'
         );
         $admin->setPassword($hashedPassword);
+        $admin->setEmployee($this -> getReference('employee_4'));
         $manager->persist($admin);
         $this->addReference('admin', $admin);
 
@@ -100,12 +106,17 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user->setFirstname($faker->firstName());
             $user->setLastname($faker->lastName());
             $user->setCreatedAt(new DateTimeImmutable('2023-01-04 09:23:05'));
+            $user->setPoster('test.jpg');
+            if (!is_dir($this->containerBag->get('upload_directory'))) {
+                mkdir(directory: $this->containerBag->get('upload_directory'), recursive: true);
+            }
+            copy($image, $this->containerBag->get('upload_directory') . 'test.jpg');
             $hashedPassword = $this->passwordHasher->hashPassword(
                 $user,
                 'simpleUserPassword'
             );
             $user->setPassword($hashedPassword);
-            $user -> setEmployee($this -> getReference('employee_' . ($i + 4)));
+            $user -> setEmployee($this -> getReference('employee_' . ($i + 5)));
             $manager->persist($user);
             $this->addReference('user_' . ($i + 4), $user);
         }
