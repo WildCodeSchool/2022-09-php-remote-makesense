@@ -22,7 +22,7 @@ class AdminDecisionController extends AbstractController
         Request $request
     ): Response {
         $decisions = $paginator->paginate(
-            $decisionRepository->findAll(),
+            $decisionRepository->findAllByDate(),
             $request->query->getInt('page', 1),
             7
         );
