@@ -30,6 +30,9 @@
             {{ form_row(registrationForm.plainPassword, {
                 label: 'Mot de passe'
             }) }}
+             {{ vich_uploader_asset(user) }}" alt="{{ registrationForm.poster }} {
+            label: 'Avatar'
+        }) }}
     </div>
 
 <div class="container col-3">

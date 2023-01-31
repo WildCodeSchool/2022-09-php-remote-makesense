@@ -1,20 +1,18 @@
-{% extends 'base.html.twig' %}
-
 <div class="modal" id="modal-avatar">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             {{ form_start(form) }}
             <div class="modal-header modal-avatar">
-                <h5 class="modal-title"><i class="bi bi-backspace-reverse me-2"></i><span>Valider</span></h5>
+                <h5 class="modal-title"><i class="bi bi-person-circle me-2"></i><span>Modifier votre avatar</span></h5>
             </div>
             <div class="modal-body">
                 {{ form_widget(form) }}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-avatar"
-                        data-bs-dismiss="modal"><i class="bi bi-x-lg me-2"></i><span>Annuler</span>
+                <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal"><span>Annuler</span>
                 </button>
-                <button type="submit" class="btn btn-submit"><i class="bi bi-check-lg me-2"></i><span>Valider</span></button>
+                <button type="submit" class="btn btn-submit"><span>Valider</span></button>
             </div>
             {{ form_end(form) }}
         </div>

@@ -15,6 +15,7 @@ class AvatarFormType extends AbstractType
         $builder
             ->add('posterFile', VichFileType::class, [
                 'required'      => false,
+                'label' => 'Importez votre avatar',
                 'allow_delete'  => true,
                 'download_uri' => true,
             ])
