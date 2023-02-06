@@ -22,7 +22,7 @@ class AdminDecisionController extends AbstractController
         Request $request
     ): Response {
         $decisions = $paginator->paginate(
-            $decisionRepository->findAll(),
+            $decisionRepository->findAllByDate(),
             $request->query->getInt('page', 1),
             7
         );
@@ -42,6 +42,14 @@ class AdminDecisionController extends AbstractController
             'decision' => $decision,
             'contributor' => $contributor,
             'userDecision' => $userDecision,
+        ]);
+    }
+
+    #[Route('/statistiques/', name: 'app_admin_stats')]
+    public function stat(DecisionRepository $decisionRepository, ContributorRepository $contributorRepo): Response
+    {
+        return $this->render('/admin/admin_decision/stats.html.twig', [
+            'decisions' => $decisionRepository->findAll(),
         ]);
     }
 }

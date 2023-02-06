@@ -12,11 +12,13 @@ class ImplicationFixtures extends Fixture
     {
         $implication = new Implication();
         $implication->setName('Impactée');
+        $implication->setTerms('impacted');
         $manager->persist($implication);
         $this->addReference('implication_1', $implication);
 
         $implication = new Implication();
         $implication->setName('Experte');
+        $implication->setTerms('expert');
         $manager->persist($implication);
         $this->addReference('implication_2', $implication);
 

@@ -12,30 +12,32 @@
     <small class="mb-4 text-center"><i class="bi bi-info-square me-2"></i><span>A noter : seuls les employés de Makesense sont autorisés à se créer un compte. Merci de votre compréhension.</span></small>
 
     <div class="container col-3">
-    {{ form_start(registrationForm) }}
+    {{ form_start(registrationFormType) }}
 
 
-            {{ form_row(registrationForm.lastName, {
+            {{ form_row(registrationFormType.lastName, {
                 label: 'Nom'
             }) }}
 
-            {{ form_row(registrationForm.firstName, {
+            {{ form_row(registrationFormType.firstName, {
                 label: 'Prénom'
             }) }}
 
-            {{ form_row(registrationForm.email, {
+            {{ form_row(registrationFormType.email, {
                 label: 'E-mail'
             }) }}
 
-            {{ form_row(registrationForm.plainPassword, {
+            {{ form_row(registrationFormType.plainPassword, {
                 label: 'Mot de passe'
             }) }}
+            {{ form_row(registrationFormType.avatar) }}
+
     </div>
 
 <div class="container col-3">
     <div class="text-center mt-4 mb-5">
         <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-2"></i><span>S'inscrire</span></button>
-    {{ form_end(registrationForm) }}
+    {{ form_end(registrationFormType) }}
     </div>
 </div>
 
