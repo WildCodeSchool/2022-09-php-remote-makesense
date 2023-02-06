@@ -70,7 +70,7 @@
                                 <h5 class="card-title">{{ contributor.decision.title }}</h5>
                             </div>
                             <div class="card-footer bg-transparent border-dark">
-                                <img src ="{{ vich_uploader_asset(contributor.decision.user) }}" alt="{{ app.user.firstName }} {{ app.user.lastName }}"
+                                <img src ="{{ vich_uploader_asset(contributor.decision.user.avatar) }}" alt="{{ app.user.firstName }} {{ app.user.lastName }}"
                                      title="{{ app.user.firstName }} {{ app.user.lastName }}" class="rounded-circle avatar image-fluid"/>
                                 {{ contributor.decision.user.firstName }} {{ contributor.decision.user.lastName }}
                                 <br><a href="{{ path('app_decision_show', {id: contributor.decision.id }) }}"
