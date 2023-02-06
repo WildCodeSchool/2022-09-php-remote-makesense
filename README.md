@@ -1,5 +1,15 @@
 # Project 3 - Starter Kit - Symfony
 
+## Getting Started for Testing
+
+* User Account :
+    * ID : norbert.huel@makesense.com
+    * Password : simpleUserPassword
+
+* Admin Account :
+    * ID : admin@makesense.com
+    * Password : adminPassword
+
 ## Presentation
 
 This starter kit is here to easily start a repository for Wild Code School students.

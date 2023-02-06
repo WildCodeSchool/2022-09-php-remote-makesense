@@ -1,0 +1,49 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Statistiques{% endblock %}
+
+{% block body %}
+    <div class="container col-md-6 pb-5 bg-info bg-opacity-50 rounded-2 shadow-sm">
+
+        <h1>Statistiques</h1>
+        <ul class="list-group">
+            <li class="list-group-item d-flex mt-2"><div class="bg-primary text-secondary p-4 col-3">Nombre de décisions créées </div>
+                <div class="p-4"> {{ decisions|length }}</div>
+            </li>
+
+            <li class="list-group-item d-flex mt-2"><div class="bg-primary text-secondary p-4 col-3">Nombre de contributions réalisées </div>
+                <div class="p-4">
+                    {% set counter = 0 %}
+                    {% for decision in decisions %}
+                    {% for contributor in decision.contributors %}
+                        {% for contribution in contributor.contributions %}
+                            {% set counter = counter + 1 %}
+                        {% endfor %}
+                    {% endfor %}
+                    {% endfor %}
+                    {{ counter }}
+
+                </div>
+            </li>
+
+            <li class="list-group-item d-flex mt-2"><div class="bg-primary text-secondary p-4 col-3">Nombre de décisions en attente de contributions </div>
+                <div class="p-4">
+                    {% set counter = 0 %}
+                    {% for decision in decisions %}
+                        {% for contributor in decision.contributors %}
+                            {% if contributor.contributions is empty %}
+                             {% set counter = counter + 1 %}
+                            {% endif %}
+
+                        {% endfor %}
+                    {% endfor %}
+                    {{ counter }}
+
+                </div>
+            </li>
+
+
+        </ul>
+
+    </div>
+{% endblock %}

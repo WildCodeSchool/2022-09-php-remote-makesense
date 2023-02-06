@@ -21,6 +21,9 @@ class Implication
     #[ORM\OneToMany(mappedBy: 'implication', targetEntity: Contributor::class)]
     private Collection $contributors;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $terms = null;
+
     public function __construct()
     {
         $this->contributors = new ArrayCollection();
@@ -70,6 +73,18 @@ class Implication
                 $contributor->setImplication(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTerms(): ?string
+    {
+        return $this->terms;
+    }
+
+    public function setTerms(?string $terms): self
+    {
+        $this->terms = $terms;
 
         return $this;
     }

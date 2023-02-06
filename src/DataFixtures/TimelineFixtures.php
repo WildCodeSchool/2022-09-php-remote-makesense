@@ -45,12 +45,12 @@ class TimelineFixtures extends Fixture implements DependentFixtureInterface
         [
             'name' => 'Prise de décision commencée',
             'startedAt' => '2022-12-15 09:23:05',
-            'endedAt' => '2023-12-15 09:23:05',
+            'endedAt' => '2022-12-15 09:23:05',
             'decision' => 'decision_1',
         ],
         [
             'name' => 'Deadline pour donner son avis',
-            'startedAt' => '2023-12-15 09:23:05',
+            'startedAt' => '2022-12-15 09:23:05',
             'endedAt' => '2023-01-10 09:23:05',
             'decision' => 'decision_1',
         ],
@@ -76,12 +76,12 @@ class TimelineFixtures extends Fixture implements DependentFixtureInterface
         [
             'name' => 'Prise de décision commencée',
             'startedAt' => '2022-12-15 09:23:05',
-            'endedAt' => '2023-12-15 09:23:05',
+            'endedAt' => '2022-12-15 09:23:05',
             'decision' => 'decision_2',
         ],
         [
             'name' => 'Deadline pour donner son avis',
-            'startedAt' => '2023-12-15 09:23:05',
+            'startedAt' => '2022-12-15 09:23:05',
             'endedAt' => '2023-01-10 09:23:05',
             'decision' => 'decision_2',
         ],
@@ -106,12 +106,12 @@ class TimelineFixtures extends Fixture implements DependentFixtureInterface
         [
             'name' => 'Prise de décision commencée',
             'startedAt' => '2022-12-15 09:23:05',
-            'endedAt' => '2023-12-15 09:23:05',
+            'endedAt' => '2022-12-15 09:23:05',
             'decision' => 'decision_3',
         ],
         [
             'name' => 'Deadline pour donner son avis',
-            'startedAt' => '2023-12-15 09:23:05',
+            'startedAt' => '2022-12-15 09:23:05',
             'endedAt' => '2023-01-10 09:23:05',
             'decision' => 'decision_3',
         ],
@@ -135,8 +135,8 @@ class TimelineFixtures extends Fixture implements DependentFixtureInterface
         ],
         [
             'name' => 'Prise de décision commencée',
-            'startedAt' => '2022-01-15 09:23:05',
-            'endedAt' => '2022-01-15 09:23:05',
+            'startedAt' => '2023-01-15 09:23:05',
+            'endedAt' => '2023-01-15 09:23:05',
             'decision' => 'decision_4',
         ],
         [
@@ -165,7 +165,7 @@ class TimelineFixtures extends Fixture implements DependentFixtureInterface
         ],
         [
             'name' => 'Prise de décision commencée',
-            'startedAt' => '2022-01-17 09:23:05',
+            'startedAt' => '2023-01-17 09:23:05',
             'endedAt' => '2023-01-17 09:23:05',
             'decision' => 'decision_5',
         ],
@@ -195,7 +195,7 @@ class TimelineFixtures extends Fixture implements DependentFixtureInterface
         ],
         [
             'name' => 'Prise de décision commencée',
-            'startedAt' => '2022-01-20 09:23:05',
+            'startedAt' => '2023-01-20 09:23:05',
             'endedAt' => '2023-01-20 09:23:05',
             'decision' => 'decision_6',
         ],
@@ -225,7 +225,7 @@ class TimelineFixtures extends Fixture implements DependentFixtureInterface
         ],
         [
             'name' => 'Prise de décision commencée',
-            'startedAt' => '2022-01-22 09:23:05',
+            'startedAt' => '2023-01-22 09:23:05',
             'endedAt' => '2023-01-22 09:23:05',
             'decision' => 'decision_7',
         ],

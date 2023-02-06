@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\AvatarFormType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -23,5 +26,27 @@ class UserController extends AbstractController
     public function show(): Response
     {
             return $this->render('user/account.html.twig');
+    }
+
+    #[Route('/avatar', name: '_new_avatar', methods: ['GET', 'POST'])]
+    public function newAvatar(
+        Request $request,
+        UserRepository $userRepository,
+    ): Response {
+        /** @var ?User $user */
+        $user = $this->getUser();
+        $form = $this->createForm(AvatarFormType::class, $user->getAvatar(), [
+            'action' => $this->generateUrl('app_user_new_avatar')]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userRepository->save($user, true);
+            return $this->redirectToRoute('app_user_account');
+        }
+
+        return $this->renderForm('user/_modal_avatar.html.twig', [
+            'form' => $form,
+        ]);
     }
 }

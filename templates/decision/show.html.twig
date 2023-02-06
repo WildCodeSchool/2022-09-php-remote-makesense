@@ -25,7 +25,7 @@
                         <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
                              aria-labelledby="panelsStayOpen-headingOne">
                             <div class="accordion-body">
-                                {{ decision.content|raw }}
+                                {{ decision.content|purify }}
                             </div>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
                         </h3>
                         <div id="flush-collapseTwo" class="accordion-collapse collapse"
                              aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">{{ decision.utility|raw }}</div>
+                            <div class="accordion-body">{{ decision.utility|purify }}</div>
                         </div>
                     </div>
                     <div class="accordion-item">
@@ -53,7 +53,7 @@
                         </h3>
                         <div id="flush-collapseThree" class="accordion-collapse collapse"
                              aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">{{ decision.context|raw }}</div>
+                            <div class="accordion-body">{{ decision.context|purify }}</div>
                         </div>
                     </div>
                     <div class="accordion-item">
@@ -66,7 +66,7 @@
                         </h3>
                         <div id="flush-collapseFour" class="accordion-collapse collapse"
                              aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">{{ decision.benefits|raw }}</div>
+                            <div class="accordion-body">{{ decision.benefits|purify }}</div>
                         </div>
                     </div>
                     <div class="accordion-item">
@@ -79,7 +79,7 @@
                         </h3>
                         <div id="flush-collapseFive" class="accordion-collapse collapse"
                              aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">{{ decision.inconvenients|raw }}</div>
+                            <div class="accordion-body">{{ decision.inconvenients|purify }}</div>
                         </div>
                     </div>
                     <div class="accordion-item">
@@ -110,7 +110,7 @@
                                                     avis donné le {{ contribution.date |date('d/m/Y') }}
                                                     en tant que personne {{ contribution.contributor.implication.name }}
                                                 </h6>
-                                                <p>{{ contribution.content|raw }} </p>
+                                                <p>{{ contribution.content|purify }} </p>
 
                                             </li>
                                         {% endif %}
@@ -129,7 +129,7 @@
                         </h3>
                         <div id="flush-collapseSeven" class="accordion-collapse collapse"
                              aria-labelledby="flush-headingSeven" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">{{ decision.firstDecision|raw }}</div>
+                            <div class="accordion-body">{{ decision.firstDecision|purify }}</div>
                         </div>
                     </div>
                     <div class="accordion-item">
@@ -160,7 +160,7 @@
                                                     conflit exprimé le {{ contribution.date |date('d/m/Y') }}
                                                     en tant que personne {{ contribution.contributor.implication.name }}
                                                 </h6>
-                                                <p>{{ contribution.content|raw }} </p>
+                                                <p>{{ contribution.content|purify }} </p>
 
                                             </li>
                                         {% endif %}
@@ -179,7 +179,7 @@
                         </h3>
                         <div id="flush-collapseNine" class="accordion-collapse collapse"
                              aria-labelledby="flush-headingNine" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">{{ decision.definitiveDecision|raw }}</div>
+                            <div class="accordion-body">{{ decision.definitiveDecision|purify }}</div>
                         </div>
                     </div>
                 </div>
@@ -329,13 +329,21 @@
             </div>
         </div>
     </div>
+
+
     <div class="ms-5 mb-5">
         <div class="mt-4">
             <a href="{{ path('app_all_decisions') }}"><i class="bi bi-arrow-return-left me-2"></i><span>Retour à toutes les décisions</span></a>
         </div>
         {% if decision.user == app.user %}
             <div class="mt-2">
-                <a href="{{ path('app_decision_edit', {'id': decision.id}) }}"><i class="bi bi-gear me-2"></i><span>Modifier</span></a>
+                <a href="{{ path('app_decision_edit', {'id': decision.id}) }}" class="btn btn-warning m-2"><i class="bi bi-gear me-2"></i><span>Modifier</span></a>
+                <a href="{{ path('app_decision_contributors_edit', {'id': decision.id}) }}" class="btn btn-warning m-2">
+                    <i class="bi bi-gear me-2"></i><span>Modifier les contributeurs</span>
+                </a>
+                <a href="{{ path('app_decision_timelines_edit', {'id': decision.id}) }}" class="btn btn-warning m-2">
+                    <i class="bi bi-gear me-2"></i><span>Modifier la timeline</span>
+                </a>
             </div>
             <div class="mt-2 mb-2">
                 {{ include('decision/_delete_form.html.twig') }}
