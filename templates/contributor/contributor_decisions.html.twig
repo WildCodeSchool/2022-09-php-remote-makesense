@@ -3,10 +3,10 @@
 {% block title %}Mes contributions - Makesense{% endblock %}
 
 {% block body %}
-    {{ include('include/_btn.html.twig') }}
     <div class="container">
-        <h1>Mes contributions</h1>
 
+        <h1>Mes contributions</h1>
+    {{ include('include/_btn.html.twig') }}
         <div class="row custom-line align-items-end">
             <div class="col bg-primary m-1 rounded-4">
                 {{ form_start(pendingForm) }}
