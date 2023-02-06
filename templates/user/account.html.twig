@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block body %}
+<div class="container col-md-6 pb-5 bg-info bg-opacity-50 rounded-2 shadow-sm mb-5">
+
+    <h1>Mon compte</h1>
+     <ul class="list-group">
+        <li class="list-group-item active text-center"><h2>{{ app.user.firstName }} {{ app.user.lastName }}</h2></li>
+        <li class="list-group-item d-flex mt-2"><div class="bg-primary text-secondary p-4 col-3">Création du compte </div>
+            <div class="p-4">{{ app.user.createdAt |date('d/m/Y')}}</div>
+        </li>
+         <li class="list-group-item d-flex mt-2">
+             <div class="bg-primary text-secondary p-4 col-3">Gestion du compte</div>
+             <div class="p-2">
+                 <a href="{{ path('forgotten_password') }}" class="text-white btn btn-primary mt-4">Modifier mon mot de passe</a>
+             </div>
+             <div class="p-2">
+{# @TODO                                               MODAL AVATAR#}
+
+                 <button type="button" class="btn btn-primary mt-4" data-bs-toggle="modal"
+                         data-bs-target="#modal-avatar"><i
+                         class="bi bi-person-circle me-2"></i><span>Modifier mon avatar</span>
+                 </button>
+                 <div class="container-fluid mt-4">
+                     <div class="d-flex flex-row">
+                         {{ render(controller('App\\Controller\\UserController::newAvatar')) }}
+                     </div>
+                 </div>
+             </div>
+
+         </li>
+
+         <li class="list-group-item d-flex mt-2">
+             <div class="bg-primary text-secondary p-4 col-3">Contacter l'administrateur</div>
+             <div class="p-4">Pour toute modification concernant votre nom, prénom ou e-mail : <a href="{{ path('contact_us') }}">contactez l'administrateur</a> </div>
+         </li>
+
+         <li class="list-group-item d-flex mt-2"><div class="bg-primary text-secondary p-4 col-3">Nombre de décisions créées </div>
+             <div class="p-4"> {{ app.user.decision|length }}</div>
+         </li>
+         <li class="list-group-item d-flex mt-2"><div class="bg-primary text-secondary p-4 col-3">Nombre de décisions nécéssitant ma contribution </div>
+             <div class="p-4">
+                 {% set counter = 0 %}
+                 {% for contributor in app.user.employee.contributors %}
+                         {% set counter = counter + 1 %}
+                 {% endfor %}
+                 {{ counter }}
+
+             </div>
+         </li>
+         <li class="list-group-item d-flex mt-2"><div class="bg-primary text-secondary p-4 col-3">Nombre de contributions réalisées </div>
+             <div class="p-4">
+                 {% set counter = 0 %}
+                 {% for contributor in app.user.employee.contributors %}
+                     {% for contribution in contributor.contributions %}
+                         {% set counter = counter + 1 %}
+                     {% endfor %}
+                 {% endfor %}
+                 {{ counter }}
+
+             </div>
+         </li>
+
+    </ul>
+
+</div>
+{% endblock %}

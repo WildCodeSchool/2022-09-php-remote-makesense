@@ -1,0 +1,11 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Nouvel utilisateur{% endblock %}
+
+{% block body %}
+    <h1><i class="bi bi-person-add me-2"></i><span>Création d'un nouvel utilisateur</span></h1>
+
+    {{ include('admin/admin_user/_form.html.twig') }}
+
+    <a href="{{ path('app_admin_user_index') }}"><i class="bi bi-arrow-return-left me-2"></i><span>Retour à la liste</span></a>
+{% endblock %}

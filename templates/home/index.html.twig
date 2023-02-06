@@ -3,20 +3,21 @@
 {% block title %}Accueil - Makesense{% endblock %}
 
 {% block body %}
-    <h1>Bonjour {{ app.user.firstName }}</h1>
 
+    <h1>Bonjour {{ app.user.firstName }}</h1>
+    {{ include('include/_btn.html.twig') }}
 <div class="home">
     <div class="container mb-5">
         <h2>Mes décisions à venir</h2>
-    <div class="row justify-content-start custom-line">
+    <div class="row justify-content-start custom-line m-1">
     {% for userDecision in userDecisions %}
-        <div class="card col-sm-10 col-md-5 col-lg-3 m-3">
+        <div class="card col-md-5 col-lg-3 m-lg-3 m-1">
                 {% for timeline in userDecision.timelines %}
                     {% if loop.first %}
                         <div class="card-header bg-transparent border-dark">
                             Prochaine étape :
                             <br>{{ timeline.name }}
-                            <br><i class="bi bi-calendar2-week-fill text-success me-2"></i><span>Le
+                            <br><i class="bi bi-calendar2-week-fill text-success me-2"></i><span class="text-success">Le
                                 : {{ timeline.endedAt |date('d/m/Y') }}</span>
                                 </div>
                             {% endif %}
@@ -24,17 +25,15 @@
                         <div class="card-body">
                             <h5 class="card-title text-primary">{{ userDecision.title }}</h5>
                         </div>
-                        <div class="card-footer bg-transparent border-dark">
                             <br><a href="{{ path('app_decision_show', {id: userDecision.id }) }}"
                                    class="stretched-link"></a>
                         </div>
-                    </div>
 
                 {% else %}
                     <div class="text-center">
                         <img class="img-fluid" src="{{ asset('build/images/no-decision.png') }}">
                         <p>Dommage...Il serait temps de créer un projet !</p>
-                        <button class="btn btn-primary rounded-3 text-white">Créer un nouveau projet</button>
+                        <button class="btn btn-primary rounded-3 text-white"><i class="bi bi-plus-lg"></i>Créer un nouveau projet</button>
                     </div>
 
                 {% endfor %}
@@ -43,11 +42,23 @@
         <br><a href="{{ path('app_decision_mine') }}"><i class="bi bi-list-stars me-2"></i><span>Voir toutes mes décisions</span></a>
 
             <h2 class="mt-5">Mes contributions à venir</h2>
-            <div class="row justify-content-start custom-line">
+            <div class="row justify-content-start custom-line m-1">
                 {% for userContribution in userContributions %}
                 {% if userContribution.decision.user.id != app.user.id %}
 
-                <div class="card col-sm-10 col-md-5 col-lg-3 m-3">
+                    <div class="card col-md-5 col-lg-3 m-lg-3 m-1">
+                    {% for contributor in userContribution.decision.contributors %}
+
+                        {% if contributor.implication.name=="Impactée" %}
+                            <h6 class="personImpact mt-2 text-center text-uppercase"><i class="bi bi-people me-2"></i><span
+                                    class="personImpact">Impacté</span></h6>
+                        {% endif %}
+                        {% if contributor.implication.name=="Experte" %}
+                            <h6 class="personExpert mt-2 text-center text-uppercase"><i class="bi bi-person-check me-2"></i><span
+                                    class="personExpert">Expert</span></h6>
+                        {% endif %}
+
+                    {% endfor %}
                     <div class="card-header bg-transparent border-dark">
                         {{ userContribution.name }}
                         <br><i class="bi bi-calendar2-week-fill text-success me-2"></i><span class="text-success">Le :
@@ -57,10 +68,10 @@
                         <h5 class="card-title">{{ userContribution.decision.title }}</h5>
                     </div>
                     <div class="card-footer bg-transparent border-dark">
-                        <img src="https://picsum.photos/id/236/30/30"
+                        <img src="{{ vich_uploader_asset(userContribution.decision.user.avatar) }}"
                              alt="{{ userContribution.decision.user.firstName }} {{ userContribution.decision.user.lastName }}"
                              title="{{ userContribution.decision.user.firstName }} {{ userContribution.decision.user.lastName }}"
-                             class="rounded-circle"/>
+                             class="rounded-circle avatar image-fluid"/>
                         {{ userContribution.decision.user.firstName }} {{ userContribution.decision.user.lastName }}
                         <br><a href="{{ path('app_decision_show', {id: userContribution.decision.id }) }}"
                                class="stretched-link"></a>

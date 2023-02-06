@@ -44,6 +44,17 @@ class DecisionRepository extends ServiceEntityRepository
     /**
      * @return Decision[] Returns an array of Decision objects
      */
+
+    public function findAllByDate(): array
+    {
+        $queryBuilder = $this->createQueryBuilder('d')
+            ->join('d.timelines', 't')
+            ->orderBy('d.id', 'DESC')
+            ->addSelect('d')->addSelect('t')
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
+
     public function findAllByTimeline(): array
     {
         $queryBuilder = $this->createQueryBuilder('d')

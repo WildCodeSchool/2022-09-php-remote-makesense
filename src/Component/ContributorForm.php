@@ -8,6 +8,8 @@ use App\Repository\ContributorRepository;
 use App\Repository\DecisionRepository;
 use App\Repository\EmployeeRepository;
 use App\Repository\ImplicationRepository;
+use App\Services\ContributorMailerService;
+use App\Services\MailerService;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
@@ -33,7 +35,8 @@ class ContributorForm extends AbstractController
         private readonly EmployeeRepository $employeeRepository,
         private readonly ImplicationRepository $implicationRepos,
         private readonly DecisionRepository $decisionRepository,
-        private readonly ContributorRepository $contributorRepos
+        private readonly ContributorRepository $contributorRepos,
+        private readonly ContributorMailerService $mailer
     ) {
     }
     #[LiveAction]
@@ -44,12 +47,15 @@ class ContributorForm extends AbstractController
 
             $contributor = new Contributor();
             $contributor->setEmployee($employee);
-            $contributor->setImplication($this->implicationRepos->find(1));
+            $contributor->setImplication($this->implicationRepos->findOneBy(['terms' => 'impacted']));
 
             $this->decision->addContributor($contributor);
             $this->decisionRepository->save($this->decision, true);
             $this->search = null;
             $this->hasChanged = true;
+            $emailTo = $contributor->getEmployee()->getEmail();
+            $decision = $this->decision;
+            $this->mailer->sendEmail($emailTo, $contributor, $decision);
         }
     }
 

@@ -59,3 +59,9 @@ h2 {
 .personExpert {
     color: $color-cerise;
 }
+
+.avatar {
+    max-height: 3rem;
+    border-radius: 50%;
+    clip-path: ellipse(50% 50%);
+}

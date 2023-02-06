@@ -1,0 +1,56 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light static-top mb-5 shadow-lg">
+    <div class="container">
+        <a class="navbar-brand" href="{{ path('app_admin_decisions') }}">
+            <img src="https://makesense.org/wp-content/uploads/sites/4/2020/09/logo-makesense-dark.png" alt="Logo Makesense" height="36">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto ">
+                {% if app.user %}
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{{ path('app_admin_decisions') }}"><i class="bi bi-card-checklist me-2"></i><span>Gestion des décisions</span></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_admin_user_index') }}"><i class="bi bi-calendar3 me-2"></i><span>Gestion des utilisateurs</span></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_admin_employee_index') }}"><i class="bi bi-calendar3 me-2"></i><span>Gestion des employés</span></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_admin_stats') }}"><i class="bi bi-people me-2"></i><span>Statistiques</span></a>
+                    </li>
+
+
+                    <div class="btn-group">
+                        <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            {# <i class="bi bi-person-workspace"></i> #}
+                            <img src ="{{ vich_uploader_asset(app.user) }}" alt="{{ app.user.firstName }} {{ app.user.lastName }}"
+                                 title="{{ app.user.firstName }} {{ app.user.lastName }}" class="avatar image-fluid"/>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li class="dropdown-item fst-italic text-uppercase">{{ app.user.firstName }} {{ app.user.LastName }}</li>
+                            <li><a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a></li>
+                        </ul>
+                    </div>
+
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
+                    </li>
+                    <li class="nav-item">
+                        <p class="nav-link">|</p>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_register') }}">S'inscrire</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
