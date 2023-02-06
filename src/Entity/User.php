@@ -70,7 +70,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private bool $isVerified = false;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private string $poster;
+    private string $poster = '';
 
     #[Vich\UploadableField(mapping: 'poster_file', fileNameProperty: 'poster')]
     private ?File $posterFile = null;
