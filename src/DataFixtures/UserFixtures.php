@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\User;
+use App\Entity\UserAvatar;
 use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -44,6 +45,8 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         ],
     ];
 
+    public static int $numUser = 0;
+
 
     public function __construct(
         UserPasswordHasherInterface $passwordHasher,
@@ -54,19 +57,12 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
-        /** @var ?File $image */
-        $image = __DIR__ . '/data/test.jpg';
-
         foreach (self::USERSDB as $key => $userEmp) {
             $user = new user();
             $user->setEmail($userEmp['email']);
             $user->setFirstName($userEmp['firstname']);
             $user->setLastName($userEmp['lastname']);
-            $user->setPoster('test.jpg');
-            if (!is_dir($this->containerBag->get('upload_directory'))) {
-                mkdir(directory: $this->containerBag->get('upload_directory'), recursive: true);
-            }
-            copy($image, $this->containerBag->get('upload_directory') . 'test.jpg');
+            $this->setAvatar($user);
             $user->setCreatedAt(new DateTimeImmutable($userEmp['createdAt']));
             $hashedPassword = $this->passwordHasher->hashPassword(
                 $user,
@@ -76,6 +72,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user->setEmployee($this -> getReference('employee_' . $key));
             $manager->persist($user);
             $this->addReference('user_' . $key, $user);
+            self::$numUser++;
         }
 
         // Création d’un utilisateur de type administrateur
@@ -84,11 +81,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $admin->setRoles(['ROLE_ADMIN']);
         $admin->setFirstName('admin');
         $admin->setLastName('admin');
-        $admin->setPoster('test.jpg');
-        if (!is_dir($this->containerBag->get('upload_directory'))) {
-            mkdir(directory: $this->containerBag->get('upload_directory'), recursive: true);
-        }
-        copy($image, $this->containerBag->get('upload_directory') . 'test.jpg');
+        $this->setAvatar($admin);
         $hashedPassword = $this->passwordHasher->hashPassword(
             $admin,
             'adminPassword'
@@ -97,6 +90,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $admin->setEmployee($this -> getReference('employee_4'));
         $manager->persist($admin);
         $this->addReference('admin', $admin);
+        self::$numUser++;
 
         // Création de fixtures de Users simples
         $faker = Factory::create();
@@ -106,11 +100,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user->setFirstname($faker->firstName());
             $user->setLastname($faker->lastName());
             $user->setCreatedAt(new DateTimeImmutable('2023-01-04 09:23:05'));
-            $user->setPoster('test.jpg');
-            if (!is_dir($this->containerBag->get('upload_directory'))) {
-                mkdir(directory: $this->containerBag->get('upload_directory'), recursive: true);
-            }
-            copy($image, $this->containerBag->get('upload_directory') . 'test.jpg');
+            $this->setAvatar($user);
             $hashedPassword = $this->passwordHasher->hashPassword(
                 $user,
                 'simpleUserPassword'
@@ -119,8 +109,23 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user -> setEmployee($this -> getReference('employee_' . ($i + 5)));
             $manager->persist($user);
             $this->addReference('user_' . ($i + 4), $user);
+            self::$numUser++;
         }
         $manager->flush();
+    }
+
+    private function setAvatar(User $user): void
+    {
+        $fileName = 'test.jpg';
+        /** @var ?File $image */
+        $image = __DIR__ . '/data/' . $fileName;
+        $avatar = new UserAvatar();
+        if (!is_dir($this->containerBag->get('upload_directory'))) {
+            mkdir(directory: $this->containerBag->get('upload_directory'), recursive: true);
+        }
+        copy($image, $this->containerBag->get('upload_directory') . self::$numUser . '-' . $fileName);
+        $avatar->setPoster(self::$numUser . '-' . $fileName);
+        $user->setAvatar($avatar);
     }
 
     public function getDependencies(): array

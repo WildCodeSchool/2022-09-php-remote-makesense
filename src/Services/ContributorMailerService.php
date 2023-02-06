@@ -4,13 +4,12 @@ namespace App\Services;
 
 use App\Entity\Contributor;
 use App\Entity\Decision;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 
-class ContributorMailerService extends AbstractController
+class ContributorMailerService
 {
-    public function __construct(private MailerInterface $mailer)
+    public function __construct(private readonly MailerInterface $mailer)
     {
     }
 
@@ -19,14 +18,15 @@ class ContributorMailerService extends AbstractController
         Contributor $contributor,
         Decision $decision
     ): void {
-        $email = (new Email())
+        $email = (new TemplatedEmail())
             ->from('mailer@makesense.com')
             ->to($emailTo)
             ->subject('Makesense : vous avez été ajouté comme contributeur pour participer à une décision !')
-            ->html($this->renderView('contributor/contributor_notification_email.html.twig', [
+            ->htmlTemplate('contributor/contributor_notification_email.html.twig')
+            ->context([
                 'contributor' => $contributor,
                 'decision' => $decision,
-                ]));
+            ]);
         $this->mailer->send($email);
     }
 }

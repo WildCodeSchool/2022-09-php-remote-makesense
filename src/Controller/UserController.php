@@ -32,21 +32,21 @@ class UserController extends AbstractController
     public function newAvatar(
         Request $request,
         UserRepository $userRepository,
-        ): response {
+    ): Response {
         /** @var ?User $user */
         $user = $this->getUser();
-        $form = $this->createForm(AvatarFormType::class, $user, [
+        $form = $this->createForm(AvatarFormType::class, $user->getAvatar(), [
             'action' => $this->generateUrl('app_user_new_avatar')]);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-           $userRepository->save($user, true);
+            $userRepository->save($user, true);
+            return $this->redirectToRoute('app_user_account');
         }
 
         return $this->renderForm('user/_modal_avatar.html.twig', [
             'form' => $form,
-            //'user' => $user
         ]);
     }
 }
