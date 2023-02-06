@@ -24,9 +24,8 @@
 
                     <div class="btn-group">
                         <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            {# <i class="bi bi-person-workspace"></i> #}
-                            <img src ="{{ vich_uploader_asset(app.user.avatar) }}" alt="{{ app.user.firstName }} {{ app.user.lastName }}"
-                                 title="{{ app.user.firstName }} {{ app.user.lastName }}" class="rounded-circle" height="50" width="50"/>
+                            <img src ="{{ app.user.avatar ? vich_uploader_asset(app.user.avatar) : asset('build/images/test.jpg')}}" alt="{{ app.user.firstName }} {{ app.user.lastName }}"
+                                 title="{{ app.user.firstName }} {{ app.user.lastName }}" class="avatar rounded-circle"/>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li class="dropdown-item fst-italic text-uppercase">{{ app.user.firstName }} {{ app.user.LastName }}</li>

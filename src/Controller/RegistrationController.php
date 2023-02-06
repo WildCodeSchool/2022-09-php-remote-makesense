@@ -38,8 +38,6 @@ class RegistrationController extends AbstractController
         MailerInterface $mailer
     ): Response {
         $user = new User();
-//        $avatar = new UserAvatar();
-//        $user->setAvatar($avatar);
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 

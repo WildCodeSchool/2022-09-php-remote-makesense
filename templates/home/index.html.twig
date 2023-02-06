@@ -68,7 +68,7 @@
                         <h5 class="card-title">{{ userContribution.decision.title }}</h5>
                     </div>
                     <div class="card-footer bg-transparent border-dark">
-                        <img src="{{ vich_uploader_asset(userContribution.decision.user.avatar) }}"
+                        <img src="{{ userContribution.decision.user.avatar ? vich_uploader_asset(userContribution.decision.user.avatar) : asset('build/images/test.jpg') }}"
                              alt="{{ userContribution.decision.user.firstName }} {{ userContribution.decision.user.lastName }}"
                              title="{{ userContribution.decision.user.firstName }} {{ userContribution.decision.user.lastName }}"
                              class="rounded-circle avatar image-fluid"/>
