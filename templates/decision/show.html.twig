@@ -236,11 +236,8 @@
                         <div class="row mt-3">
                             <ul class="list-group list-group-horizontal m-0 p-0 m-auto justify-content-center">
                             {% for contributor in decision.contributors|filter(contributor => contributor.implication.name=="Impactée") %}
-                                <li class="list-group-item"><img src="https://picsum.photos/id/235/30/30"
-                                                                 alt="{{ contributor.employee.firstName }} {{ contributor.employee.lastName }}"
-                                                                 title="{{ contributor.employee.firstName }} {{ contributor.employee.lastName }}"
-                                                                 class="rounded-circle"/></li>
-                            {% endfor %}
+                                <li class="list-group-item">{% include 'include/_avatar.html.twig' with {user: contributor.employee.user} %}</li>
+                                    {% endfor %}
                             </ul>
                         </div>
                     </div>
@@ -250,10 +247,7 @@
                         <div class="row mt-3">
                         <ul class="list-group list-group-horizontal m-0 p-0 m-auto justify-content-center">
                             {% for contributor in decision.contributors|filter(contributor => contributor.implication.name=="Experte") %}
-                                <li class="list-group-item"><img src="https://picsum.photos/id/236/30/30"
-                                                                 alt="{{ contributor.employee.firstName }} {{ contributor.employee.lastName }}"
-                                                                 title="{{ contributor.employee.firstName }} {{ contributor.employee.lastName }}"
-                                                                 class="rounded-circle"/></li>
+                                <li class="list-group-item">{% include 'include/_avatar.html.twig' with {user: contributor.employee.user} %}</li>
                             {% endfor %}
                         </ul>
                         </div>

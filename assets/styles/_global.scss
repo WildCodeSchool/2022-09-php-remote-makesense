@@ -50,6 +50,8 @@ h2 {
 .home {
     background-image: url(/assets/images/websitemesa-de-trabajo-56.png) ;
     background-size: cover;
+    width: auto;
+    min-height: 95vh;
 }
 
 .personImpact {
@@ -63,5 +65,10 @@ h2 {
 .avatar {
     max-height: 3rem;
     border-radius: 50%;
-    clip-path: ellipse(50% 50%);
+    height:2rem;
+    width:2rem;
+}
+
+.img-error {
+    max-width: 50vh;
 }

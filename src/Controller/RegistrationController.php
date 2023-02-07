@@ -38,8 +38,6 @@ class RegistrationController extends AbstractController
         MailerInterface $mailer
     ): Response {
         $user = new User();
-//        $avatar = new UserAvatar();
-//        $user->setAvatar($avatar);
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
@@ -56,6 +54,7 @@ class RegistrationController extends AbstractController
 
             $employee = $employeeRepository->findOneByForm($email, $firstName, $lastName);
             if ($employee) {
+                $user->setEmployee($employee);
                 $entityManager->persist($user);
                 $entityManager->flush();
                 $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user, (
