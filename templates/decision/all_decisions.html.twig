@@ -44,8 +44,7 @@
                             <h5 class="card-title">{{ decision.title }}</h5>
                         </div>
                         <div class="card-footer bg-transparent border-dark">
-                            <img src ="{{ decision.user.avatar ? vich_uploader_asset(decision.user.avatar) : asset('build/images/test.jpg') }}" alt="{{ app.user.firstName }} {{ app.user.lastName }}"
-                                 title="{{ app.user.firstName }} {{ app.user.lastName }}" class="rounded-circle avatar image-fluid"/>
+                            {% include 'include/_avatar.html.twig' with {user: decision.user} %}
                             {{ decision.user.firstName }} {{ decision.user.lastName }}
                             <br><a href="{{ path('app_decision_show', {id: decision.id }) }}"
                                    class="stretched-link"></a>
