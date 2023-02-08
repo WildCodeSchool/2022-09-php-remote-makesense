@@ -61,6 +61,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]
     private ?Employee $employee = null;
+
     #[ORM\Column(type: 'boolean')]
     private bool $isVerified = false;
 
