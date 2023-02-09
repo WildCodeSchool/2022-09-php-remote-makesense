@@ -37,7 +37,7 @@ class Decision
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $inconvenients = null;
 
-    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Contributor::class, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Contributor::class, cascade: ['persist', 'remove'])]
     private Collection $contributors;
 
     #[ORM\ManyToOne(inversedBy: 'decision')]
@@ -49,10 +49,10 @@ class Decision
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $definitiveDecision = null;
 
-    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Contribution::class)]
+    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Contribution::class, cascade: ['persist', 'remove'])]
     private Collection $contributions;
 
-    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Timeline::class, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Timeline::class, cascade: ['persist', 'remove'])]
     private Collection $timelines;
 
     public function __construct()

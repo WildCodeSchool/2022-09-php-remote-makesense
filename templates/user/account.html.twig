@@ -8,15 +8,15 @@
     <h1>Mon compte</h1>
      <ul class="list-group">
         <li class="list-group-item active text-center"><h2>{{ app.user.firstName }} {{ app.user.lastName }}</h2></li>
-        <li class="list-group-item d-flex mt-2"><div class="bg-primary text-secondary p-4 col-3">Création du compte </div>
+        <li class="list-group-item d-flex mt-2"><div class="bg-primary text-secondary p-4 col-5">Création du compte </div>
             <div class="p-4">{{ app.user.createdAt |date('d/m/Y')}}</div>
         </li>
          <li class="list-group-item d-flex mt-2">
-             <div class="bg-primary text-secondary p-4 col-3">Gestion du compte</div>
-             <div class="p-2">
+             <div class="bg-primary text-secondary p-4 col-5">Gestion du compte</div>
+             <div class="p-1">
                  <a href="{{ path('forgotten_password') }}" class="text-white btn btn-primary mt-4">Modifier mon mot de passe</a>
              </div>
-             <div class="p-2">
+             <div class="p-1">
 {# @TODO                                               MODAL AVATAR#}
 
                  <button type="button" class="btn btn-primary mt-4" data-bs-toggle="modal"
@@ -33,14 +33,14 @@
          </li>
 
          <li class="list-group-item d-flex mt-2">
-             <div class="bg-primary text-secondary p-4 col-3">Contacter l'administrateur</div>
-             <div class="p-4">Pour toute modification concernant votre nom, prénom ou e-mail : <a href="{{ path('contact_us') }}">contactez l'administrateur</a> </div>
+             <div class="bg-primary text-secondary p-4 col-5">Contacter l'admin</div>
+             <div class="p-4">Pour toute modification concernant votre nom, prénom ou e-mail : <a href="{{ path('contact_us') }}">contactez-nous</a> </div>
          </li>
 
-         <li class="list-group-item d-flex mt-2"><div class="bg-primary text-secondary p-4 col-3">Nombre de décisions créées </div>
+         <li class="list-group-item d-flex mt-2"><div class="bg-primary text-secondary p-4 col-5">Décisions créées </div>
              <div class="p-4"> {{ app.user.decision|length }}</div>
          </li>
-         <li class="list-group-item d-flex mt-2"><div class="bg-primary text-secondary p-4 col-3">Nombre de décisions nécéssitant ma contribution </div>
+         <li class="list-group-item d-flex mt-2"><div class="bg-primary text-secondary p-4 col-5">Contributions requises </div>
              <div class="p-4">
                  {% set counter = 0 %}
                  {% for contributor in app.user.employee.contributors %}
@@ -50,7 +50,7 @@
 
              </div>
          </li>
-         <li class="list-group-item d-flex mt-2"><div class="bg-primary text-secondary p-4 col-3">Nombre de contributions réalisées </div>
+         <li class="list-group-item d-flex mt-2"><div class="bg-primary text-secondary p-4 col-5">Contributions réalisées </div>
              <div class="p-4">
                  {% set counter = 0 %}
                  {% for contributor in app.user.employee.contributors %}

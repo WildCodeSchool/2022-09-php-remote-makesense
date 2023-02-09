@@ -27,7 +27,9 @@ class RegistrationFormType extends AbstractType
             ->add('lastName')
             ->add('email')
             ->add('avatar', AvatarFormType::class, [
-                'required' => false
+                'required' => false,
+                'label' => false,
+
             ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
