@@ -1,7 +1,15 @@
 #!/bin/sh
 set -e
 
-php composer.phar update
+composer install \
+    --ignore-platform-reqs \
+    --no-interaction \
+    --no-plugins \
+    --no-scripts \
+    --prefer-dist \
+    --quiet
+yarn install
+yarn build
 
 ## Symfony configuration
 if [ ${APP_ENV} != "prod" ]; then
