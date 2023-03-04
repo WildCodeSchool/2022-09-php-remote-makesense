@@ -30,18 +30,16 @@ COPY php.ini /usr/local/etc/php/conf.d/local.ini
 RUN cat /usr/local/etc/php/conf.d/local.ini
 
 WORKDIR /var/www
-
-COPY . /var/www/
-COPY --from=composer /composer /usr/bin/composer
-
 #
 # Prep App's Frontend CSS & JS now
 # so some symfony UX dependencies can access to vendor
 #
 RUN apk add nodejs
 RUN apk add npm
-RUN npm install npm@latest -g
 RUN npm install yarn@latest -g
+
+COPY . /var/www/
+COPY --from=composer /composer /usr/bin/composer
 
 EXPOSE 80
 

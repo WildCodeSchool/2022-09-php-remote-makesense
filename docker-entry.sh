@@ -3,11 +3,9 @@ set -e
 
 composer install \
     --ignore-platform-reqs \
-    --no-interaction \
-    --no-plugins \
-    --no-scripts \
-    --prefer-dist \
-    --quiet
+    --no-interaction
+
+set -x
 yarn install
 yarn build
 
