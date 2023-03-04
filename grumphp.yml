@@ -1,10 +1,7 @@
 grumphp:
     tasks:
         composer:
-            file: ./composer.json
-        eslint:
-            bin: node_modules/.bin/eslint
-            config: .eslintrc.yml
+            file: ./composer.jsonl
         phpversion:
             project: '8.0'
         phpcpd:
