@@ -1,13 +1,7 @@
 #!/bin/sh
 set -e
 
-composer install \
-    --ignore-platform-reqs \
-    --no-interaction
-
-set -x
-yarn install
-yarn build
+composer install
 
 ## Symfony configuration
 if [ ${APP_ENV} != "prod" ]; then

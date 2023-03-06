@@ -2,6 +2,12 @@
 # Prep App's PHP Dependencies
 #
 FROM composer/composer:2-bin as composer
+FROM composer:2.5.1 as vendor
+WORKDIR /app
+
+COPY composer.json composer.json
+COPY composer.lock composer.lock
+RUN composer install --ignore-platform-reqs --no-interaction --no-plugins --no-scripts --prefer-dist
 
 FROM php:8.2-fpm-alpine as phpserver
 
@@ -30,16 +36,22 @@ COPY php.ini /usr/local/etc/php/conf.d/local.ini
 RUN cat /usr/local/etc/php/conf.d/local.ini
 
 WORKDIR /var/www
+COPY . /var/www/
+COPY --from=vendor /app/vendor /var/www/vendor
+COPY --from=composer /composer /usr/bin/composer
+
 #
 # Prep App's Frontend CSS & JS now
 # so some symfony UX dependencies can access to vendor
 #
+COPY package.json package.json
+COPY yarn.lock yarn.lock
 RUN apk add nodejs
 RUN apk add npm
 RUN npm install yarn@latest -g
+RUN yarn install
+RUN yarn run build
 
-COPY . /var/www/
-COPY --from=composer /composer /usr/bin/composer
 
 EXPOSE 80
 

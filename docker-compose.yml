@@ -6,6 +6,8 @@ services:
     container_name: ${PROJECT_NAME:-project}-web
     volumes:
       - ./:/var/www
+#      - /var/www/vendor/
+      - /var/www/public/
     depends_on:
       - database
     restart: always
@@ -14,12 +16,6 @@ services:
       - default
     environment:
       DATABASE_URL: mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@database:3306/${MYSQL_DATABASE}?serverVersion=8&charset=utf8mb4
-      APP_ENV: ${APP_ENV}
-      APP_SECRET: ${APP_SECRET}
-      # Run "composer require symfony/orm-pack" to install and configure Doctrine ORM
-#      DATABASE_URL: mysql://app:!ChangeMe!@database:3306/app?serverVersion=8&charset=utf8mb4
-#      APP_ENV: dev
-#      APP_SECRET: 6ac5f54399d6b50ce81601093922741a
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=proxy"
