@@ -9,6 +9,19 @@ COPY composer.json composer.json
 COPY composer.lock composer.lock
 RUN composer install --ignore-platform-reqs --no-interaction --no-plugins --no-scripts --prefer-dist
 
+#
+# Prep App's Frontend CSS & JS now
+# so some symfony UX dependencies can access to vendor
+#
+FROM node:18-alpine as node
+WORKDIR /app
+COPY --from=vendor /app/vendor vendor/
+COPY package.json package.json
+COPY yarn.lock yarn.lock
+COPY . .
+RUN yarn install
+RUN yarn run build
+
 FROM php:8.2-fpm-alpine as phpserver
 
 # add cli tools
@@ -35,23 +48,11 @@ COPY nginx.conf /etc/nginx/nginx.conf
 COPY php.ini /usr/local/etc/php/conf.d/local.ini
 RUN cat /usr/local/etc/php/conf.d/local.ini
 
+
 WORKDIR /var/www
 COPY . /var/www/
 COPY --from=vendor /app/vendor /var/www/vendor
 COPY --from=composer /composer /usr/bin/composer
-
-#
-# Prep App's Frontend CSS & JS now
-# so some symfony UX dependencies can access to vendor
-#
-COPY package.json package.json
-COPY yarn.lock yarn.lock
-RUN apk add nodejs
-RUN apk add npm
-RUN npm install yarn@latest -g
-RUN yarn install
-RUN yarn run build
-
 
 EXPOSE 80
 
