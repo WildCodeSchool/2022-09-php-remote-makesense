@@ -5,7 +5,7 @@ set -e
 # to run composer scripts like
 # assets:install public
 # ckeditor:install and so on
-composer update
+composer install
 
 ## Symfony configuration
 if [ ${APP_ENV} != "prod" ]; then
