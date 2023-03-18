@@ -1,7 +1,11 @@
 #!/bin/sh
 set -e
 
-composer install
+# composer install is needed
+# to run composer scripts like
+# assets:install public
+# ckeditor:install and so on
+composer update
 
 ## Symfony configuration
 if [ ${APP_ENV} != "prod" ]; then
