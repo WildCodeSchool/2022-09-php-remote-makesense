@@ -78,7 +78,6 @@ docker-compose up -d
 
 Some files are used to manage automatic deployments (using tools as Caprover, Docker and Github Action). Please do not modify them.
 
-* [captain-definition](/captain-definition) Caprover entry point
 * [Dockerfile](/Dockerfile) Web app configuration for Docker container
 * [docker-entry.sh](/docker-entry.sh) shell instruction to execute when docker image is built
 * [nginx.conf](/ginx.conf) Nginx server configuration

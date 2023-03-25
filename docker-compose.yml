@@ -5,13 +5,13 @@ services:
     env_file:
       - .env
     environment:
+      # @todo add APP_ENV default dev
       DATABASE_URL: mysql://${USER_NAME}:${USER_PASSWORD}@${DATABASE_SUBDOMAIN_NAME}-db:3306/${DB_NAME}?serverVersion=8&charset=utf8mb4
       MAILER_DSN: smtp://${PROJECT_NAME}-mailhog:1025
     build: .
     container_name: ${PROJECT_NAME:-project}-web
     volumes:
-      #      - ./:/var/www
-      - /var/www/public/
+      - ./public/uploads:/var/www/public/uploads
     restart: always
     networks:
       - proxy
