@@ -3,16 +3,16 @@
 {% block title %}Statistiques{% endblock %}
 
 {% block body %}
-    <div class="container col-md-6 pb-5 bg-info bg-opacity-50 rounded-2 shadow-sm">
+    <div class="container col-md-4 pb-5 bg-info bg-opacity-50 rounded-2 shadow-sm">
 
         <h1>Statistiques</h1>
-        <ul class="list-group">
-            <li class="list-group-item d-flex mt-2"><div class="bg-primary text-secondary p-4 col-3">Nombre de décisions créées </div>
-                <div class="p-4"> {{ decisions|length }}</div>
+        <ul class="list-group ">
+            <li class="list-group-item d-flex mt-2"><div class="bg-primary text-secondary p-4 col-7">Nombre de décisions créées </div>
+                <div class="p-4 mx-auto"> {{ decisions|length }}</div>
             </li>
 
-            <li class="list-group-item d-flex mt-2"><div class="bg-primary text-secondary p-4 col-3">Nombre de contributions réalisées </div>
-                <div class="p-4">
+            <li class="list-group-item d-flex mt-2"><div class="bg-primary text-secondary p-4 col-7">Nombre de contributions réalisées </div>
+                <div class="p-4 mx-auto">
                     {% set counter = 0 %}
                     {% for decision in decisions %}
                     {% for contributor in decision.contributors %}
@@ -26,8 +26,8 @@
                 </div>
             </li>
 
-            <li class="list-group-item d-flex mt-2"><div class="bg-primary text-secondary p-4 col-3">Nombre de décisions en attente de contributions </div>
-                <div class="p-4">
+            <li class="list-group-item d-flex mt-2"><div class="bg-primary text-secondary p-4 col-7">Nombre de décisions en attente de contributions </div>
+                <div class="p-4 mx-auto">
                     {% set counter = 0 %}
                     {% for decision in decisions %}
                         {% for contributor in decision.contributors %}
