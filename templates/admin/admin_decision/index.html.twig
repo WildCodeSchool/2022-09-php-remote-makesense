@@ -48,9 +48,14 @@
                 </td>
                 <td>
                     {% for timeline in decision.timelines %}
-                        {% if  "now" |date('Y-m-d') > timeline.startedAt |date('Y-m-d')
+                        {% if  "now" |date('Y-m-d') >= timeline.startedAt |date('Y-m-d')
                             and "now" |date('Y-m-d') < timeline.endedAt |date('Y-m-d') %}
                             {{ timeline.name }}
+                            {% else %}
+                            {% if "now" |date('Y-m-d') > timeline.endedAt |date('Y-m-d')
+                            and timeline.name == 'Décision définitive' %}
+                                Décision terminée
+                                {% endif %}
                         {% endif %}
                     {% endfor %}
                 </td>
@@ -60,7 +65,7 @@
                         {% if  "now"|date_modify("+3 days") > timeline.endedAt and decision.firstDecision is empty%}
                             <div class = "bg-warning text-white text-center"><i class="bi bi-exclamation-triangle me-2"></i><span>En retard</span></div>
                         {% elseif decision.firstDecision is not empty %}
-                            <div class = "bg-success text-white text-center"><i class="bi bi-check-square me-2"></i><span>Première décision publiée</span></div>
+                            <div class = "bg-success text-white text-center"><i class="bi bi-check-square me-2"></i><span>Publiée</span></div>
                         {% endif %}
                     {% endif %}
                     {% endfor %}
@@ -69,16 +74,17 @@
                     {% for timeline in decision.timelines %}
                         {% if timeline.name == 'Décision définitive'%}
                             {% if  "now"|date_modify("+3 days") > timeline.endedAt and decision.definitiveDecision is empty %}
-                                <div class = "bg-warning text-white text-center">En retard</div>
+                                <div class = "bg-warning text-white text-center"><i class="bi bi-check-square me-2"></i>En retard</div>
                             {% elseif decision.definitiveDecision is not empty%}
-                                <div class = "bg-success text-white text-center"><i class="bi bi-check-square me-2"></i><span>Décision définitive publiée</span></div>
+                                <div class = "bg-success text-white text-center"><i class="bi bi-check-square me-2"></i><span>Publiée</span></div>
                             {% endif %}
                         {% endif %}
                     {% endfor %}
                 </td>
 
                 <td >
-                    <a class="btn btn-primary text-white me-2 mt-2 mb-2" href="{{ path('app_admin_decision_show', {'id': decision.id}) }}"><i class="bi bi-eye me-2"></i><span>Consulter</span></a>
+                    <a class="btn btn-primary text-white mt-2 mb-2 btn-sm" href="{{ path('app_admin_decision_show', {'id': decision.id}) }}">
+                        <i class="bi bi-eye me-2"></i><span>Consulter</span></a>
 
                 </td>
                 <td>

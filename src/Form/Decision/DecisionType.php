@@ -14,11 +14,11 @@ class DecisionType extends AbstractType
     {
         $builder
             ->add('title', null, ['label' => 'Titre'])
-            ->add('content', CKEditorType::class, ['label' => 'Contenu'])
-            ->add('utility', CKEditorType::class, ['label' => 'Utilité'])
-            ->add('context', CKEditorType::class, ['label' => 'Contexte'])
+            ->add('content', CKEditorType::class, ['label' => 'Détails'])
+            ->add('utility', CKEditorType::class, ['label' => 'Objectifs'])
+            ->add('context', CKEditorType::class, ['label' => 'Contexte actuel'])
             ->add('benefits', CKEditorType::class, ['label' => 'Bénéfices'])
-            ->add('inconvenients', CKEditorType::class, ['label' => 'Inconvénients'])
+            ->add('inconvenients', CKEditorType::class, ['label' => 'Risques potentiels'])
         ;
     }
 
