@@ -12,9 +12,15 @@ class AdminEmployeeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('firstname')
-            ->add('lastname')
-            ->add('email')
+            ->add('lastname', null, [
+                'required' => true,
+                'label' => 'Nom'])
+            ->add('firstname', null, [
+                'required' => true,
+                'label' => 'Prénom'])
+            ->add('email', null, [
+                'required' => true,
+                'label' => 'Email'])
         ;
     }
 

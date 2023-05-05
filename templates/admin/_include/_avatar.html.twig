@@ -1,0 +1,3 @@
+<img src ="{{ user|default(app.user).avatar ? vich_uploader_asset(user|default(app.user).avatar) : asset('build/images/test.jpg') }}"
+     alt="{{ user|default(app.user).firstName }} {{ user|default(app.user).lastName }}"
+     title="{{ user|default(app.user).firstName }} {{ user|default(app.user).lastName }}" class="rounded-circle avatar image-fluid"/>
